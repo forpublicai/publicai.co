@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Paperclip, Send, Plus, ChevronDown, User, Menu, X } from 'lucide-react';
 
 interface Message {
@@ -33,6 +34,10 @@ export default function ChatPage() {
   const [selectedModel, setSelectedModel] = useState('anthropic/claude-3.5-sonnet');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const initialMessageProcessed = useRef(false);
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Load chat histories from database on mount
   useEffect(() => {
@@ -55,6 +60,24 @@ export default function ChatPage() {
     
     loadConversations();
   }, []);
+
+  // Handle URL parameters and conversation loading
+  useEffect(() => {
+    const conversationId = searchParams.get('id');
+    const initialMessage = searchParams.get('message');
+    
+    if (conversationId && conversationId !== currentChatId) {
+      // Load specific conversation only if it's different from current
+      loadChat(conversationId);
+    } else if (initialMessage && !initialMessageProcessed.current) {
+      // Start new conversation with message from home page
+      // Only process once using ref to prevent duplicate calls
+      initialMessageProcessed.current = true;
+      handleSendMessage(initialMessage);
+      // Clear the message parameter from URL after using it
+      router.replace('/chat', { scroll: false });
+    }
+  }, [searchParams, currentChatId]);
 
   // Remove localStorage persistence - data is now in database
 
@@ -86,6 +109,9 @@ export default function ChatPage() {
           const { conversation } = await response.json();
           chatId = conversation.id;
           setCurrentChatId(chatId);
+          
+          // Update URL to reflect new conversation
+          router.push(`/chat?id=${chatId}`, { scroll: false });
           
           // Add to chat histories
           const newChat: ChatHistory = {
@@ -190,6 +216,7 @@ export default function ChatPage() {
   const handleNewChat = () => {
     setMessages([]);
     setCurrentChatId(null);
+    router.push('/chat', { scroll: false });
   };
 
   const loadChat = async (chatId: string) => {
@@ -205,6 +232,8 @@ export default function ChatPage() {
         }));
         setMessages(formattedMessages);
         setCurrentChatId(chatId);
+        // Update URL to reflect current conversation
+        router.push(`/chat?id=${chatId}`, { scroll: false });
       }
     } catch (error) {
       console.error('Error loading chat messages:', error);

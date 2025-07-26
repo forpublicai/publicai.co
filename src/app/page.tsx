@@ -10,6 +10,13 @@ export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const router = useRouter();
 
+  const handleSubmit = () => {
+    if (inputValue.trim()) {
+      // Navigate to chat with the message as a query parameter
+      router.push(`/chat?message=${encodeURIComponent(inputValue.trim())}`);
+    }
+  };
+
   const suggestionButtons = [
     "Contribute Models",
     "Share Datasets", 
@@ -49,11 +56,13 @@ export default function Home() {
             <Input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
               placeholder="How will you shape public AI?"
               className="w-full h-16 px-6 pr-16 text-lg bg-gray-900 border-gray-700 rounded-xl focus:border-gray-500 focus:ring-1 focus:ring-gray-500 placeholder:text-gray-400"
             />
             <Button
               size="sm"
+              onClick={handleSubmit}
               className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 p-0 bg-white text-black hover:bg-gray-200 rounded-lg"
               disabled={!inputValue.trim()}
             >
