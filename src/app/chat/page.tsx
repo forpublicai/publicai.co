@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Paperclip, Send, Plus, ChevronDown, User, Menu, X } from 'lucide-react';
+import { Paperclip, Send, Plus, Menu, X } from 'lucide-react';
+import { useUser, UserButton } from '@stackframe/stack';
 
 interface Message {
   id: string;
@@ -26,6 +27,9 @@ const SUGGESTION_CARDS = [
 ];
 
 export default function ChatPage() {
+  // Get current user (null for guests, user object for authenticated users)
+  const user = useUser();
+  
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -39,8 +43,10 @@ export default function ChatPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Load chat histories from database on mount
+  // Load chat histories from database on mount (only for authenticated users)
   useEffect(() => {
+    if (!user) return; // Skip loading for guest users
+    
     const loadConversations = async () => {
       try {
         const response = await fetch('/api/conversations');
@@ -59,7 +65,7 @@ export default function ChatPage() {
     };
     
     loadConversations();
-  }, []);
+  }, [user]);
 
   // Handle URL parameters and conversation loading
   useEffect(() => {
@@ -261,20 +267,21 @@ export default function ChatPage() {
 
   return (
     <div className="flex h-screen bg-gray-900 text-white">
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
+      {/* Mobile Sidebar Overlay - Only show for authenticated users */}
+      {user && sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Left Sidebar */}
-      <div className={`
-        w-64 bg-gray-800 border-r border-gray-700 flex flex-col
-        fixed lg:relative inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
+      {/* Left Sidebar - Only show for authenticated users */}
+      {user && (
+        <div className={`
+          w-64 bg-gray-800 border-r border-gray-700 flex flex-col
+          fixed lg:relative inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        `}>
         {/* Header */}
         <div className="p-4 border-b border-gray-700">
           <div className="flex items-center justify-between">
@@ -320,31 +327,36 @@ export default function ChatPage() {
           </div>
         </div>
 
-        {/* User Profile */}
-        <div className="p-4 border-t border-gray-700">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                <User className="w-4 h-4" />
+          {/* User Profile */}
+          <div className="p-4 border-t border-gray-700">
+            <div className="flex items-center space-x-3">
+              <UserButton />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-white truncate">
+                  {user?.displayName || user?.primaryEmail || 'User'}
+                </p>
+                <p className="text-xs text-gray-400 truncate">
+                  {user?.primaryEmail}
+                </p>
               </div>
-              <span className="text-sm">Guest</span>
             </div>
-            <ChevronDown className="w-4 h-4 text-gray-400" />
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col lg:ml-0">
         {/* Top Header */}
-        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+        <div className="p-4 border-b border-gray-700 flex items-center">
           <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="p-1 hover:bg-gray-700 rounded lg:hidden"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
+            {user && (
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="p-1 hover:bg-gray-700 rounded lg:hidden"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+            )}
             <select
               value={selectedModel}
               onChange={(e) => setSelectedModel(e.target.value)}
@@ -355,9 +367,6 @@ export default function ChatPage() {
               <option value="openai/gpt-4o">GPT-4o</option>
               <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
             </select>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-400">🔒 Private</span>
           </div>
         </div>
 

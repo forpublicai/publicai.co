@@ -2,20 +2,12 @@ import { db } from './db';
 import { usersTable, conversationsTable, messagesTable, type User, type Conversation, type Message } from './schema';
 import { eq, desc } from 'drizzle-orm';
 
-// Create a guest user (for current functionality)
-export async function createGuestUser(): Promise<User> {
-  const [user] = await db.insert(usersTable).values({
-    email: `guest-${Date.now()}@example.com`,
-    name: 'Guest',
-  }).returning();
-  return user;
-}
+// Note: Authenticated users are managed by Stack Auth in neon_auth.users_sync
+// Guest users need special handling since they don't exist in Stack Auth
 
-// Get or create guest user
-export async function getOrCreateGuestUser(): Promise<User> {
-  // For now, just create a new guest user each time
-  // Later you can implement proper user authentication
-  return createGuestUser();
+// For guest users, we'll use a special guest user ID pattern
+export function createGuestUserId(): string {
+  return `guest-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
 // Create conversation
@@ -34,6 +26,16 @@ export async function getConversationsByUserId(userId: string): Promise<Conversa
     .from(conversationsTable)
     .where(eq(conversationsTable.userId, userId))
     .orderBy(desc(conversationsTable.updatedAt));
+}
+
+// Get conversation by ID
+export async function getConversationById(id: string): Promise<Conversation | null> {
+  const results = await db.select()
+    .from(conversationsTable)
+    .where(eq(conversationsTable.id, id))
+    .limit(1);
+  
+  return results[0] || null;
 }
 
 // Update conversation title and timestamp

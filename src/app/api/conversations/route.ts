@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getOrCreateGuestUser, createConversation, getConversationsByUserId } from '@/lib/queries';
+import { createConversation, getConversationsByUserId, createGuestUserId } from '@/lib/queries';
+import { stackServerApp } from '@/stack';
 
 export async function GET() {
   try {
-    // For now, use a guest user - replace with proper auth later
-    const user = await getOrCreateGuestUser();
-    const conversations = await getConversationsByUserId(user.id);
+    // Get the authenticated user from Stack Auth
+    const stackUser = await stackServerApp.getUser();
+    
+    if (!stackUser) {
+      // Return empty array for unauthenticated users
+      return NextResponse.json({ conversations: [] });
+    }
+    
+    // Use Stack Auth user ID to get conversations
+    const conversations = await getConversationsByUserId(stackUser.id);
     
     return NextResponse.json({ conversations });
   } catch (error) {
@@ -21,9 +29,20 @@ export async function POST(req: NextRequest) {
   try {
     const { title, model } = await req.json();
     
-    // For now, use a guest user - replace with proper auth later
-    const user = await getOrCreateGuestUser();
-    const conversation = await createConversation(user.id, title, model);
+    // Get the authenticated user from Stack Auth
+    const stackUser = await stackServerApp.getUser();
+    
+    let userId: string;
+    
+    if (stackUser) {
+      // Use authenticated user ID for logged-in users
+      userId = stackUser.id;
+    } else {
+      // Create a guest user ID for unauthenticated users
+      userId = createGuestUserId();
+    }
+    
+    const conversation = await createConversation(userId, title, model);
     
     return NextResponse.json({ conversation });
   } catch (error) {

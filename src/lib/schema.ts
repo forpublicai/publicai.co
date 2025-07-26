@@ -1,23 +1,23 @@
-import { pgTable, text, timestamp, uuid, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, pgSchema } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
-// User role enum
-export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
+// Define the neon_auth schema
+export const neonAuthSchema = pgSchema('neon_auth');
 
-// Users table
-export const usersTable = pgTable('users', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  email: text('email').notNull().unique(),
+// Reference to Stack Auth managed users table in neon_auth schema
+export const usersTable = neonAuthSchema.table('users_sync', {
+  id: text('id').primaryKey(), // Stack Auth user ID
   name: text('name'),
-  role: userRoleEnum('role').default('user'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  email: text('email'),
+  createdAt: timestamp('created_at', { withTimezone: true }),
+  updatedAt: timestamp('updated_at', { withTimezone: true }),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
 });
 
 // Conversations table
 export const conversationsTable = pgTable('conversations', {
   id: uuid('id').defaultRandom().primaryKey(),
-  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'cascade' }).notNull(),
+  userId: text('user_id').notNull(), // Remove foreign key constraint to allow guest users
   title: text('title'),
   model: text('model').default('anthropic/claude-3.5-sonnet'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
