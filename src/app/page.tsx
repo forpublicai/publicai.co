@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowUp } from "lucide-react";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
+  const router = useRouter();
 
   const suggestionButtons = [
     "Contribute Models",
@@ -24,8 +26,12 @@ export default function Home() {
           <div className="text-xl font-semibold">PublicAI</div>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="outline" className="bg-transparent border-gray-600 text-white hover:bg-gray-800">
-            Log in
+          <Button 
+            variant="outline" 
+            className="bg-transparent border-gray-600 text-white hover:bg-gray-800"
+            onClick={() => router.push('/chat')}
+          >
+            Get Started
           </Button>
         </div>
       </nav>
