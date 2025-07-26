@@ -41,7 +41,7 @@ export default function ChatPage() {
         const response = await fetch('/api/conversations');
         if (response.ok) {
           const { conversations } = await response.json();
-          setChatHistories(conversations.map((conv: any) => ({
+          setChatHistories(conversations.map((conv: { id: string; title: string; updatedAt: string }) => ({
             id: conv.id,
             title: conv.title || 'New Chat',
             lastMessage: new Date(conv.updatedAt),
@@ -89,7 +89,7 @@ export default function ChatPage() {
           
           // Add to chat histories
           const newChat: ChatHistory = {
-            id: chatId,
+            id: chatId!,
             title: conversation.title,
             lastMessage: new Date(conversation.updatedAt),
             messages: []
@@ -197,7 +197,7 @@ export default function ChatPage() {
       const response = await fetch(`/api/conversations/${chatId}/messages`);
       if (response.ok) {
         const { messages: dbMessages } = await response.json();
-        const formattedMessages = dbMessages.map((msg: any) => ({
+        const formattedMessages = dbMessages.map((msg: { id: string; role: string; content: string; createdAt: string }) => ({
           id: msg.id,
           role: msg.role,
           content: msg.content,

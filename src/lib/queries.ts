@@ -1,5 +1,5 @@
 import { db } from './db';
-import { usersTable, conversationsTable, messagesTable, type User, type NewUser, type Conversation, type NewConversation, type Message, type NewMessage } from './schema';
+import { usersTable, conversationsTable, messagesTable, type User, type Conversation, type Message } from './schema';
 import { eq, desc } from 'drizzle-orm';
 
 // Create a guest user (for current functionality)
