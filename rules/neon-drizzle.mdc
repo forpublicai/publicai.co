@@ -1,10 +1,6 @@
 ---
-title: 'AI Rules: Neon with Drizzle'
-subtitle: Context rules for AI tools to help implement Drizzle ORM with Neon databases
-enableTableOfContents: true
-updatedOn: '2025-06-23T15:24:08.751Z'
+alwaysApply: false
 ---
-
 <InfoBlock>
 <DocsList title="Related docs" theme="docs">
   <a href="https://orm.drizzle.team/docs/get-started/neon-new">Get started with Drizzle and Neon</a>

@@ -34,55 +34,29 @@ export default function ChatPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Load chat histories from localStorage on mount
+  // Load chat histories from database on mount
   useEffect(() => {
-    const saved = localStorage.getItem('chatHistories');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      setChatHistories(parsed.map((chat: ChatHistory) => ({
-        ...chat,
-        lastMessage: new Date(chat.lastMessage),
-        messages: chat.messages.map((msg: Message) => ({
-          ...msg,
-          timestamp: new Date(msg.timestamp)
-        }))
-      })));
-    } else {
-      // Set default chat histories
-      setChatHistories([
-        {
-          id: '1',
-          title: 'Advantages of Next.js',
-          lastMessage: new Date(),
-          messages: []
-        },
-        {
-          id: '2', 
-          title: 'Greeting',
-          lastMessage: new Date(Date.now() - 3600000),
-          messages: []
+    const loadConversations = async () => {
+      try {
+        const response = await fetch('/api/conversations');
+        if (response.ok) {
+          const { conversations } = await response.json();
+          setChatHistories(conversations.map((conv: any) => ({
+            id: conv.id,
+            title: conv.title || 'New Chat',
+            lastMessage: new Date(conv.updatedAt),
+            messages: [] // Messages will be loaded when conversation is selected
+          })));
         }
-      ]);
-    }
+      } catch (error) {
+        console.error('Error loading conversations:', error);
+      }
+    };
+    
+    loadConversations();
   }, []);
 
-  // Save chat histories to localStorage whenever they change
-  useEffect(() => {
-    if (chatHistories.length > 0) {
-      localStorage.setItem('chatHistories', JSON.stringify(chatHistories));
-    }
-  }, [chatHistories]);
-
-  // Save current chat messages when they change
-  useEffect(() => {
-    if (currentChatId && messages.length > 0) {
-      setChatHistories(prev => prev.map(chat => 
-        chat.id === currentChatId 
-          ? { ...chat, messages, lastMessage: new Date() }
-          : chat
-      ));
-    }
-  }, [messages, currentChatId]);
+  // Remove localStorage persistence - data is now in database
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -98,15 +72,37 @@ export default function ChatPage() {
     // Create new chat if none exists
     let chatId = currentChatId;
     if (!chatId) {
-      chatId = Date.now().toString();
-      const newChat: ChatHistory = {
-        id: chatId,
-        title: content.length > 30 ? content.substring(0, 30) + '...' : content,
-        lastMessage: new Date(),
-        messages: []
-      };
-      setChatHistories(prev => [newChat, ...prev]);
-      setCurrentChatId(chatId);
+      try {
+        const response = await fetch('/api/conversations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: content.length > 30 ? content.substring(0, 30) + '...' : content,
+            model: selectedModel
+          })
+        });
+        
+        if (response.ok) {
+          const { conversation } = await response.json();
+          chatId = conversation.id;
+          setCurrentChatId(chatId);
+          
+          // Add to chat histories
+          const newChat: ChatHistory = {
+            id: chatId,
+            title: conversation.title,
+            lastMessage: new Date(conversation.updatedAt),
+            messages: []
+          };
+          setChatHistories(prev => [newChat, ...prev]);
+        } else {
+          console.error('Failed to create conversation');
+          return;
+        }
+      } catch (error) {
+        console.error('Error creating conversation:', error);
+        return;
+      }
     }
 
     const userMessage: Message = {
@@ -134,7 +130,8 @@ export default function ChatPage() {
             role: msg.role,
             content: msg.content
           })),
-          model: selectedModel
+          model: selectedModel,
+          conversationId: chatId
         })
       });
 
@@ -191,24 +188,26 @@ export default function ChatPage() {
   };
 
   const handleNewChat = () => {
-    const newChatId = Date.now().toString();
-    const newChat: ChatHistory = {
-      id: newChatId,
-      title: 'New Chat',
-      lastMessage: new Date(),
-      messages: []
-    };
-    
-    setChatHistories(prev => [newChat, ...prev]);
     setMessages([]);
-    setCurrentChatId(newChatId);
+    setCurrentChatId(null);
   };
 
-  const loadChat = (chatId: string) => {
-    const chat = chatHistories.find(c => c.id === chatId);
-    if (chat) {
-      setMessages(chat.messages);
-      setCurrentChatId(chatId);
+  const loadChat = async (chatId: string) => {
+    try {
+      const response = await fetch(`/api/conversations/${chatId}/messages`);
+      if (response.ok) {
+        const { messages: dbMessages } = await response.json();
+        const formattedMessages = dbMessages.map((msg: any) => ({
+          id: msg.id,
+          role: msg.role,
+          content: msg.content,
+          timestamp: new Date(msg.createdAt)
+        }));
+        setMessages(formattedMessages);
+        setCurrentChatId(chatId);
+      }
+    } catch (error) {
+      console.error('Error loading chat messages:', error);
     }
   };
 
