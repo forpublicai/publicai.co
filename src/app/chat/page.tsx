@@ -276,11 +276,11 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex h-screen bg-background text-foreground">
       {/* Mobile Sidebar Overlay - Only show for authenticated users */}
       {user && sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -288,24 +288,27 @@ export default function ChatPage() {
       {/* Left Sidebar - Only show for authenticated users */}
       {user && (
         <div className={`
-          w-64 bg-gray-800 border-r border-gray-700 flex flex-col
+          w-64 bg-sidebar border-r border-sidebar-border flex flex-col
           fixed lg:relative inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
         {/* Header */}
-        <div className="p-4 border-b border-gray-700">
+        <div className="p-4 border-b border-sidebar-border">
           <div className="flex items-center justify-between">
-            <h1 className="text-lg font-semibold">Chatbot</h1>
+            <div className="flex items-center space-x-2 cursor-pointer" onClick={() => router.push('/')}>
+              <img src="/logo.png" alt="PublicAI" className="w-6 h-6" />
+              <h1 className="text-lg font-semibold">PublicAI</h1>
+            </div>
             <div className="flex items-center space-x-2">
               <button
                 onClick={handleNewChat}
-                className="p-1 hover:bg-gray-700 rounded"
+                className="p-1 hover:bg-sidebar-accent rounded"
               >
                 <Plus className="w-5 h-5" />
               </button>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="p-1 hover:bg-gray-700 rounded lg:hidden"
+                className="p-1 hover:bg-sidebar-accent rounded lg:hidden"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -316,14 +319,14 @@ export default function ChatPage() {
         {/* Chat History */}
         <div className="flex-1 overflow-y-auto p-4">
           <div className="mb-4">
-            <h3 className="text-sm text-gray-400 mb-2">Today</h3>
+            <h3 className="text-sm text-sidebar-foreground/70 mb-2">Today</h3>
             <div className="space-y-2">
               {chatHistories.map((chat) => (
                 <button
                   key={chat.id}
                   onClick={() => loadChat(chat.id)}
-                  className={`w-full text-left p-2 rounded hover:bg-gray-700 text-sm truncate ${
-                    currentChatId === chat.id ? 'bg-gray-700' : ''
+                  className={`w-full text-left p-2 rounded hover:bg-sidebar-accent text-sm truncate ${
+                    currentChatId === chat.id ? 'bg-sidebar-accent' : ''
                   }`}
                 >
                   {chat.title}
@@ -332,20 +335,20 @@ export default function ChatPage() {
             </div>
           </div>
           
-          <div className="text-xs text-gray-500 mt-8">
+          <div className="text-xs text-sidebar-foreground/50 mt-8">
             You have reached the end of your chat history.
           </div>
         </div>
 
           {/* User Profile */}
-          <div className="p-4 border-t border-gray-700">
-            <div className="flex items-center space-x-3">
+          <div className="p-4 border-t border-sidebar-border">
+            <div className="flex items-center space-x-8">
               <UserButton />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate">
+              <div className="flex-1 min-w-0 pl-2">
+                <p className="text-sm font-medium text-sidebar-foreground truncate">
                   {user?.displayName || user?.primaryEmail || 'User'}
                 </p>
-                <p className="text-xs text-gray-400 truncate">
+                <p className="text-xs text-sidebar-foreground/70 truncate">
                   {user?.primaryEmail}
                 </p>
               </div>
@@ -357,12 +360,12 @@ export default function ChatPage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col lg:ml-0">
         {/* Top Header */}
-        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+        <div className="p-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center space-x-4">
             {user && (
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="p-1 hover:bg-gray-700 rounded lg:hidden"
+                className="p-1 hover:bg-muted rounded lg:hidden"
               >
                 <Menu className="w-5 h-5" />
               </button>
@@ -370,7 +373,7 @@ export default function ChatPage() {
             <select
               value={selectedModel}
               onChange={(e) => setSelectedModel(e.target.value)}
-              className="bg-gray-800 border border-gray-600 rounded px-3 py-1 text-sm"
+              className="bg-card border border-border rounded px-3 py-1 text-sm"
             >
               <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
               <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
@@ -384,13 +387,13 @@ export default function ChatPage() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => router.push('/login')}
-                className="px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded border border-gray-600"
+                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded border border-border"
               >
                 Login
               </button>
               <button
                 onClick={() => router.push('/register')}
-                className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded"
+                className="px-4 py-2 text-sm bg-primary hover:bg-primary/90 text-primary-foreground rounded"
               >
                 Sign Up
               </button>
@@ -405,7 +408,7 @@ export default function ChatPage() {
               {/* Welcome Message */}
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold mb-2">Hello there!</h2>
-                <p className="text-gray-400 text-lg">How can I help you today?</p>
+                <p className="text-muted-foreground text-lg">How can I help you today?</p>
               </div>
 
               {/* Suggestion Cards */}
@@ -414,9 +417,9 @@ export default function ChatPage() {
                   <button
                     key={index}
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className="p-4 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg text-left transition-colors"
+                    className="p-4 bg-card hover:bg-muted border border-border rounded-lg text-left transition-colors"
                   >
-                    <div className="text-sm text-gray-300">{suggestion}</div>
+                    <div className="text-sm text-card-foreground">{suggestion}</div>
                   </button>
                 ))}
               </div>
@@ -433,8 +436,8 @@ export default function ChatPage() {
                   <div
                     className={`max-w-3xl p-4 rounded-lg ${
                       message.role === 'user'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-800 text-gray-100'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-card text-card-foreground border border-border'
                     }`}
                   >
                     <div className="whitespace-pre-wrap">{message.content}</div>
@@ -443,11 +446,11 @@ export default function ChatPage() {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="max-w-3xl p-4 bg-gray-800 rounded-lg">
+                  <div className="max-w-3xl p-4 bg-card border border-border rounded-lg">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                   </div>
                 </div>
@@ -458,25 +461,25 @@ export default function ChatPage() {
         </div>
 
         {/* Message Input */}
-        <div className="p-4 border-t border-gray-700">
+        <div className="p-4 border-t border-border">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-end space-x-2 bg-gray-800 rounded-lg border border-gray-600 p-2">
-              <button className="p-2 hover:bg-gray-700 rounded">
-                <Paperclip className="w-5 h-5 text-gray-400" />
+            <div className="flex items-end space-x-2 bg-card rounded-lg border border-border p-2">
+              <button className="p-2 hover:bg-muted rounded">
+                <Paperclip className="w-5 h-5 text-muted-foreground" />
               </button>
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Send a message..."
-                className="flex-1 bg-transparent resize-none outline-none min-h-[20px] max-h-32 text-white placeholder-gray-400"
+                className="flex-1 bg-transparent resize-none outline-none min-h-[20px] max-h-32 text-foreground placeholder-muted-foreground"
                 rows={1}
                 disabled={isLoading}
               />
               <button
                 onClick={() => handleSendMessage(input)}
                 disabled={!input.trim() || isLoading}
-                className="p-2 bg-white text-gray-900 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -488,30 +491,33 @@ export default function ChatPage() {
       {/* Auth Modal for Guest Users */}
       {showAuthModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
-          <div className="bg-gray-900 rounded-lg p-8 max-w-md w-full text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Welcome back</h2>
-            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Log in or sign up to get smarter responses, upload files and images, and more.
+          <div className="bg-card border border-border rounded-lg p-8 max-w-md w-full text-center shadow-lg">
+            <div className="flex items-center justify-center mb-6">
+              <img src="/logo.png" alt="PublicAI" className="w-12 h-12 mr-3" />
+              <h2 className="text-3xl font-bold text-foreground">Welcome to PublicAI</h2>
+            </div>
+            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+              By the Public, For the Public. Log in or sign up to save your chat history and get the full experience.
             </p>
             
             <div className="space-y-4">
               <button
                 onClick={() => router.push('/login')}
-                className="w-full py-3 px-6 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-colors"
+                className="w-full py-3 px-6 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors"
               >
                 Log in
               </button>
               
               <button
                 onClick={() => router.push('/register')}
-                className="w-full py-3 px-6 border border-gray-600 text-white rounded-full font-medium hover:border-gray-500 transition-colors"
+                className="w-full py-3 px-6 border border-border text-foreground rounded-full font-medium hover:bg-muted transition-colors"
               >
                 Sign up for free
               </button>
               
               <button
                 onClick={() => setShowAuthModal(false)}
-                className="text-gray-300 hover:text-white underline text-sm mt-4"
+                className="text-muted-foreground hover:text-foreground underline text-sm mt-4"
               >
                 Stay logged out
               </button>

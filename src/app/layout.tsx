@@ -15,8 +15,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PublicAI - Ask what you can do for AI",
-  description: "PublicAI - Community-driven AI initiative",
+  title: "PublicAI | By the Public, For the Public",
+  description: "PublicAI - By the Public, For the Public. Community-driven AI initiative for everyone.",
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: "PublicAI | By the Public, For the Public",
+    description: "PublicAI - By the Public, For the Public. Community-driven AI initiative for everyone.",
+    siteName: "PublicAI",
+  },
+  twitter: {
+    title: "PublicAI | By the Public, For the Public",
+    description: "PublicAI - By the Public, For the Public. Community-driven AI initiative for everyone.",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground font-sans`}
       ><StackProvider app={stackServerApp}><StackTheme>
         {children}
       </StackTheme></StackProvider></body>

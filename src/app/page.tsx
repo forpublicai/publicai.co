@@ -26,16 +26,17 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
-        <div className="flex items-center gap-2">
+      <nav className="flex items-center justify-between px-6 py-4 border-b border-border">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
+          <img src="/logo.png" alt="PublicAI" className="w-8 h-8" />
           <div className="text-xl font-semibold">PublicAI</div>
         </div>
         <div className="flex items-center gap-4">
           <Button 
             variant="outline" 
-            className="bg-transparent border-gray-600 text-white hover:bg-gray-800"
+            className="bg-transparent border-border text-foreground hover:bg-muted"
             onClick={() => router.push('/chat')}
           >
             Get Started
@@ -58,12 +59,12 @@ export default function Home() {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
               placeholder="How will you shape public AI?"
-              className="w-full h-16 px-6 pr-16 text-lg bg-gray-900 border-gray-700 rounded-xl focus:border-gray-500 focus:ring-1 focus:ring-gray-500 placeholder:text-gray-400"
+              className="w-full h-16 px-6 pr-16 text-lg bg-card border-border rounded-xl focus:border-ring focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
             />
             <Button
               size="sm"
               onClick={handleSubmit}
-              className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 p-0 bg-white text-black hover:bg-gray-200 rounded-lg"
+              className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 p-0 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg"
               disabled={!inputValue.trim()}
             >
               <ArrowUp className="w-4 h-4" />
@@ -76,7 +77,7 @@ export default function Home() {
               <Button
                 key={index}
                 variant="outline"
-                className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white rounded-full px-6 py-2"
+                className="bg-transparent border-border text-muted-foreground hover:bg-muted hover:text-foreground rounded-full px-6 py-2"
               >
                 {suggestion}
               </Button>
@@ -86,11 +87,11 @@ export default function Home() {
       </main>
 
       {/* Bottom Notification Banner */}
-      <div className="border-t border-gray-800 bg-gray-900/50 px-6 py-4">
+      <div className="border-t border-border bg-muted/50 px-6 py-4">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-muted-foreground">
             🚀 New updates to PublicAI community initiatives are now available.{" "}
-            <span className="text-white hover:underline cursor-pointer">
+            <span className="text-foreground hover:underline cursor-pointer">
               Learn more
             </span>
           </p>
