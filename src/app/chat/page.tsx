@@ -37,6 +37,7 @@ export default function ChatPage() {
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
   const [selectedModel, setSelectedModel] = useState('anthropic/claude-3.5-sonnet');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const initialMessageProcessed = useRef(false);
   
@@ -75,6 +76,10 @@ export default function ChatPage() {
     if (conversationId && conversationId !== currentChatId) {
       // Load specific conversation only if it's different from current
       loadChat(conversationId);
+    } else if (!conversationId && currentChatId) {
+      // If URL has no conversation ID but we have a current chat, we're starting a new chat
+      // Don't reload anything, just stay in the new chat state
+      return;
     } else if (initialMessage && !initialMessageProcessed.current) {
       // Start new conversation with message from home page
       // Only process once using ref to prevent duplicate calls
@@ -83,7 +88,7 @@ export default function ChatPage() {
       // Clear the message parameter from URL after using it
       router.replace('/chat', { scroll: false });
     }
-  }, [searchParams, currentChatId]);
+  }, [searchParams]);
 
   // Remove localStorage persistence - data is now in database
 
@@ -97,6 +102,11 @@ export default function ChatPage() {
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return;
+
+    // Show auth modal for guest users on first message (but still allow sending)
+    if (!user && messages.length === 0) {
+      setShowAuthModal(true);
+    }
 
     // Create new chat if none exists
     let chatId = currentChatId;
@@ -222,7 +232,7 @@ export default function ChatPage() {
   const handleNewChat = () => {
     setMessages([]);
     setCurrentChatId(null);
-    router.push('/chat', { scroll: false });
+    router.replace('/chat', { scroll: false });
   };
 
   const loadChat = async (chatId: string) => {
@@ -347,7 +357,7 @@ export default function ChatPage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col lg:ml-0">
         {/* Top Header */}
-        <div className="p-4 border-b border-gray-700 flex items-center">
+        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             {user && (
               <button
@@ -368,6 +378,24 @@ export default function ChatPage() {
               <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
             </select>
           </div>
+          
+          {/* Auth buttons for guests */}
+          {!user && (
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => router.push('/login')}
+                className="px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded border border-gray-600"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => router.push('/register')}
+                className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Messages Area */}
@@ -394,7 +422,7 @@ export default function ChatPage() {
               </div>
             </div>
           ) : (
-            <div className="p-6 space-y-6">
+            <div className="p-6 space-y-6 max-w-4xl mx-auto">
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -456,6 +484,41 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
+
+      {/* Auth Modal for Guest Users */}
+      {showAuthModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+          <div className="bg-gray-900 rounded-lg p-8 max-w-md w-full text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">Welcome back</h2>
+            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+              Log in or sign up to get smarter responses, upload files and images, and more.
+            </p>
+            
+            <div className="space-y-4">
+              <button
+                onClick={() => router.push('/login')}
+                className="w-full py-3 px-6 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-colors"
+              >
+                Log in
+              </button>
+              
+              <button
+                onClick={() => router.push('/register')}
+                className="w-full py-3 px-6 border border-gray-600 text-white rounded-full font-medium hover:border-gray-500 transition-colors"
+              >
+                Sign up for free
+              </button>
+              
+              <button
+                onClick={() => setShowAuthModal(false)}
+                className="text-gray-300 hover:text-white underline text-sm mt-4"
+              >
+                Stay logged out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
