@@ -24,7 +24,6 @@ export default function Home() {
           <div className="text-xl font-semibold">PublicAI</div>
         </div>
         <div className="flex items-center gap-4">
-          <Search className="w-5 h-5 text-gray-400" />
           <Button variant="outline" className="bg-transparent border-gray-600 text-white hover:bg-gray-800">
             Log in
           </Button>
@@ -36,7 +35,7 @@ export default function Home() {
         <div className="max-w-4xl w-full text-center space-y-12">
           {/* Main Heading */}
           <h1 className="text-4xl md:text-6xl font-normal leading-tight">
-            Ask not what AI can do for you — ask what you can do for AI
+            Ask not what the public can do for you — ask what you can do for the public
           </h1>
 
           {/* Input Field */}
