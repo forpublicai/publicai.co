@@ -35,7 +35,7 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [chatHistories, setChatHistories] = useState<ChatHistory[]>([]);
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
-  const [selectedModel, setSelectedModel] = useState('anthropic/claude-3.5-sonnet');
+  const [selectedModel, setSelectedModel] = useState('aisingapore/Gemma-SEA-LION-v3-9B-IT');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -375,10 +375,16 @@ export default function ChatPage() {
               onChange={(e) => setSelectedModel(e.target.value)}
               className="bg-card border border-border rounded px-3 py-1 text-sm"
             >
-              <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
-              <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
-              <option value="openai/gpt-4o">GPT-4o</option>
-              <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
+              <optgroup label="SEA-LION Models">
+                <option value="aisingapore/Gemma-SEA-LION-v3-9B-IT">SEA-LION v3 9B Instruct</option>
+                <option value="aisingapore/Llama-SEA-LION-v3.5-8B-R">SEA-LION v3.5 8B Reasoning</option>
+                <option value="aisingapore/Llama-SEA-Guard-Prompt-v1">SEA-Guard Safety Model</option>
+              </optgroup>
+              <optgroup label="Mistral Models">
+                <option value="mistralai/mistral-nemo">Mistral Nemo</option>
+                <option value="mistralai/mistral-small-24b-instruct-2501">Mistral Small 24B</option>
+                <option value="mistralai/mixtral-8x7b-instruct">Mixtral 8x7B</option>
+              </optgroup>
             </select>
           </div>
           

@@ -15,7 +15,7 @@ export async function createConversation(userId: string, title?: string, model?:
   const [conversation] = await db.insert(conversationsTable).values({
     userId,
     title: title || 'New Chat',
-    model: model || 'anthropic/claude-3.5-sonnet',
+    model: model || 'aisingapore/Gemma-SEA-LION-v3-9B-IT',
   }).returning();
   return conversation;
 }

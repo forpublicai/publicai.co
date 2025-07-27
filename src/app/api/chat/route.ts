@@ -2,14 +2,24 @@ import OpenAI from 'openai';
 import { NextRequest, NextResponse } from 'next/server';
 import { addMessage } from '@/lib/queries';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: "https://openrouter.ai/api/v1",
-});
+function getClientConfig(model: string) {
+  if (model.startsWith('aisingapore/')) {
+    return {
+      apiKey: process.env.SEALION_API_KEY!,
+      baseURL: "https://api.sea-lion.ai/v1",
+    };
+  }
+  
+  // Default to OpenRouter for Mistral and other models
+  return {
+    apiKey: process.env.OPENROUTER_API_KEY!,
+    baseURL: "https://openrouter.ai/api/v1",
+  };
+}
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, model = "anthropic/claude-3.5-sonnet", conversationId } = await req.json();
+    const { messages, model = "aisingapore/Gemma-SEA-LION-v3-9B-IT", conversationId } = await req.json();
 
     // Save user message to database if conversationId is provided
     if (conversationId && messages.length > 0) {
@@ -19,7 +29,11 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const stream = await openai.chat.completions.create({
+    // Create client with appropriate configuration
+    const config = getClientConfig(model);
+    const client = new OpenAI(config);
+    
+    const stream = await client.chat.completions.create({
       model,
       messages,
       stream: true,

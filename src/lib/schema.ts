@@ -19,7 +19,7 @@ export const conversationsTable = pgTable('conversations', {
   id: uuid('id').defaultRandom().primaryKey(),
   userId: text('user_id').notNull(), // Remove foreign key constraint to allow guest users
   title: text('title'),
-  model: text('model').default('anthropic/claude-3.5-sonnet'),
+  model: text('model').default('aisingapore/Gemma-SEA-LION-v3-9B-IT'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
