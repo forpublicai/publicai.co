@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Paperclip, Send } from 'lucide-react';
 
@@ -19,7 +19,7 @@ const SUGGESTION_CARDS = [
   "What is the weather in San Francisco?"
 ];
 
-export default function ChatPage() {
+function ChatPageContent() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,30 +31,7 @@ export default function ChatPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Handle initial message from URL parameters
-  useEffect(() => {
-    const initialMessage = searchParams.get('message');
-    
-    if (initialMessage && !initialMessageProcessed.current) {
-      // Start new conversation with message from home page
-      initialMessageProcessed.current = true;
-      handleSendMessage(initialMessage);
-      // Clear the message parameter from URL after using it
-      router.replace('/chat', { scroll: false });
-    }
-  }, [searchParams]);
-
-  // Remove localStorage persistence - data is now in database
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSendMessage = async (content: string) => {
+  const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim() || isLoading) return;
 
     // Show auth modal for guest users on first message (but still allow sending)
@@ -132,7 +109,28 @@ export default function ChatPage() {
     } finally {
       setIsLoading(false);
     }
+  }, [isLoading, messages, selectedModel]);
+
+  // Handle initial message from URL parameters
+  useEffect(() => {
+    const initialMessage = searchParams.get('message');
+    
+    if (initialMessage && !initialMessageProcessed.current) {
+      // Start new conversation with message from home page
+      initialMessageProcessed.current = true;
+      handleSendMessage(initialMessage);
+      // Clear the message parameter from URL after using it
+      router.replace('/chat', { scroll: false });
+    }
+  }, [searchParams, router, handleSendMessage]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSuggestionClick = (suggestion: string) => {
     handleSendMessage(suggestion);
@@ -303,5 +301,13 @@ export default function ChatPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div className="flex h-screen bg-background items-center justify-center">Loading...</div>}>
+      <ChatPageContent />
+    </Suspense>
   );
 }
