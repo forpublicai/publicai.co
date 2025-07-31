@@ -30,14 +30,19 @@ export default function Home() {
       {/* Navigation */}
       <nav className="flex items-center justify-between px-6 py-4 border-b border-border">
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
-          <img src="/logo.png" alt="PublicAI" className="w-8 h-8" />
-          <div className="text-xl font-semibold">PublicAI</div>
+          <img src="/logo-large.png" alt="PublicAI" className="h-8" />
         </div>
         <div className="flex items-center gap-4">
           <Button 
             variant="outline" 
             className="bg-transparent border-border text-foreground hover:bg-muted"
             onClick={() => router.push('/chat')}
+          >
+            Try Demo
+          </Button>
+          <Button 
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            onClick={() => window.open('https://app.publicai.company', '_blank')}
           >
             Get Started
           </Button>
