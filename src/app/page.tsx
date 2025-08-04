@@ -158,7 +158,7 @@ export default function Home() {
               </div>
               <div className="p-6 bg-card rounded-lg border-l-4 border-purple-500 hover:scale-105 transition-transform duration-200">
                 <h3 className="text-2xl font-medium text-foreground mb-3">Permanent Public Goods</h3>
-                <p className="text-muted-foreground">Sustainably funded infrastructure that can't be captured by private interests</p>
+                <p className="text-muted-foreground">Sustainably funded infrastructure that can&apos;t be captured by private interests</p>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function Home() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <GitBranch className="w-8 h-8 text-yellow-500" />
             <h2 className="text-4xl md:text-5xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              We're at a crossroads
+              We&apos;re at a crossroads
             </h2>
           </div>
           <div className="max-w-4xl mx-auto">
