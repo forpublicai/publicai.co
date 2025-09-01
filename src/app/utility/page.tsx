@@ -4,7 +4,7 @@ export default function UtilityPage() {
   const articleData = {
     title: "Inference Utility",
     subtitle: "AI for everyone",
-    date: "December 2024",
+    date: "September 1, 2025",
     sections: [
       {
         type: 'paragraph' as const,

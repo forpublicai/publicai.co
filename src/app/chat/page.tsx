@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Paperclip, Send } from 'lucide-react';
-import Image from 'next/image';
+import { Send } from 'lucide-react';
+
 
 interface Message {
   id: string;
@@ -24,7 +24,7 @@ function ChatPageContent() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('aisingapore/Gemma-SEA-LION-v3-9B-IT');
+  const [selectedModel] = useState('swiss-ai/apertus-70b-it');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const initialMessageProcessed = useRef(false);
@@ -154,10 +154,8 @@ function ChatPageContent() {
             <div className="flex flex-col items-center justify-center h-full p-8">
               {/* Welcome Message */}
               <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-2">Hello there!</h2>
-                <p className="text-muted-foreground text-lg">How can I help you today?</p>
+                <h2 className="text-3xl font-bold mb-2">What can you do?</h2>
               </div>
-
               {/* Suggestion Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl w-full px-4">
                 {SUGGESTION_CARDS.map((suggestion, index) => (
@@ -210,16 +208,13 @@ function ChatPageContent() {
         {/* Message Input */}
         <div className="p-4 border-t border-border">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-end space-x-2 bg-card rounded-lg border border-border p-2">
-              <button className="p-2 hover:bg-muted rounded">
-                <Paperclip className="w-5 h-5 text-muted-foreground" />
-              </button>
+            <div className="flex items-center space-x-2 bg-card rounded-lg border border-border p-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Send a message..."
-                className="flex-1 bg-transparent resize-none outline-none min-h-[20px] max-h-32 text-foreground placeholder-muted-foreground"
+                className="flex-1 bg-transparent resize-none outline-none min-h-[20px] max-h-32 text-foreground placeholder-muted-foreground pl-2"
                 rows={1}
                 disabled={isLoading}
               />
@@ -243,7 +238,7 @@ function ChatPageContent() {
               <h2 className="text-2xl font-bold text-foreground">Welcome to Public AI</h2>
             </div>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              You're talking to Apertus, from Switzerland. Log in for the full experience.
+              You&apos;re talking to Apertus, from Switzerland. Log in for the full experience.
             </p>
             
             <div className="space-y-4">
