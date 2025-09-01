@@ -147,6 +147,12 @@ export default function Home() {
               <p className="text-gray-600 mb-6">
                 Joseph needs your help building the inference service. Just send PRs – it&apos;s all open source.
               </p>
+              <Link 
+                href="/contributing"
+                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
+              >
+                Read more
+              </Link>
             </div>
             <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
               <Image 
