@@ -22,6 +22,13 @@ interface ArticleProps {
 export default function Article({ title, subtitle, date, heroImage, sections }: ArticleProps) {
   return (
     <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <Link href="/" className="flex items-center gap-2">
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-lg font-medium text-black">Public AI</span>
+        </Link>
+      </nav>
 
       {/* Article Header */}
       <header className="px-6 py-12 max-w-4xl mx-auto">
