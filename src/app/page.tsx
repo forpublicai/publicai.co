@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowUp } from "lucide-react";
@@ -18,12 +19,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-20">
-        <div className="max-w-4xl w-full text-center space-y-12">
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-normal leading-tight bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+    <div className="min-h-screen bg-white">
+      
+      {/* Hero Section */}
+      <section className="px-6 py-20">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-6xl font-normal text-black mb-8 leading-tight text-center">
             Try Apertus
           </h1>
           
@@ -57,7 +58,7 @@ export default function Home() {
               onClick={() => setInputValue("What's Apertus?")}
               className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
             >
-              What's Apertus?
+              What&apos;s Apertus?
             </Button>
             <Button
               variant="outline"
@@ -71,7 +72,7 @@ export default function Home() {
               onClick={() => setInputValue("C'est quoi, ce plan secret ultra top secret?")}
               className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
             >
-              C'est quoi, ce plan secret ultra top secret?
+              C&apos;est quoi, ce plan secret ultra top secret?
             </Button>
           </div>
         </div>
@@ -87,7 +88,7 @@ export default function Home() {
                 With love, from Switzerland
               </h2>
               <p className="text-gray-600 mb-6">
-                Imanol's team just launched Apertus, the most powerful open-source language model ever released by a public institution.
+                Imanol&apos;s team just launched Apertus, the most powerful open-source language model ever released by a public institution.
               </p>
               <Link 
                 href="/apertus"
@@ -97,9 +98,11 @@ export default function Home() {
               </Link>
             </div>
             <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
-              <img 
+              <Image 
                 src="/switzerland.png" 
                 alt="With love, from Switzerland" 
+                width={400}
+                height={400}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -110,9 +113,11 @@ export default function Home() {
         <section className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
-              <img 
+              <Image 
                 src="/airbus.jpg" 
                 alt="Airbus for AI" 
+                width={400}
+                height={400}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -138,16 +143,18 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div>
               <h2 className="text-2xl font-medium text-black mb-4">
-                It's launched! Now we really need your help.
+                It&apos;s launched! Now we really need your help.
               </h2>
               <p className="text-gray-600 mb-6">
-                Joseph needs your help building the inference service. Just send PRs – it's all open source.
+                Joseph needs your help building the inference service. Just send PRs – it&apos;s all open source.
               </p>
             </div>
             <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
-              <img 
+              <Image 
                 src="/community.jpeg" 
                 alt="Call for contributions – help Joseph!" 
+                width={400}
+                height={400}
                 className="w-full h-full object-cover"
               />
             </div>

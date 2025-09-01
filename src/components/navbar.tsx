@@ -30,6 +30,13 @@ export default function Navbar() {
         <Button 
           variant="ghost" 
           className="text-foreground hover:bg-muted"
+          onClick={() => router.push('/docs')}
+        >
+          Docs
+        </Button>
+        <Button 
+          variant="ghost" 
+          className="text-foreground hover:bg-muted"
           onClick={() => router.push('/about')}
         >
           About
