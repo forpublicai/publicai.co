@@ -3,16 +3,20 @@ import Article from "@/components/Article";
 export default function UtilityPage() {
   const articleData = {
     title: "Inference Utility",
-    subtitle: "A public compute platform for running AI models that serves researchers, developers, and institutions worldwide.",
-    date: "September 1, 2025",
+    subtitle: "AI for everyone",
+    date: "December 2024",
     sections: [
       {
         type: 'paragraph' as const,
-        content: "The Public AI Inference Utility is a global compute platform that provides free and low-cost access to state-of-the-art AI models. Built on principles of openness, accessibility, and democratic governance, the Utility serves as critical infrastructure for the AI ecosystem."
+        content: "The Public AI Inference Utility is the public access point for open and sovereign AI models. Imagine a water or electric utility—but for AI."
       },
       {
         type: 'paragraph' as const,
-        content: "Unlike commercial AI APIs that prioritize profit maximization, the Utility is designed to serve the public interest. We provide transparent pricing, open governance, and equitable access to ensure that AI capabilities are available to everyone, not just those who can afford premium services."
+        content: "It's a lightweight, open-source frontend and deployment layer that runs on compute from public and private partners around the world, giving citizens, researchers, and policymakers a simple chat interface to interact with vetted open models."
+      },
+      {
+        type: 'paragraph' as const,
+        content: "Instead of depending on private APIs, the Utility offers direct access to models built by public institutions, backed by transparent governance and a sustainable funding model."
       },
       {
         type: 'heading' as const,
@@ -20,19 +24,18 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Access to AI compute has become a critical bottleneck for innovation. Researchers at universities can't afford commercial APIs. Developers in emerging markets face pricing barriers. Civil society organizations lack the resources to experiment with AI tools."
+        content: "Today, nearly all AI access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile."
       },
       {
         type: 'paragraph' as const,
-        content: "The Utility addresses these challenges by providing:"
+        content: "The Inference Utility fills that gap:"
       },
       {
         type: 'list' as const,
         content: [
-          "Free tier access for researchers and educators",
-          "Transparent, cost-based pricing for all users",
-          "Priority access for public interest projects",
-          "Open governance and community oversight"
+          "<strong>Public access to public AI</strong> — a shared service for citizens, researchers, and institutions",
+          "<strong>Clean, easy-to-use interface</strong> — chat with open models, integrated with search and national knowledgebases",
+          "<strong>Sovereign infrastructure in progress</strong> — anchored in publicly funded deployments"
         ]
       },
       {
@@ -40,62 +43,47 @@ export default function UtilityPage() {
         content: "What you can do with it"
       },
       {
-        type: 'paragraph' as const,
-        content: "The Utility supports a wide range of AI applications and use cases:"
-      },
-      {
         type: 'list' as const,
         content: [
-          "Research and experimentation with cutting-edge models",
-          "Educational projects and coursework",
-          "Civic technology and social good applications",
-          "Commercial development and prototyping",
-          "Creative projects and artistic exploration"
+          "<strong>Open source interface.</strong> Inspectable code and transparent routing.",
+          "<strong>Multilingual & jurisdiction-aware.</strong> Tuned for European and international deployments.",
+          "<strong>Multiple vetted models.</strong> Access to a range of open-weight models from national labs and research centers.",
+          "<strong>Privacy-first.</strong> By default, user prompts and outputs are not logged.",
+          "<strong>Public governance.</strong> Funding, model selection, and operating principles are openly documented."
         ]
-      },
-      {
-        type: 'paragraph' as const,
-        content: "All major model types are supported: language models, vision models, multimodal systems, and specialized domain models. We prioritize hosting open-source models that can be inspected, modified, and deployed by users."
       },
       {
         type: 'heading' as const,
         content: "Who is it for?"
       },
       {
-        type: 'paragraph' as const,
-        content: "The Utility is designed to serve diverse communities with different needs and resources:"
-      },
-      {
         type: 'list' as const,
         content: [
-          "Academic researchers conducting AI research",
-          "Students learning about machine learning and AI",
-          "Nonprofit organizations developing civic technology",
-          "Startups and small businesses building AI applications",
-          "Artists and creators exploring AI-assisted workflows",
-          "Government agencies evaluating AI capabilities"
+          "Citizens & communities seeking a trustworthy alternative to corporate APIs",
+          "Public sector initiatives piloting or scaling sovereign AI models",
+          "Academics & nonprofits who need reliable access to open models",
+          "Policy institutions & regulators testing transparent AI deployments"
         ]
       },
       {
         type: 'heading' as const,
-        content: "🔋 How it's sustained"
+        content: "How it's sustained"
       },
       {
         type: 'paragraph' as const,
-        content: "The Utility operates on a sustainable, mission-driven model:"
+        content: "The Utility is a pilot in building a sustainable business model for public AI access. It combines:"
       },
       {
         type: 'list' as const,
         content: [
-          "Free access is supported by grants and donations",
-          "Paid tiers cover operational costs at transparent, cost-based pricing",
-          "Enterprise partnerships provide additional funding",
-          "Community contributions help with governance and oversight"
+          "Donated compute from academic, nonprofit, and industry partners",
+          "Advertising subsidies to offset costs of free public access",
+          "State and institutional funding to guarantee long-term availability"
         ]
       },
       {
         type: 'paragraph' as const,
-        content: "We publish regular transparency reports showing how funds are used, what our costs are, and how we're working to expand access."
+        content: "The goal is to make AI inference a public service, not a private privilege."
       },
       {
         type: 'heading' as const,
@@ -103,11 +91,7 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "The Utility is governed by Public AI, a nonprofit organization, with oversight from an international advisory board. Key decisions about pricing, access policies, and model selection are made through transparent, community-informed processes."
-      },
-      {
-        type: 'paragraph' as const,
-        content: "We work closely with academic institutions, civil society organizations, and government agencies to ensure the Utility serves genuine public needs."
+        content: "The Public AI Inference Utility is built by Metagov, a nonprofit research lab, under its Airbus for AI initiative. It is part of the broader movement for public AI — an effort to make AI a form of public infrastructure, like highways, water, or electricity."
       },
       {
         type: 'heading' as const,
@@ -115,74 +99,7 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Our development roadmap focuses on expanding access, improving capabilities, and strengthening governance:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "Geographic expansion to serve users in more regions",
-          "Increased model diversity and specialized capabilities",
-          "Enhanced tools for researchers and developers",
-          "Stronger community governance mechanisms",
-          "Partnerships with more public institutions globally"
-        ]
-      },
-      {
-        type: 'heading' as const,
-        content: "Developers"
-      },
-      {
-        type: 'paragraph' as const,
-        content: "Get started with the Utility through our developer platform:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          '<a href="https://platform.publicai.co/" class="text-blue-600 hover:text-blue-800 underline">Platform Access</a>',
-          "RESTful API with standard endpoints",
-          "SDKs for Python, JavaScript, and other languages",
-          "Comprehensive documentation and tutorials",
-          "Community support forums"
-        ]
-      },
-      {
-        type: 'heading' as const,
-        content: "Civic & Creative Contributors"
-      },
-      {
-        type: 'paragraph' as const,
-        content: "We especially welcome projects that use AI for social good, civic engagement, and creative expression. Special programs include:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "Research grants for public interest AI projects",
-          "Free access for verified educational and nonprofit use",
-          "Technical support for high-impact applications",
-          "Collaboration opportunities with our team"
-        ]
-      },
-      {
-        type: 'heading' as const,
-        content: "Code of Conduct"
-      },
-      {
-        type: 'paragraph' as const,
-        content: "All users of the Utility agree to use AI responsibly and ethically. Our community standards prohibit:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "Generating harmful, discriminatory, or illegal content",
-          "Violating privacy or attempting to identify individuals",
-          "Creating misinformation or deepfakes without disclosure",
-          "Using the platform for surveillance or oppression",
-          "Commercial use that undermines the public mission"
-        ]
-      },
-      {
-        type: 'paragraph' as const,
-        content: "We work with users to ensure AI is deployed in ways that benefit society and respect human rights."
+        content: "After the Apertus launch, we hope to expand the Utility with new launch partnerships in countries like Singapore, Spain, and Canada. Other improvements: integrated web search, support for image models and multimodal queries, and more jurisdiction-aware handling to reflect different legal and cultural contexts. On the sustainability side, we are refining both the advertising-supported and utility-style business models, while testing \"Plus\" and \"Pro\" tiers that remain accessible. Longer-term, we want the Utility to support national data flywheels and nation-scale inference infrastructure."
       }
     ]
   };
