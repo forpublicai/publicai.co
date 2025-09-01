@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowUp, AlertTriangle, Network, GitBranch, Globe, Building, Users } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -12,42 +14,25 @@ export default function Home() {
 
   const handleSubmit = () => {
     if (inputValue.trim()) {
-      // Navigate to chat with the message as a query parameter
       router.push(`/chat?message=${encodeURIComponent(inputValue.trim())}`);
     }
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    const suggestionTexts: { [key: string]: string } = {
-      "Contribute Models": "How can I contribute to open-source AI models for public benefit?",
-      "Share Datasets": "What datasets could help build AI that serves underrepresented communities?",
-      "Research": "What research is needed to make AI more accessible and accountable?",
-      "Community": "How can local communities benefit from public AI infrastructure?",
-      "More": "What are other ways to support the public AI movement?"
-    };
-    setInputValue(suggestionTexts[suggestion] || suggestion);
-  };
-
-  const suggestionButtons = [
-    "Contribute Models",
-    "Share Datasets", 
-    "Research",
-    "Community",
-    "More"
-  ];
-
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-20">
-        <div className="max-w-4xl w-full text-center space-y-12">
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-normal leading-tight bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="px-6 py-20">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-6xl font-normal text-black mb-8 leading-tight text-center">
             Try Apertus
           </h1>
+          
+          <p className="text-lg text-gray-600 mb-8 text-center">
+            What if AI were public infrastructure like highways, water, or electricity?
+          </p>
 
           {/* Input Field */}
-          <div className="max-w-2xl mx-auto relative">
+          <div className="relative mb-6">
             <Input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -58,345 +43,132 @@ export default function Home() {
             <Button
               size="sm"
               onClick={handleSubmit}
-              className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 p-0 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg"
+              className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 p-0 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg"
               disabled={!inputValue.trim()}
             >
               <ArrowUp className="w-4 h-4" />
             </Button>
           </div>
 
-          {/* Suggestion Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {suggestionButtons.map((suggestion, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                onClick={() => handleSuggestionClick(suggestion)}
-                className="bg-transparent border-border text-muted-foreground hover:bg-muted hover:text-foreground hover:scale-105 transition-all duration-200 rounded-full px-6 py-2"
-              >
-                {suggestion}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </main>
-
-      {/* Blog Section */}
-      <section className="bg-muted/20 px-6 py-16">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-normal text-center mb-12 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-            Latest Insights
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Blog Post 1 */}
-            <article className="bg-card rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
-              <div className="aspect-[3/4] bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">AI</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">Vertical Image Placeholder</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                  Building Public AI Infrastructure
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                  Explore how communities worldwide are creating accessible AI tools that serve the public interest rather than corporate profits.
-                </p>
-                <div className="flex items-center text-xs text-muted-foreground">
-                  <span>Read more →</span>
-                </div>
-              </div>
-            </article>
-
-            {/* Blog Post 2 */}
-            <article className="bg-card rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
-              <div className="aspect-[3/4] bg-gradient-to-br from-green-500/20 to-teal-500/20 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">🌱</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">Vertical Image Placeholder</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                  Democratizing AI Development
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                  Learn about open-source initiatives that are making AI research and development accessible to everyone, everywhere.
-                </p>
-                <div className="flex items-center text-xs text-muted-foreground">
-                  <span>Read more →</span>
-                </div>
-              </div>
-            </article>
-
-            {/* Blog Post 3 */}
-            <article className="bg-card rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group">
-              <div className="aspect-[3/4] bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">⚡</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">Vertical Image Placeholder</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                  The Future of Public AI
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                  Discover emerging trends and technologies that will shape how AI serves communities and addresses global challenges.
-                </p>
-                <div className="flex items-center text-xs text-muted-foreground">
-                  <span>Read more →</span>
-                </div>
-              </div>
-            </article>
+          {/* Suggested Prompts */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <Button
+              variant="outline"
+              onClick={() => setInputValue("What's Apertus?")}
+              className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
+            >
+              What&apos;s Apertus?
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setInputValue("Was ist öffentliche KI?")}
+              className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
+            >
+              Was ist öffentliche KI?
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setInputValue("C'est quoi, ce plan secret ultra top secret?")}
+              className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
+            >
+              C&apos;est quoi, ce plan secret ultra top secret?
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* New Content Sections */}
-      <div className="bg-background px-6 py-32 space-y-32">
-        {/* Section 1: The Problem */}
-        <section className="max-w-6xl mx-auto text-center space-y-8">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <AlertTriangle className="w-8 h-8 text-orange-500" />
-            <h2 className="text-4xl md:text-5xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              AI is too important to be controlled by a few tech giants
-            </h2>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <ol className="text-lg text-muted-foreground space-y-4 text-left">
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium">1</span>
-                <span>A handful of Big Tech companies control AI development</span>
-              </li>
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium">2</span>
-                <span>No public accountability in their decision-making</span>
-              </li>
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium">3</span>
-                <span>Barriers prevent most people and organizations from accessing or building AI</span>
-              </li>
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium">4</span>
-                <span>The public is locked out of shaping technology that affects everyone</span>
-              </li>
-            </ol>
-          </div>
-        </section>
-
-        {/* Section 2: What is Public AI? */}
-        <section className="bg-muted/30 -mx-6 px-6 py-20">
-          <div className="max-w-6xl mx-auto text-left space-y-8">
-            <div className="flex items-center gap-4 mb-6">
-              <Network className="w-8 h-8 text-blue-500" />
-              <h2 className="text-4xl md:text-5xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-                AI infrastructure built for the common good
+      {/* Content Sections */}
+      <div className="px-6 space-y-20">
+        {/* With love from Switzerland */}
+        <section className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-2xl font-medium text-black mb-4">
+                With love, from Switzerland
               </h2>
+              <p className="text-gray-600 mb-6">
+                Imanol&apos;s team just launched Apertus, the most powerful open-source language model ever released by a public institution.
+              </p>
+              <Link 
+                href="/apertus"
+                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
+              >
+                Read more
+              </Link>
             </div>
-            <p className="text-xl text-muted-foreground max-w-3xl">
-              Public AI has three core principles:
-            </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="p-6 bg-card rounded-lg border-l-4 border-blue-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Public Access</h3>
-                <p className="text-muted-foreground">Essential AI capabilities available to everyone, free or at-cost</p>
-              </div>
-              <div className="p-6 bg-card rounded-lg border-l-4 border-green-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Public Accountability</h3>
-                <p className="text-muted-foreground">The public has ultimate control over development and direction</p>
-              </div>
-              <div className="p-6 bg-card rounded-lg border-l-4 border-purple-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Permanent Public Goods</h3>
-                <p className="text-muted-foreground">Sustainably funded infrastructure that can&apos;t be captured by private interests</p>
-              </div>
+            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
+              <Image 
+                src="/switzerland.png" 
+                alt="With love, from Switzerland" 
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </section>
 
-        {/* Section 3: Why This Matters Now */}
-        <section className="max-w-6xl mx-auto text-center space-y-8">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <GitBranch className="w-8 h-8 text-yellow-500" />
-            <h2 className="text-4xl md:text-5xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              We&apos;re at a crossroads
-            </h2>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <ul className="text-lg text-muted-foreground space-y-4 text-left">
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-2 h-2 bg-yellow-500 rounded-full mt-3"></span>
-                <span>The AI landscape is consolidating rapidly under a few major players</span>
-              </li>
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-2 h-2 bg-yellow-500 rounded-full mt-3"></span>
-                <span>History shows public infrastructure drives the greatest progress - from the internet to GPS to public libraries</span>
-              </li>
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-2 h-2 bg-yellow-500 rounded-full mt-3"></span>
-                <span>This is our moment to build AI infrastructure before private business models lock us out</span>
-              </li>
-              <li className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors duration-200">
-                <span className="flex-shrink-0 w-2 h-2 bg-yellow-500 rounded-full mt-3"></span>
-                <span>Once consolidated, it becomes much harder to create public alternatives</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        {/* Section 4: Public AI is Already Happening */}
-        <section className="bg-muted/30 -mx-6 px-6 py-20">
-          <div className="max-w-6xl mx-auto text-left space-y-8">
-            <div className="flex items-center gap-4 mb-6">
-              <Globe className="w-8 h-8 text-green-500" />
-              <h2 className="text-4xl md:text-5xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-                Real examples around the world
+        {/* Airbus for AI */}
+        <section className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
+              <Image 
+                src="/airbus.jpg" 
+                alt="Airbus for AI" 
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl font-medium text-black mb-4">
+                Airbus for AI
               </h2>
+              <p className="text-gray-600 mb-6">
+                Diane and her co-authors argue for a third way frontier lab for AI—built from existing national labs and national champions.
+              </p>
+              <Link 
+                href="/airbus"
+                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
+              >
+                Read more
+              </Link>
             </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 bg-card rounded-lg border-l-4 border-red-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Singapore</h3>
-                <p className="text-muted-foreground">Building SEA-LION models for Southeast Asian languages underserved by commercial AI</p>
-              </div>
-              <div className="p-6 bg-card rounded-lg border-l-4 border-red-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Switzerland</h3>
-                <p className="text-muted-foreground">Using supercomputing for AI models focused on science, education, and sustainability</p>
-              </div>
-              <div className="p-6 bg-card rounded-lg border-l-4 border-red-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">United States</h3>
-                <p className="text-muted-foreground">NAIRR pilot providing researchers access to AI compute and datasets</p>
-              </div>
-            </div>
-            <div className="text-center mt-8">
-              <p className="text-xl text-muted-foreground">
-                These projects show public AI can deliver real benefits markets ignore
+          </div>
+        </section>
+
+        {/* Call for Contributions */}
+        <section className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-2xl font-medium text-black mb-4">
+                It&apos;s launched! Now we really need your help.
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Joseph needs your help building the inference service. Just send PRs – it&apos;s all open source.
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* Section 5: Three Ways Forward */}
-        <section className="max-w-6xl mx-auto text-center space-y-8">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <Building className="w-8 h-8 text-purple-500" />
-            <h2 className="text-4xl md:text-5xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              How we build Public AI
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="p-6 bg-card rounded-lg border-l-4 border-purple-500 hover:scale-105 transition-transform duration-200">
-              <h3 className="text-2xl font-medium text-foreground mb-3">Public Infrastructure</h3>
-              <p className="text-muted-foreground">Shared compute, datasets, and models anyone can build upon</p>
-            </div>
-            <div className="p-6 bg-card rounded-lg border-l-4 border-purple-500 hover:scale-105 transition-transform duration-200">
-              <h3 className="text-2xl font-medium text-foreground mb-3">Public Alternatives</h3>
-              <p className="text-muted-foreground">Complete alternatives to ChatGPT and Claude owned by the public</p>
-            </div>
-            <div className="p-6 bg-card rounded-lg border-l-4 border-purple-500 hover:scale-105 transition-transform duration-200">
-              <h3 className="text-2xl font-medium text-foreground mb-3">Solving Real Problems</h3>
-              <p className="text-muted-foreground">AI tackling challenges markets ignore - public health, education access, climate solutions</p>
+            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
+              <Image 
+                src="/community.jpeg" 
+                alt="Call for contributions – help Joseph!" 
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </section>
 
-        {/* Section 6: Get Involved */}
-        <section className="bg-muted/30 -mx-6 px-6 py-20">
-          <div className="max-w-6xl mx-auto text-left space-y-8">
-            <div className="flex items-center gap-4 mb-6">
-              <Users className="w-8 h-8 text-blue-500" />
-              <h2 className="text-4xl md:text-5xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-                Join the movement
-              </h2>
-            </div>
-            <p className="text-xl text-muted-foreground max-w-3xl mb-8">
-              Public AI needs supporters from every background:
-            </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 bg-card rounded-lg border-l-4 border-blue-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Researchers & Developers</h3>
-                <p className="text-muted-foreground mb-4">Contribute to open models and use public compute resources</p>
-                <Button 
-                  className="bg-blue-500 hover:bg-blue-600 text-white"
-                  onClick={() => window.open('https://app.publicai.company', '_blank')}
-                >
-                  Start Contributing
-                </Button>
-              </div>
-              <div className="p-6 bg-card rounded-lg border-l-4 border-green-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Organizations</h3>
-                <p className="text-muted-foreground mb-4">Choose public AI options when available</p>
-                <Button 
-                  className="bg-green-500 hover:bg-green-600 text-white"
-                  onClick={() => window.open('https://app.publicai.company', '_blank')}
-                >
-                  Partner With Us
-                </Button>
-              </div>
-              <div className="p-6 bg-card rounded-lg border-l-4 border-yellow-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Policymakers</h3>
-                <p className="text-muted-foreground mb-4">Support legislation for public AI infrastructure investment</p>
-                <Button 
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white"
-                  onClick={() => window.open('https://app.publicai.company', '_blank')}
-                >
-                  Learn More
-                </Button>
-              </div>
-              <div className="p-6 bg-card rounded-lg border-l-4 border-purple-500 hover:scale-105 transition-transform duration-200">
-                <h3 className="text-2xl font-medium text-foreground mb-3">Everyone</h3>
-                <p className="text-muted-foreground mb-4">Advocate for AI that serves the public interest</p>
-                <Button 
-                  className="bg-purple-500 hover:bg-purple-600 text-white"
-                  onClick={() => window.open('https://app.publicai.company', '_blank')}
-                >
-                  Get Involved
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
 
-      {/* Bottom CTA Section */}
-      <div className="border-t border-border bg-gradient-to-r from-primary/10 to-blue-500/10 px-6 py-16">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-3xl md:text-4xl font-normal bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-            Ready to shape the future of AI?
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Join thousands of researchers, developers, and advocates building AI infrastructure for everyone.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button 
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg"
-              onClick={() => router.push('/chat')}
-            >
-              Try the Demo
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="bg-transparent border-border text-foreground hover:bg-muted px-8 py-4 text-lg"
-              onClick={() => window.open('https://app.publicai.company', '_blank')}
-            >
-              Get Started
-            </Button>
+      {/* Footer */}
+      <footer className="max-w-6xl mx-auto px-6 py-20 mt-20">
+          <div className="text-center text-sm text-gray-500 mt-8">
+            &copy; 2025, All rights reserved. &nbsp;
+            <Link href="/tc" className="hover:text-gray-800">Terms & conditions</Link>
           </div>
-          <div className="pt-8 border-t border-border/50">
-            <p className="text-sm text-muted-foreground">
-              🚀 Join the movement for publicly accountable AI infrastructure
-            </p>
-          </div>
-        </div>
-      </div>
+      </footer>
     </div>
   );
 }
