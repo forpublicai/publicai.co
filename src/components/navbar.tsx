@@ -47,9 +47,9 @@ export default function Navbar() {
       <div className="flex items-center gap-4">
         <Button 
           className="bg-primary text-primary-foreground hover:bg-primary/90"
-          onClick={() => window.open('https://app.publicai.company', '_blank')}
+          onClick={() => window.open('https://chat.publicai.co', '_blank')}
         >
-          Log In
+          Log in
         </Button>
       </div>
     </nav>
