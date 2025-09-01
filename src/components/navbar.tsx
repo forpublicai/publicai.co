@@ -1,0 +1,49 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+
+export default function Navbar() {
+  const router = useRouter();
+
+  return (
+    <nav className="flex items-center justify-between px-6 py-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
+        <img src="/logo-large.png" alt="PublicAI" className="h-8" />
+      </div>
+      
+      <div className="flex items-center gap-6">
+        <Button 
+          variant="ghost" 
+          className="text-foreground hover:bg-muted"
+          onClick={() => router.push('/utility')}
+        >
+          Inference Utility
+        </Button>
+        <Button 
+          variant="ghost" 
+          className="text-foreground hover:bg-muted"
+          onClick={() => window.open('https://platform.publicai.co', '_blank')}
+        >
+          Developers
+        </Button>
+        <Button 
+          variant="ghost" 
+          className="text-foreground hover:bg-muted"
+          onClick={() => router.push('/about')}
+        >
+          About
+        </Button>
+      </div>
+
+      <div className="flex items-center gap-4">
+        <Button 
+          className="bg-primary text-primary-foreground hover:bg-primary/90"
+          onClick={() => window.open('https://app.publicai.company', '_blank')}
+        >
+          Log In
+        </Button>
+      </div>
+    </nav>
+  );
+}
