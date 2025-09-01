@@ -20,22 +20,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-medium text-black">Public AI</span>
-        </div>
-        <div className="flex items-center gap-4 font-semibold uppercase">
-          <Link href="/utility" className="text-sm text-gray-600 hover:text-black">Inference Utility</Link>
-          <a href="https://platform.publicai.co" className="text-sm text-gray-600 hover:text-black">Developers</a>
-          <a href="/docs" className="text-sm text-gray-600 hover:text-black">Docs</a>
-          <a href="/about" className="text-sm text-gray-600 hover:text-black">About</a>
-          <Button className="bg-red-500 hover:bg-red-600 text-white rounded-full px-6">
-            Log in
-          </Button>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="px-6 py-20">
         <div className="max-w-3xl mx-auto">
