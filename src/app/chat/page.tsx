@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Paperclip, Send } from 'lucide-react';
+import Image from 'next/image';
 
 interface Message {
   id: string;
@@ -151,7 +152,7 @@ function ChatPageContent() {
         <div className="p-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2 cursor-pointer" onClick={() => router.push('/')}>
-              <img src="/logo-large.png" alt="PublicAI" className="h-6" />
+              <Image src="/logo-large.png" alt="PublicAI" width={120} height={24} className="h-6" />
             </div>
             <select
               value={selectedModel}
@@ -275,7 +276,7 @@ function ChatPageContent() {
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
           <div className="bg-card border border-border rounded-lg p-8 max-w-md w-full text-center shadow-lg">
             <div className="flex flex-col items-center justify-center mb-6">
-              <img src="/logo-large.png" alt="PublicAI" className="h-16 mb-4" />
+              <Image src="/logo-large.png" alt="PublicAI" width={120} height={64} className="h-16 mb-4" />
               <h2 className="text-2xl font-bold text-foreground">Welcome to PublicAI</h2>
             </div>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">

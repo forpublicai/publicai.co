@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
 interface ArticleSection {
   type: 'heading' | 'paragraph' | 'list' | 'image' | 'html' | 'quote';
@@ -37,9 +37,11 @@ export default function Article({ title, subtitle, date, heroImage, sections }: 
       {heroImage && (
         <div className="px-6 mb-12">
           <div className="max-w-4xl mx-auto">
-            <img 
+            <Image 
               src={heroImage.src}
               alt={heroImage.alt}
+              width={800}
+              height={400}
               className="w-full rounded-lg"
             />
           </div>
@@ -77,9 +79,11 @@ export default function Article({ title, subtitle, date, heroImage, sections }: 
               case 'image':
                 return (
                   <div key={index} className="mb-8">
-                    <img 
+                    <Image 
                       src={section.content as string}
                       alt={`Article image ${index + 1}`}
+                      width={800}
+                      height={400}
                       className="w-full rounded-lg"
                     />
                   </div>
@@ -95,7 +99,7 @@ export default function Article({ title, subtitle, date, heroImage, sections }: 
               case 'quote':
                 return (
                   <blockquote key={index} className={`border-l-4 border-gray-300 pl-6 py-4 mb-8 italic text-gray-700 text-lg ${section.className || ''}`}>
-                    <p className="mb-2">"{section.content}"</p>
+                    <p className="mb-2">&ldquo;{section.content}&rdquo;</p>
                     {section.attribution && (
                       <footer className="text-sm text-gray-500 not-italic">
                         — {section.attribution}
