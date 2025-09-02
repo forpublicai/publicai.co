@@ -39,11 +39,12 @@ export default function UtilityPage() {
         type: 'list' as const,
         content: [
           '<strong>Everything is open source!</strong> Inspect our frontend <a href="http://github.com/forpublicai/publicai.co" className="text-blue-600 hover:text-blue-800 underline">here</a>, and our app <a href="http://github.com/forpublicai/chat.publicai.co" className="text-blue-600 hover:text-blue-800 underline">here</a>.',
-          "<strong>Multiple vetted models.</strong> Access to a range of open-weight models from national labs and research centers.",
-          "<strong>Privacy-first.</strong> By default, user prompts and outputs are not logged.",
-          "<strong>Public governance.</strong> Funding, model selection, and operating principles are openly documented.",
-          "<strong>Search and tool usage</strong> - ...",
-          "<strong>National knowledgebases</strong> - ...",
+          "<strong>Multiple vetted models.</strong> Access Apertus from Switzerland as well as SEA-LION v4 from Singapore. More coming soon.",
+          '<strong>National system prompts.</strong> Currently for <a href="https://github.com/forpublicai/chat.publicai.co/blob/main/community/system_prompts/switzerland.md" className="text-blue-600 hover:text-blue-800 underline">Switzerland</a> and for <a href="https://github.com/forpublicai/chat.publicai.co/blob/main/community/system_prompts/singapore.md" className="text-blue-600 hover:text-blue-800 underline">Singapore</a>. Decide as a community what the system prompt should be.',
+          "<strong>National knowledgebases</strong> - While logged in, try using typing # in the chat to reference national RAG systems for Switzerland and Singapore. (Still experimental.)",
+          "<strong>Search and tool usage</strong> - Integrated web search and tool plugins expand the base model’s capabilities. Try the Schwiizerdütsch plugin, our German-speaking users love it.",
+          "<strong>Privacy-first.</strong> By default, user prompts and outputs are not logged or used for training.",
+          "<strong>Public governance.</strong> Our funding, model selection, and operating principles are fully open."
         ]
       },
       {
@@ -52,15 +53,11 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "The Utility is a pilot in building a sustainable business model for public AI access. It combines:"
+        content: "The Inference Utility runs on a distributed infrastructure that combines an open-source frontend, a vLLM-powered backend, and a deployment layer designed for resilience across multiple partners. The frontend is a lightweight React/Tailwind interface. Behind the scenes, inference is handled by servers running OpenAI-compatible APIs on vLLM. These servers are deployed across clusters donated by national and industry partners. A global load-balancing layer ensures that requests are routed efficiently and transparently, regardless of which country’s compute is serving the query."
       },
       {
-        type: 'list' as const,
-        content: [
-          "Donated compute from academic, nonprofit, and industry partners",
-          "Advertising subsidies to offset costs of free public access",
-          "State and institutional funding to guarantee long-term availability"
-        ]
+        type: 'paragraph' as const,
+        content: "Sustainability comes from blending different funding models. Free public access is supported by donated GPU time and advertising subsidies, while long-term stability is intended to be anchored by state and institutional contributions. For users who need higher availability or premium features, we plan to offer tiers that remain accessible while helping to cover operating costs."
       },
       {
         type: 'heading' as const,
@@ -68,7 +65,7 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "After the Apertus launch, we hope to expand the Utility with new launch partnerships in countries like Singapore, Spain, and Canada. Other improvements: integrated web search, support for image models and multimodal queries, and more jurisdiction-aware handling to reflect different legal and cultural contexts. On the sustainability side, we are refining both the advertising-supported and utility-style business models, while testing \"Plus\" and \"Pro\" tiers that remain accessible. Longer-term, we want the Utility to support national data flywheels and nation-scale inference infrastructure."
+        content: "After the Apertus launch, we hope to expand the Utility with new launch partnerships in countries like Singapore, Spain, and Canada. Other improvements: support for image models and multimodal queries, and more jurisdiction-aware handling to reflect different legal and cultural contexts. On the sustainability side, we are refining both the advertising-supported and utility-style business models, while testing \"Plus\" and \"Pro\" tiers that remain accessible (we'd like to experiment with models based on Wikipedia-style data contributions, though we might supplement that with subscription-based models). Longer-term, we want the Utility to support national data flywheels and nation-scale inference infrastructure."
       },
       {
         type: 'heading' as const,
@@ -76,13 +73,13 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "First off, public / sovereign AI initiatives sometimes need help scaling their models. Despite the fact that many of these initiatives are based at national supercomputing facilities, they often struggle to access enough compute for inference. Nor are they equipped to offer a public-facing service. The Utility solves this problem."
+        content: "Public and sovereign AI labs can build world-class models, but they often lack the compute and infrastructure to serve them reliably. Despite their awesome power, national supercomputing centers are not set up for 24/7 public inference, nor are they equipped to offer a user-facing service. The Utility solves this problem."
       },
       {
         type: 'paragraph' as const,
         content: (
           <>            
-            We&apos;re also trying to complement efforts within the open-source ML ecosystem. Today, nearly all foundation model access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile. The Inference Utility is a step towards a more open and accessible AI ecosystem. In many ways, it&apos;s trying to fill in <a href="https://arxiv.org/abs/2507.09296" className="text-blue-600 hover:text-blue-800 underline">the gaps in the existing open-source ecosystem</a>.
+            It also complements the open-source ML ecosystem by providing stable, transparent, and accountable access to open models—something that is currently only available from private APIs. The Inference Utility is a step towards a more open and accessible AI ecosystem. In many ways, it&apos;s trying to fill in <a href="https://arxiv.org/abs/2507.09296" className="text-blue-600 hover:text-blue-800 underline">the gaps in the existing open-source ecosystem</a>.
           </>
         )
       },
