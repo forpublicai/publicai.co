@@ -31,7 +31,7 @@ export default function AboutPage() {
         type: 'paragraph' as const,
         content: (
           <>
-            We are part of the global movement for public AI. Take a look at our sister project, the <a href="https://publicai.network" className="text-blue-600 hover:text-blue-800 underline">Public AI Network</a>.
+            We are part of the global movement for public AI. Take a look at our sister project, the <a href="https://publicai.network" className="text-blue-600 hover:text-blue-800 underline">Public AI Network</a>, or sign up for our <a href="https://publicai.substack.com" className="text-blue-600 hover:text-blue-800 underline">newsletter</a>.
           </>
         )
       },
@@ -39,7 +39,7 @@ export default function AboutPage() {
         type: 'paragraph' as const,
         content: (
           <>
-            Consider <a href="https://publicai.co/contributing" className="text-blue-600 hover:text-blue-800 underline">joining us</a> or supporting our work <a href="http://opencollective.com/publicai" className="text-blue-600 hover:text-blue-800 underline">with a donation</a>.
+            Consider <a href="/contributing" className="text-blue-600 hover:text-blue-800 underline">joining us</a> or supporting our work <a href="http://opencollective.com/publicai" className="text-blue-600 hover:text-blue-800 underline">with a donation</a>.
           </>
         )
       },
