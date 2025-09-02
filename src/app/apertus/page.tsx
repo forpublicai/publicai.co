@@ -16,7 +16,7 @@ export default function ApertusSwissAIPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "It is now one of the most powerful multilingual LLMs ever released by a public institution—and it's available to everyone through the Public AI reference Utility."
+        content: "It is now one of the most powerful multilingual LLMs ever released by a public institution—and it's available to everyone through the Public AI Inference Utility."
       },
       {
         type: 'list' as const,
