@@ -9,7 +9,7 @@ export default function ContributingPage() {
       {
         type: 'image' as const,
         content: "/josh_puppy.jpeg",
-        className: "float-right ml-6 mb-4 w-64 h-auto rounded-lg"
+        className: "md:float-right md:ml-6 mb-4 w-full max-w-[16rem] h-auto rounded-lg block"
       },
       {
         type: 'paragraph' as const,
