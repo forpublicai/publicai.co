@@ -10,19 +10,19 @@ const publicSans = Public_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Public AI | By the Public, For the Public",
-  description: "Public AI - By the Public, For the Public. Community-driven AI initiative for everyone.",
+  title: "Public AI Inference Utility",
+  description: "A nonprofit, open-source service to make public and sovereign AI models more accessible.",
   icons: {
     icon: '/favicon.ico',
   },
   openGraph: {
-    title: "Public AI | By the Public, For the Public",
-    description: "Public AI - By the Public, For the Public. Community-driven AI initiative for everyone.",
+    title: "Public AI Inference Utility",
+    description: "A nonprofit, open-source service to make public and sovereign AI models more accessible.",
     siteName: "PublicAI",
   },
   twitter: {
-    title: "Public AI | By the Public, For the Public",
-    description: "Public AI - By the Public, For the Public. Community-driven AI initiative for everyone.",
+    title: "Public AI Inference Utility",
+    description: "A nonprofit, open-source service to make public and sovereign AI models more accessible.",
   },
 };
 
