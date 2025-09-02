@@ -43,7 +43,7 @@ export default function UtilityPage() {
           '<strong>National system prompts.</strong> Currently for <a href="https://github.com/forpublicai/chat.publicai.co/blob/main/community/system_prompts/switzerland.md" className="text-blue-600 hover:text-blue-800 underline">Switzerland</a> and for <a href="https://github.com/forpublicai/chat.publicai.co/blob/main/community/system_prompts/singapore.md" className="text-blue-600 hover:text-blue-800 underline">Singapore</a>. Decide as a community what the system prompt should be.',
           "<strong>National knowledgebases</strong> - While logged in, try typing # in the chat to reference national RAG systems for Switzerland and Singapore. (Still experimental.)",
           "<strong>Search and tool usage</strong> - Integrated web search and tool plugins expand the base model’s capabilities. Try the Schwiizerdütsch plugin, our German-speaking users love it.",
-          "<strong>Privacy-first.</strong> By default, user prompts and outputs are not logged or used for training.",
+          "<strong>Privacy-first.</strong> By default, user prompts and outputs are not used for training or shared. Delete or export your chats at any time. Down the line, there will be opportunities to contribute to AI, but only if and when you want to.",
           "<strong>Public governance.</strong> Our funding, model selection, and operating principles are fully open."
         ]
       },
