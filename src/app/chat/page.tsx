@@ -27,6 +27,7 @@ function ChatPageContent() {
   const [selectedModel] = useState('swiss-ai/apertus-8b-it');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const initialMessageProcessed = useRef(false);
   
   const router = useRouter();
@@ -35,8 +36,8 @@ function ChatPageContent() {
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim() || isLoading) return;
 
-    // Show auth modal for guest users on first message (but still allow sending)
-    if (messages.length === 0) {
+    // Show auth modal for guest users on first message and after 8 messages (but still allow sending)
+    if (messages.length === 0 || messages.length === 8) {
       setShowAuthModal(true);
     }
 
@@ -50,6 +51,11 @@ function ChatPageContent() {
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+    
+    // Keep textarea focused after sending message
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 0);
 
     try {
       const response = await fetch('/api/chat', {
@@ -109,6 +115,10 @@ function ChatPageContent() {
       console.error('Error sending message:', error);
     } finally {
       setIsLoading(false);
+      // Refocus textarea when loading completes
+      setTimeout(() => {
+        textareaRef.current?.focus();
+      }, 100);
     }
   }, [isLoading, messages, selectedModel]);
 
@@ -210,13 +220,14 @@ function ChatPageContent() {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center space-x-2 bg-card rounded-lg border border-border p-2">
               <textarea
+                ref={textareaRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Send a message..."
                 className="flex-1 bg-transparent resize-none outline-none min-h-[20px] max-h-32 text-foreground placeholder-muted-foreground pl-2"
                 rows={1}
-                disabled={isLoading}
+                autoFocus
               />
               <button
                 onClick={() => handleSendMessage(input)}
