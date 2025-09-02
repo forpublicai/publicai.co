@@ -12,20 +12,20 @@ export default function AirbusPage() {
     sections: [
       {
         type: 'paragraph' as const,
-        content: "In 1970, European governments came together to build Airbus—a consortium that would challenge Boeing's dominance and establish Europe as a major force in commercial aviation. Today, we face a similar moment in artificial intelligence."
+        content: "In the 1960s, Airbus was born from a recognition that no single European company could compete with the scale and dominance of Boeing. The solution, put together by the French prime minister and the German chancellor (and later their Spanish and British counterparts), was cooperation: a multilateral industrial consortium now known as Airbus. And today, Airbus isn’t just competitive—it’s the largest aerospace manufacturer in the world."
       },
       {
         type: 'paragraph' as const,
-        content: "The AI landscape is dominated by a handful of American companies. Meanwhile, the rest of the world—governments, institutions, researchers, and citizens—depends on their infrastructure, their models, and their terms."
+        content: "In AI today, we face a similar landscape. A few U.S.-based companies dominate the frontier. China is building its own parallel ecosystem with full state backing. The rest of the world—Europe, Canada, Japan, Australia, Singapore, South Korea, and beyond—is investing billions of public funds into sovereign AI strategies but still struggling to achieve global relevance at the frontier."
       },
       {
         type: 'paragraph' as const,
-        content: "It's time for a different approach. It's time for an Airbus for AI."
+        content: "But there is another path. In a new policy brief, computer scientist Joshua Tan, product manager Brandon Jackson, policy thinker Robin Berjon, and economist Diane Coyle make the case for a third way in frontier AI: an international, public-private frontier lab built on democratic values, multilateral coordination, and open infrastructure. They call it an Airbus for AI."
       },
       {
         type: 'list' as const,
         content: [
-          "Read the <a href='/airbus-for-ai.pdf' target='_blank'>full policy brief</a>."
+          "Read the <a href='/airbus-for-ai.pdf' target='_blank'>full Airbus for AI policy brief</a>."
         ]
       },
       {
@@ -34,82 +34,23 @@ export default function AirbusPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Public AI represents a third way forward—neither the closed, proprietary systems of Big Tech nor the chaotic free-for-all of unregulated open source. Instead, we're building public infrastructure for AI: transparent, accountable, and designed to serve the common good."
+        content: "Across Europe and other middle-power countries, governments are spending heavily on national AI efforts—but coordination remains weak. Most funding goes to either small-scale startups or big-ticket industrial alliances, with little focus on creating shared, sovereign AI capacity."
       },
       {
         type: 'paragraph' as const,
-        content: "This means:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "Open models that anyone can inspect, modify, and deploy",
-          "Public compute infrastructure that reduces dependence on commercial clouds",
-          "Governance frameworks that ensure AI serves democratic values",
-          "International cooperation that spreads benefits globally"
-        ]
+        content: "In the meantime, many open-source model developers are hitting walls. Training costs are rising fast. Compute access is uneven. Foundation model development is drifting toward opacity again. And many public institutions still feel sidelined from the frontier—either because they lack scale or because the dominant narrative says that only Big Tech can lead."
       },
       {
         type: 'paragraph' as const,
-        content: "Just as Airbus proved that European cooperation could compete with American aerospace giants, Public AI demonstrates that international collaboration can create viable alternatives to Silicon Valley's AI monopoly."
-      },
-      {
-        type: 'heading' as const,
-        content: "Why Now?"
+        content: "This is a dangerous myth."
       },
       {
         type: 'paragraph' as const,
-        content: "The window for building alternative AI infrastructure is closing rapidly. As AI becomes more central to economic and social life, dependence on a small number of companies becomes a strategic vulnerability."
+        content: 'As the brief argues, the world needs alternatives. A multilateral lab "for the rest of the world" can provide that—by demonstrating that AI can be a public good, and that countries can build it together.'
       },
       {
         type: 'paragraph' as const,
-        content: "Consider the parallels:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "In the 1960s, Europe depended entirely on American aircraft manufacturers",
-          "Today, much of the world depends entirely on American AI companies",
-          "Airbus was created to ensure European technological sovereignty",
-          "Public AI is being built to ensure global AI sovereignty"
-        ]
-      },
-      {
-        type: 'paragraph' as const,
-        content: "The difference is scale and urgency. While aviation affects transportation, AI affects everything. The stakes are higher, and the timeline is shorter."
-      },
-      {
-        type: 'paragraph' as const,
-        content: "But the opportunity is also greater. Unlike aerospace, AI infrastructure can be shared digitally, instantly, and at near-zero marginal cost. A successful model trained in Switzerland can be deployed in Singapore, São Paulo, or Stockholm within minutes."
-      },
-      {
-        type: 'heading' as const,
-        content: "Next Steps"
-      },
-      {
-        type: 'paragraph' as const,
-        content: "Public AI is already working with governments, universities, and research institutions across multiple continents. Our goal is simple: ensure that no country, institution, or individual is forced to depend solely on proprietary AI systems."
-      },
-      {
-        type: 'paragraph' as const,
-        content: "We're building:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "A global network of public compute infrastructure",
-          "Open models trained on diverse, multilingual datasets",
-          "Governance frameworks that embed democratic values",
-          "Technical standards that ensure interoperability and transparency"
-        ]
-      },
-      {
-        type: 'paragraph' as const,
-        content: "The Airbus consortium began with just four European countries. Today, it's a global enterprise that employs hundreds of thousands and serves airlines worldwide."
-      },
-      {
-        type: 'paragraph' as const,
-        content: "Public AI starts with a simple recognition: artificial intelligence is too important to be left entirely to private markets. Like roads, power grids, and communication networks, AI infrastructure should serve the public interest."
+        content: "The Airbus for AI proposal is already informing discussions with policymakers, national labs, and research coalitions. Our team is actively incubating the idea—and supporting partners in designing the first concrete steps."
       },
       {
         type: 'paragraph' as const,
