@@ -23,6 +23,12 @@ export default function AirbusPage() {
         content: "It's time for a different approach. It's time for an Airbus for AI."
       },
       {
+        type: 'list' as const,
+        content: [
+          "Read the <a href='/airbus-for-ai.pdf' target='_blank'>full policy brief</a>."
+        ]
+      },
+      {
         type: 'heading' as const,
         content: "A Third Way for AI"
       },

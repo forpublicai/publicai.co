@@ -8,7 +8,7 @@ export default function UtilityPage() {
     sections: [
       {
         type: 'paragraph' as const,
-        content: "The Public AI Inference Utility is the public access point for open and sovereign AI models."
+        content: "The Public AI Inference Utility is the public access point for public and sovereign AI models."
       },
       {
         type: 'paragraph' as const,

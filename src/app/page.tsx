@@ -168,6 +168,79 @@ export default function Home() {
 
       </div>
 
+      {/* Partners Gallery */}
+      <section className="max-w-6xl mx-auto px-6 py-16 mt-20">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl font-medium text-gray-900 mb-4">Partners</h2>
+          <p className="text-gray-600">Powered by models and compute from leading institutions and organizations</p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 items-center justify-center justify-items-center">
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://www.swiss-ai.org" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/swissai.png" 
+                alt="Swiss AI" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://aws.amazon.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/aws.png" 
+                alt="Amazon Web Services" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://www.exoscale.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/exoscale.png" 
+                alt="Exoscale" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://www.aisingapore.org" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/aisingapore.png" 
+                alt="AI Singapore" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://www.cudocompute.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/cudo.png" 
+                alt="Cudo Compute"
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://www.cscs.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/cscs.jpg" 
+                alt="Swiss National Supercomputing Centre" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://nci.org.au" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/nciaustralia.png" 
+                alt="National Computational Infrastructure Australia" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="max-w-6xl mx-auto px-6 py-20 mt-20">
           <div className="text-center text-sm text-gray-500 mt-8">
