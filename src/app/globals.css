@@ -120,3 +120,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.prose {
+  line-height: 1.2; /* nv 2025-09-01 style tweak: tighten line height relative to typography defaults */
+}
