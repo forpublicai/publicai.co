@@ -28,7 +28,7 @@ export default function Home() {
           </h1>
           
           <p className="text-lg text-gray-600 mb-8 text-center">
-            What if AI were public infrastructure like highways, water, or electricity?
+            ⛰️
           </p>
 
           {/* Input Field */}
@@ -37,7 +37,7 @@ export default function Home() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-              placeholder="Tell me about yourself."
+              placeholder="What's Apertus?"
               className="w-full h-16 px-6 pr-16 text-lg bg-card border-border rounded-xl focus:border-ring focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
             />
             <Button
@@ -57,14 +57,14 @@ export default function Home() {
               onClick={() => setInputValue("What's Apertus?")}
               className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
             >
-              What&apos;s Apertus?
+              What's public AI?
             </Button>
             <Button
               variant="outline"
-              onClick={() => setInputValue("Was ist öffentliche KI?")}
+              onClick={() => setInputValue("Was ist souveräne KI?")}
               className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
             >
-              Was ist öffentliche KI?
+              Was ist souveräne KI?
             </Button>
             <Button
               variant="outline"
@@ -122,7 +122,7 @@ export default function Home() {
             </div>
             <div>
               <h2 className="text-2xl font-medium text-black mb-4">
-                Airbus for AI
+                An Airbus for AI
               </h2>
               <p className="text-gray-600 mb-6">
                 Diane and her co-authors argue for a third way frontier lab for AI—built from existing national labs and national champions.

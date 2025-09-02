@@ -12,12 +12,11 @@ interface Message {
   timestamp: Date;
 }
 
-
 const SUGGESTION_CARDS = [
-  "What are the advantages of using Next.js?",
-  "Write code to demonstrate dijkstra's algorithm",
-  "Help me write an essay about silicon valley",
-  "What is the weather in San Francisco?"
+  "I want to hike the Alps",
+  "I want to make a linzertorte",
+  "I want to make a lot of money very slowly",
+  "I want to give back to my community"
 ];
 
 function ChatPageContent() {
