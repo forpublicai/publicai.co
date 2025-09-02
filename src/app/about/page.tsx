@@ -51,7 +51,7 @@ export default function AboutPage() {
         type: 'paragraph' as const,
         content: (
           <>
-            Questions? Contact us at <a href="mailto:hello@publicai.co" className="text-blue-600 hover:text-blue-800 underline">hello@publicai.co</a>.
+            Questions? Contact us at <a href="mailto:hello@publicai.co" className="text-blue-600 hover:text-blue-800 underline">hello@publicai.co</a> or ping us on <a href="https://www.linkedin.com/company/pubai/" className="text-blue-600 hover:text-blue-800 underline">social media</a>.
           </>
         )
       },
