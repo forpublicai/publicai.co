@@ -20,7 +20,7 @@ export default function AirbusPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "But there is another path. In a new policy brief, computer scientist Joshua Tan, product manager Brandon Jackson, policy thinker Robin Berjon, and economist Diane Coyle make the case for a third way in frontier AI: an international, public-private frontier lab built on democratic values, multilateral coordination, and open infrastructure. They call it an Airbus for AI."
+        content: "There is another way. In a new policy brief, computer scientist Joshua Tan, product manager Brandon Jackson, policy thinker Robin Berjon, and economist Diane Coyle make the case for a third way in frontier AI: an international, public-private frontier lab built on democratic values, multilateral coordination, and open infrastructure. They call it an Airbus for AI."
       },
       {
         type: 'list' as const,
