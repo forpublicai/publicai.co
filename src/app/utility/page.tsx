@@ -38,10 +38,10 @@ export default function UtilityPage() {
       {
         type: 'list' as const,
         content: [
-          '<strong>Everything is open source!</strong> Inspect our frontend <a href="http://github.com/forpublicai/publicai.co" className="text-blue-600 hover:text-blue-800 underline">here</a>, and our app <a href="http://github.com/forpublicai/chat.publicai.co" className="text-blue-600 hover:text-blue-800 underline">here</a>.',
+          '<strong>Everything is open source!</strong> Inspect our frontend <a href="http://github.com/forpublicai/publicai.co" className="text-blue-600 hover:text-blue-800 underline">here</a> and our app <a href="http://github.com/forpublicai/chat.publicai.co" className="text-blue-600 hover:text-blue-800 underline">here</a> (based on <a href="https://github.com/open-webui/open-webui" className="text-blue-600 hover:text-blue-800 underline">OpenWebUI</a>).',
           "<strong>Multiple vetted models.</strong> Access Apertus from Switzerland as well as SEA-LION v4 from Singapore. More coming soon.",
           '<strong>National system prompts.</strong> Currently for <a href="https://github.com/forpublicai/chat.publicai.co/blob/main/community/system_prompts/switzerland.md" className="text-blue-600 hover:text-blue-800 underline">Switzerland</a> and for <a href="https://github.com/forpublicai/chat.publicai.co/blob/main/community/system_prompts/singapore.md" className="text-blue-600 hover:text-blue-800 underline">Singapore</a>. Decide as a community what the system prompt should be.',
-          "<strong>National knowledgebases</strong> - While logged in, try using typing # in the chat to reference national RAG systems for Switzerland and Singapore. (Still experimental.)",
+          "<strong>National knowledgebases</strong> - While logged in, try typing # in the chat to reference national RAG systems for Switzerland and Singapore. (Still experimental.)",
           "<strong>Search and tool usage</strong> - Integrated web search and tool plugins expand the base model’s capabilities. Try the Schwiizerdütsch plugin, our German-speaking users love it.",
           "<strong>Privacy-first.</strong> By default, user prompts and outputs are not logged or used for training.",
           "<strong>Public governance.</strong> Our funding, model selection, and operating principles are fully open."
