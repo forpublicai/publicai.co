@@ -1,32 +1,32 @@
 import OpenAI from 'openai';
 import { NextRequest, NextResponse } from 'next/server';
-
-function getClientConfig(model: string) {
-  if (model.startsWith('aisingapore/')) {
-    return {
-      apiKey: process.env.SEALION_API_KEY!,
-      baseURL: "https://api.sea-lion.ai/v1",
-    };
-  }
-  
-  // Default to OpenRouter for Mistral and other models
-  return {
-    apiKey: process.env.OPENROUTER_API_KEY!,
-    baseURL: "https://openrouter.ai/api/v1",
-  };
-}
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, model = "aisingapore/Gemma-SEA-LION-v3-9B-IT" } = await req.json();
+    const { messages, model = "swiss-ai/apertus-8b-it" } = await req.json();
 
-    // Create client with appropriate configuration
-    const config = getClientConfig(model);
-    const client = new OpenAI(config);
+    // Create client for Swiss AI API
+    const client = new OpenAI({
+      apiKey: process.env.LITELLM_API_KEY!,
+      baseURL: "https://api-internal.publicai.co/v1",
+    });
+
+    // Read system prompt from file
+    const systemPromptPath = join(process.cwd(), 'src/app/api/chat/system_prompt.md');
+    const systemPromptContent = readFileSync(systemPromptPath, 'utf-8');
+    
+    const systemPrompt = {
+      role: "system" as const,
+      content: systemPromptContent
+    };
+
+    const messagesWithSystem = [systemPrompt, ...messages];
     
     const stream = await client.chat.completions.create({
       model,
-      messages,
+      messages: messagesWithSystem,
       stream: true,
     });
 
@@ -59,8 +59,15 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error('Chat API error:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    });
     return NextResponse.json(
-      { error: 'Failed to process chat request' },
+      { 
+        error: 'Failed to process chat request',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     );
   }
