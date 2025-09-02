@@ -8,11 +8,11 @@ export default function UtilityPage() {
     sections: [
       {
         type: 'paragraph' as const,
-        content: "The Public AI Inference Utility is the public access point for open and sovereign AI models. Imagine a water or electric utility, but instead of H20 or electrons, you're getting inference on tap."
+        content: "The Public AI Inference Utility is the public access point for open and sovereign AI models."
       },
       {
         type: 'paragraph' as const,
-        content: "The Utility uses a fully-featured, open-source frontend and a deployment layer that runs on compute from public and private partners around the world. We offer stable, direct access to models built by national (and international) public institutions."
+        content: "The Utility uses a fully-featured, open-source frontend and a deployment layer that runs on compute from public and private partners around the world. We offer stable, direct access to models built by national (and international) public institutions. Imagine a water or electric utility, but instead of H20 or electrons, you're getting inference on tap."
       },
       {
         type: 'heading' as const,
@@ -33,7 +33,7 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Some features you might not notice:"
+        content: "Some features you might not"
       },
       {
         type: 'list' as const,
