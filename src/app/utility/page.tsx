@@ -83,7 +83,7 @@ export default function UtilityPage() {
         type: 'paragraph' as const,
         content: (
           <>            
-            We're also trying to complement efforts within the open-source ML ecosystem. Today, nearly all foundation model access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile. The Inference Utility is a step towards a more open and accessible AI ecosystem. In many ways, it's trying to fill in <a href="https://arxiv.org/abs/2507.09296" className="text-blue-600 hover:text-blue-800 underline">the gaps in the existing open-source ecosystem</a>.
+            We&apos;re also trying to complement efforts within the open-source ML ecosystem. Today, nearly all foundation model access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile. The Inference Utility is a step towards a more open and accessible AI ecosystem. In many ways, it&apos;s trying to fill in <a href="https://arxiv.org/abs/2507.09296" className="text-blue-600 hover:text-blue-800 underline">the gaps in the existing open-source ecosystem</a>.
           </>
         )
       },
