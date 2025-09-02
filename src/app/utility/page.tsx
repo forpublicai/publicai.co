@@ -12,39 +12,28 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "The Utility uses a fully-featured, open-source frontend and a deployment layer that runs on compute from public and private partners around the world. We offer stable, direct access to models built by national (and international) public institutions. Our goal is to make AI a public service, not a private privilege."
-      },
-      {
-        type: 'paragraph' as const,
-        content: "Some other features you might miss, and some that are still upcoming."
+        content: "The Utility uses a fully-featured, open-source frontend and a deployment layer that runs on compute from public and private partners around the world. We offer stable, direct access to models built by national (and international) public institutions."
       },
       {
         type: 'heading' as const,
-        content: "Why it matters"
+        content: "What you can do with it"
       },
       {
         type: 'paragraph' as const,
         content: (
           <>
-            Today, nearly all AI access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile. The Inference Utility is a step towards a more open and accessible AI ecosystem. In many ways, it's trying to fill in <a href="https://arxiv.org/abs/2507.09296" className="text-blue-600 hover:text-blue-800 underline">the gaps in the open-source ecosystem</a>.
+            Try using it: <a href="https://chat.publicai.co" className="text-blue-600 hover:text-blue-800 underline">chat.publicai.co</a>.
           </>
         )
       },
       {
+        type: 'image' as const,
+        content: "/ui_switzerland.png",
+        className: "w-2/3 mx-auto mb-8 rounded-lg"
+      },
+      {
         type: 'paragraph' as const,
-        content: "The Inference Utility fills that gap:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "<strong>Public access to public AI</strong> — a shared service for citizens, researchers, and institutions",
-          "<strong>Clean, easy-to-use interface</strong> — chat with open models, integrated with search and national knowledgebases",
-          "<strong>Sovereign infrastructure in progress</strong> — anchored in publicly funded deployments"
-        ]
-      },
-      {
-        type: 'heading' as const,
-        content: "What you can do with it"
+        content: "Some features you might not notice:"
       },
       {
         type: 'list' as const,
@@ -53,25 +42,14 @@ export default function UtilityPage() {
           "<strong>Multilingual & jurisdiction-aware.</strong> Tuned for European and international deployments.",
           "<strong>Multiple vetted models.</strong> Access to a range of open-weight models from national labs and research centers.",
           "<strong>Privacy-first.</strong> By default, user prompts and outputs are not logged.",
-          "<strong>Public governance.</strong> Funding, model selection, and operating principles are openly documented."
+          "<strong>Public governance.</strong> Funding, model selection, and operating principles are openly documented.",
+          "<strong>Search and tool usage</strong> - ...",
+          "<strong>National knowledgebases</strong> - ...",
         ]
       },
       {
         type: 'heading' as const,
-        content: "Who is it for?"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "Citizens & communities seeking a trustworthy alternative to corporate APIs",
-          "Public sector initiatives piloting or scaling sovereign AI models",
-          "Academics & nonprofits who need reliable access to open models",
-          "Policy institutions & regulators testing transparent AI deployments"
-        ]
-      },
-      {
-        type: 'heading' as const,
-        content: "How it's sustained"
+        content: "How it works"
       },
       {
         type: 'paragraph' as const,
@@ -86,25 +64,41 @@ export default function UtilityPage() {
         ]
       },
       {
-        type: 'paragraph' as const,
-        content: "The goal is to make AI inference a public service, not a private privilege."
-      },
-      {
-        type: 'heading' as const,
-        content: "Governance & affiliation"
-      },
-      {
-        type: 'paragraph' as const,
-        content: "The Public AI Inference Utility is built by Metagov, a nonprofit research lab, under its Airbus for AI initiative. It is part of the broader movement for public AI — an effort to make AI a form of public infrastructure, like highways, water, or electricity."
-      },
-      {
         type: 'heading' as const,
         content: "Roadmap"
       },
       {
         type: 'paragraph' as const,
         content: "After the Apertus launch, we hope to expand the Utility with new launch partnerships in countries like Singapore, Spain, and Canada. Other improvements: integrated web search, support for image models and multimodal queries, and more jurisdiction-aware handling to reflect different legal and cultural contexts. On the sustainability side, we are refining both the advertising-supported and utility-style business models, while testing \"Plus\" and \"Pro\" tiers that remain accessible. Longer-term, we want the Utility to support national data flywheels and nation-scale inference infrastructure."
-      }
+      },
+      {
+        type: 'heading' as const,
+        content: "Why it matters"
+      },
+      {
+        type: 'paragraph' as const,
+        content: "First off, public / sovereign AI initiatives sometimes need help scaling their models. Despite the fact that many of these initiatives are based at national supercomputing facilities, they often struggle to access enough compute for inference. Nor are they equipped to offer a public-facing service. The Utility solves this problem."
+      },
+      {
+        type: 'paragraph' as const,
+        content: (
+          <>            
+            We're also trying to complement efforts within the open-source ML ecosystem. Today, nearly all foundation model access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile. The Inference Utility is a step towards a more open and accessible AI ecosystem. In many ways, it's trying to fill in <a href="https://arxiv.org/abs/2507.09296" className="text-blue-600 hover:text-blue-800 underline">the gaps in the existing open-source ecosystem</a>.
+          </>
+        )
+      },
+      {
+        type: 'heading' as const,
+        content: "Learn more"
+      },
+      {
+        type: 'paragraph' as const,
+        content: (
+          <>
+            To learn more about the team behind the Utility, go to our <a href="/about" className="text-blue-600 hover:text-blue-800 underline">about page</a>.
+          </>
+        )
+      },
     ]
   };
 
