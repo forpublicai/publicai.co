@@ -3,9 +3,56 @@ import { NextRequest, NextResponse } from 'next/server';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+// Rate limiting
+const rateLimits = new Map<string, { count: number; resetTime: number }>();
+const MAX_REQUESTS_PER_MINUTE = 20;
+const MAX_MESSAGE_LENGTH = 10000;
+
+function getClientIP(req: NextRequest): string {
+  return req.headers.get('x-forwarded-for')?.split(',')[0] || 
+         req.headers.get('x-real-ip') || 
+         'unknown';
+}
+
+function isRateLimited(clientIP: string): boolean {
+  const now = Date.now();
+  const client = rateLimits.get(clientIP);
+  
+  if (!client || now > client.resetTime) {
+    // Reset or create new rate limit window
+    rateLimits.set(clientIP, { count: 1, resetTime: now + 60000 });
+    return false;
+  }
+  
+  if (client.count >= MAX_REQUESTS_PER_MINUTE) {
+    return true;
+  }
+  
+  client.count++;
+  return false;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { messages, model = "swiss-ai/apertus-8b-it" } = await req.json();
+    
+    // Rate limiting check
+    const clientIP = getClientIP(req);
+    if (isRateLimited(clientIP)) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please wait a moment before trying again.' },
+        { status: 429 }
+      );
+    }
+    
+    // Message length validation
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.content?.length > MAX_MESSAGE_LENGTH) {
+      return NextResponse.json(
+        { error: 'Message too long. Please keep messages under 10000 characters.' },
+        { status: 400 }
+      );
+    }
 
     // Create client for Swiss AI API
     const client = new OpenAI({

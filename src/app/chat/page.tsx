@@ -26,6 +26,7 @@ function ChatPageContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel] = useState('swiss-ai/apertus-8b-it');
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const initialMessageProcessed = useRef(false);
@@ -35,6 +36,9 @@ function ChatPageContent() {
 
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim() || isLoading) return;
+
+    // Clear any previous errors
+    setError(null);
 
     // Show auth modal for guest users on first message and after 8 messages (but still allow sending)
     if (messages.length === 0 || messages.length === 8) {
@@ -70,7 +74,16 @@ function ChatPageContent() {
         })
       });
 
-      if (!response.ok) throw new Error('Failed to send message');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        if (response.status === 429) {
+          throw new Error(errorData.error || 'Too many requests. Please wait a moment before trying again.');
+        } else if (response.status === 400) {
+          throw new Error(errorData.error || 'Message too long. Please keep messages under 10000 characters.');
+        } else {
+          throw new Error(errorData.error || 'Failed to send message. Please try again.');
+        }
+      }
 
       const reader = response.body?.getReader();
       if (!reader) throw new Error('No reader available');
@@ -113,6 +126,16 @@ function ChatPageContent() {
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      
+      // Remove the user message if there was an error
+      setMessages(prev => prev.filter(msg => msg.id !== userMessage.id));
+      
+      // Set error message for display
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.';
+      setError(errorMessage);
+      
+      // Restore the input
+      setInput(content.trim());
     } finally {
       setIsLoading(false);
       // Refocus textarea when loading completes
@@ -218,6 +241,13 @@ function ChatPageContent() {
         {/* Message Input */}
         <div className="p-4 border-t border-border">
           <div className="max-w-4xl mx-auto">
+            {/* Error Message */}
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {error}
+              </div>
+            )}
+            
             <div className="flex items-center space-x-2 bg-card rounded-lg border border-border p-2">
               <textarea
                 ref={textareaRef}
