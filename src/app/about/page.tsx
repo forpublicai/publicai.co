@@ -12,23 +12,15 @@ export default function AboutPage() {
     sections: [
       {
         type: 'paragraph' as const,
-        content: "Public AI is a nonprofit organization dedicated to building artificial intelligence infrastructure that serves the public interest. We develop open models, public compute resources, and governance frameworks that ensure AI benefits everyone, not just a privileged few."
+        content: "The Public AI Inference Utility is a nonprofit, open-source project. We build products and organize advocacy to support the work of public AI model builders like the Swiss AI Initiative, AI Singapore, AI Sweden, and the Barcelona Supercomputing Center."
       },
       {
         type: 'paragraph' as const,
-        content: "Our work spans three core areas:"
-      },
-      {
-        type: 'list' as const,
-        content: [
-          "Open Models: We develop and deploy state-of-the-art AI models that are fully transparent and freely available",
-          "Public Infrastructure: We build compute and deployment infrastructure that reduces dependence on commercial providers",
-          "Democratic Governance: We create frameworks that ensure AI development reflects democratic values and serves the common good"
-        ]
+        content: "Our mission is to build public AI."
       },
       {
         type: 'paragraph' as const,
-        content: "We believe that artificial intelligence is too important to be left entirely to private markets. Like roads, power grids, and communication networks, AI infrastructure should be a public good."
+        content: "Our team is fiscally sponsored by Metagov and funded by Mozilla, the Future of Life Institute, and the Center for Cultural Innovation."
       },
       {
         type: 'heading' as const,
@@ -59,16 +51,16 @@ export default function AboutPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Public AI is supported by grants, donations, and partnerships with institutions that share our vision. We're committed to transparency in our funding, governance, and technical development."
+        content: "Public AI is supported by grants, donations, and partnerships with institutions that share our vision. We&apos;re committed to transparency in our funding, governance, and technical development."
       },
       {
         type: 'paragraph' as const,
-        content: "Want to get involved? We're always looking for researchers, engineers, policymakers, and advocates who want to help build the future of public AI. Visit our contributing page or reach out directly."
+        content: "Want to get involved? We&apos;re always looking for researchers, engineers, policymakers, and advocates who want to help build the future of public AI. Visit our contributing page or reach out directly."
       },
       {
         type: 'list' as const,
         content: [
-          '<a href="https://publicai.co/contributing" class="text-blue-600 hover:text-blue-800 underline">Contributing</a>',
+          '<a href="https://publicai.co/contributing">Contributing</a>',
           '<a href="https://github.com/forpublicai/" class="text-blue-600 hover:text-blue-800 underline">GitHub</a>',
           '<a href="http://opencollective.com/publicai" class="text-blue-600 hover:text-blue-800 underline">Open Collective</a>'
         ]
