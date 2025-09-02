@@ -3,7 +3,7 @@ import Image from "next/image";
 
 interface ArticleSection {
   type: 'heading' | 'paragraph' | 'list' | 'image' | 'html' | 'quote';
-  content: string | string[];
+  content: string | string[] | React.ReactNode;
   className?: string;
   attribution?: string;
 }
@@ -62,7 +62,7 @@ export default function Article({ title, subtitle, date, heroImage, sections }: 
               case 'paragraph':
                 return (
                   <p key={index} className={`text-gray-700 mb-6 leading-relaxed ${section.className || ''}`}>
-                    {section.content}
+                    {typeof section.content === 'string' ? section.content : section.content}
                   </p>
                 );
               case 'list':
@@ -78,13 +78,13 @@ export default function Article({ title, subtitle, date, heroImage, sections }: 
                 );
               case 'image':
                 return (
-                  <div key={index} className="mb-8">
+                  <div key={index} className={`mb-8 ${section.className || ''}`}>
                     <Image 
                       src={section.content as string}
                       alt={`Article image ${index + 1}`}
                       width={800}
                       height={400}
-                      className="w-full rounded-lg"
+                      className={section.className ? "rounded-lg" : "w-full rounded-lg"}
                     />
                   </div>
                 );
