@@ -4,7 +4,7 @@ export default function ApertusSwissAIPage() {
   const articleData = {
     title: "With love, from Switzerland",
     subtitle: "Imanol's team just launched Apertus, the most powerful open-source language model ever released by a public institution.",
-    date: "September 1, 2025",
+    date: "September 2, 2025",
     heroImage: {
       src: "/switzerland.png",
       alt: "With love, from Switzerland"
@@ -12,7 +12,7 @@ export default function ApertusSwissAIPage() {
     sections: [
       {
         type: 'paragraph' as const,
-        content: "On August 30, 2025, the Swiss AI Initiative—a collaboration between EPFL, ETH Zurich, and the Swiss National Supercomputing Centre (CSCS)—released Apertus, the country's first large-scale open language model. Built with Swiss values in mind—transparency, multilingual capabilities, and public service—Apertus is a fully open-source foundation model released in two versions under the Apache 2.0 license."
+        content: "On September 2, 2025, the Swiss AI Initiative—a collaboration between EPFL, ETH Zurich, and the Swiss National Supercomputing Centre (CSCS)—released Apertus, the country's first large-scale open language model. Built with Swiss values in mind—transparency, multilingual capabilities, and public service—Apertus is a fully open-source foundation model released in two versions (8B and 70B) under the Apache 2.0 license."
       },
       {
         type: 'paragraph' as const,
@@ -28,7 +28,7 @@ export default function ApertusSwissAIPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Public AI is proud to be the official international deployment partner for Apertus."
+        content: "Public AI is proud to be the official international deployment partner for Apertus. To support Apertus, we've allocated around ~115,000 GPU-hours spread across 10 clusters in 5+ countries—just for the month of September. For reference, that’s a Geneva-sized amount of inference: about what a city the size of Geneva spends on consumer compute per month."
       },
       {
         type: 'heading' as const,
@@ -36,7 +36,7 @@ export default function ApertusSwissAIPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "The name \"Apertus\" comes from Latin, meaning open. That's not just branding—it's the core principle."
+        content: "The name \"Apertus\" comes from Latin, meaning open. That's not just branding; it's the core principle."
       },
       {
         type: 'paragraph' as const,
@@ -64,7 +64,7 @@ export default function ApertusSwissAIPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Apertus is trained on 15 trillion tokens across more than 1500 languages, with 40% of the training data in non-English languages. That includes Swiss languages like Romansh and German, as well as many others historically underrepresented in mainstream LLMs."
+        content: "Apertus is trained on 15 trillion tokens across more than 1500 languages, with 40% of the training data in non-English languages. That includes Swiss languages like Romansh and German, as well as many others historically underrepresented in mainstream, private LLMs."
       },
       {
         type: 'paragraph' as const,

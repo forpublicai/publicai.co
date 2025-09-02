@@ -2,21 +2,21 @@ import Article from "@/components/Article";
 
 export default function UtilityPage() {
   const articleData = {
-    title: "Inference Utility",
-    subtitle: "AI for everyone",
-    date: "September 1, 2025",
+    title: "About the Inference Utility",
+    subtitle: "Public AI for countries",
+    date: "September 2, 2025",
     sections: [
       {
         type: 'paragraph' as const,
-        content: "The Public AI Inference Utility is the public access point for open and sovereign AI models. Imagine a water or electric utility—but for AI."
+        content: "The Public AI Inference Utility is the public access point for open and sovereign AI models. Imagine a water or electric utility, but instead of H20 or electrons, you're getting inference on tap."
       },
       {
         type: 'paragraph' as const,
-        content: "It's a lightweight, open-source frontend and deployment layer that runs on compute from public and private partners around the world, giving citizens, researchers, and policymakers a simple chat interface to interact with vetted open models."
+        content: "The Utility uses a fully-featured, open-source frontend and a deployment layer that runs on compute from public and private partners around the world. We offer stable, direct access to models built by national (and international) public institutions. Our goal is to make AI a public service, not a private privilege."
       },
       {
         type: 'paragraph' as const,
-        content: "Instead of depending on private APIs, the Utility offers direct access to models built by public institutions, backed by transparent governance and a sustainable funding model."
+        content: "Some other features you might miss, and some that are still upcoming."
       },
       {
         type: 'heading' as const,
@@ -24,7 +24,11 @@ export default function UtilityPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Today, nearly all AI access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile."
+        content: (
+          <>
+            Today, nearly all AI access is mediated by private companies. Even when open models exist, public access is fragmented, opaque, and fragile. The Inference Utility is a step towards a more open and accessible AI ecosystem. In many ways, it's trying to fill in <a href="https://arxiv.org/abs/2507.09296" className="text-blue-600 hover:text-blue-800 underline">the gaps in the open-source ecosystem</a>.
+          </>
+        )
       },
       {
         type: 'paragraph' as const,
