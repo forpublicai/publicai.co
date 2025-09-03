@@ -238,7 +238,7 @@ function ChatPageContent() {
         </div>
 
         {/* Message Input */}
-        <div className="p-4 border-t border-border">
+        <div className="pt-4 border-t border-border">
           <div className="max-w-4xl mx-auto">
             {/* Error Message */}
             {error && (
@@ -265,6 +265,11 @@ function ChatPageContent() {
               >
                 <Send className="w-4 h-4" />
               </button>
+            </div>
+            
+            {/* AWS Attribution */}
+            <div className="text-center m-2">
+              <span className="text-xs text-muted-foreground">⚡ I run on AWS infrastructure in Switzerland</span>
             </div>
           </div>
         </div>
