@@ -28,7 +28,7 @@ export default function ApertusSwissAIPage() {
       },
       {
         type: 'paragraph' as const,
-        content: "Public AI is proud to be the official international deployment partner for Apertus. To support Apertus, we've allocated over 115,000 GPU-hours spread across 20 clusters in 5+ countries—just for the month of September. For reference, that’s a Geneva-sized amount of inference: about what a city the size of Geneva spends on consumer compute per month. This was made possible by our many inference partners, led by Amazon Web Services, Exoscale, AI Singapore, Cudo Compute, the Swiss National Supercomputing Centre (CSCS), and the National Computational Infrastructure (NCI) Australia."
+        content: "Public AI is proud to be the official international deployer for Apertus. To support Apertus, we've allocated over 115,000 GPU-hours spread across 20 clusters in 5+ countries—just for the month of September. For reference, that’s a Geneva-sized amount of inference: about what a city the size of Geneva spends on consumer compute per month. This was made possible by our many inference partners, led by Amazon Web Services, Exoscale, AI Singapore, Cudo Compute, the Swiss National Supercomputing Centre (CSCS), and the National Computational Infrastructure (NCI) Australia."
       },
       {
         type: 'heading' as const,
