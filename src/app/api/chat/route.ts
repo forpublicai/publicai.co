@@ -34,7 +34,7 @@ function isRateLimited(clientIP: string): boolean {
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, model = "swiss-ai/apertus-8b-instruct-exoscale" } = await req.json();
+    const { messages, model = "swiss-ai/apertus-8b-instruct" } = await req.json();
     
     // Rate limiting check
     const clientIP = getClientIP(req);
