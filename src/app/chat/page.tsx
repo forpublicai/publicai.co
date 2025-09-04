@@ -13,17 +13,17 @@ interface Message {
 }
 
 const SUGGESTION_CARDS = [
-  "I want to hike the Alps",
-  "I want to make a linzertorte",
-  "I want to make a lot of money very slowly",
-  "I want to give back to my community"
+  "Tell me about Public AI - what it is, how it works, and why public AI infrastructure matters.",
+  "Explain AI safety - what are the key risks and how are they being addressed in public AI systems?",
+  "What is AI transparency and why is it important for public sector AI deployment?",
+  "Compare public AI infrastructure with commercial AI platforms - what are the key differences and trade-offs?"
 ];
 
 function ChatPageContent() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel] = useState('swiss-ai/apertus-8b-instruct');
+  const [selectedModel] = useState('swiss-ai/apertus-8b-instruct-exoscale');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);

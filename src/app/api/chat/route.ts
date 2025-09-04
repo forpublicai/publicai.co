@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
     const client = new OpenAI({
       apiKey: process.env.LITELLM_API_KEY!,
       baseURL: "https://api-internal.publicai.co/v1",
+      timeout: 15000, // 15 second timeout
     });
 
     // Read system prompt from file
