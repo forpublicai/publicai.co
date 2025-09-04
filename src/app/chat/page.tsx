@@ -25,6 +25,7 @@ function ChatPageContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel] = useState('swiss-ai/apertus-8b-instruct-exoscale');
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showModelBanner, setShowModelBanner] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -178,8 +179,37 @@ function ChatPageContent() {
 
   return (
     <div className="flex h-[calc(100vh-4rem)] bg-background text-foreground">
+      {/* Model Information Banner */}
+      {showModelBanner && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-blue-50 border-b border-blue-200 px-4 py-3">
+          <div className="max-w-4xl mx-auto flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="text-blue-700">
+                <span className="font-medium">You&apos;re chatting with Apertus 8B</span>
+                <span className="text-blue-600 ml-2">• For the 70B model, visit </span>
+                <a 
+                  href="https://chat.publicai.co" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline font-medium"
+                >
+                  chat.publicai.co
+                </a>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowModelBanner(false)}
+              className="text-blue-500 hover:text-blue-700 p-1"
+              aria-label="Close banner"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col" style={{ marginTop: showModelBanner ? '60px' : '0' }}>
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto">
           {messages.length === 0 ? (
