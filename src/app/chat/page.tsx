@@ -267,9 +267,9 @@ function ChatPageContent() {
               </button>
             </div>
             
-            {/* AWS Attribution */}
+            {/* Sponsor Attribution */}
             <div className="text-center m-2">
-              <span className="text-xs text-muted-foreground">⚡ I run on AWS infrastructure in Switzerland</span>
+              <span className="text-xs text-muted-foreground">⚡ This is running on Exoscale infrastructure in Switzerland and Austria.</span>
             </div>
           </div>
         </div>
