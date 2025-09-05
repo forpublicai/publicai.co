@@ -23,7 +23,7 @@ function ChatPageContent() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel] = useState('swiss-ai/apertus-8b-instruct');
+  const [selectedModel] = useState('swiss-ai/apertus-8b-instruct-exoscale');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
