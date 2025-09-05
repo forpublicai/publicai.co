@@ -26,6 +26,7 @@ function ChatPageContent() {
   const [selectedModel] = useState('swiss-ai/apertus-8b-instruct');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sponsorText, setSponsorText] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const initialMessageProcessed = useRef(false);
@@ -54,6 +55,11 @@ function ChatPageContent() {
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+    
+    // Set sponsor text on first message
+    if (messages.length === 0 && !sponsorText) {
+      setSponsorText(Math.random() < 0.9 ? 'AWS infrastructure in Switzerland' : 'Exoscale infrastructure in Switzerland and Austria');
+    }
     
     // Keep textarea focused after sending message
     setTimeout(() => {
@@ -204,6 +210,15 @@ function ChatPageContent() {
             </div>
           ) : (
             <div className="p-6 space-y-6 max-w-4xl mx-auto">
+              {/* Sponsor Attribution - shown above first message */}
+              {sponsorText && (
+                <div className="text-center py-4">
+                  <span className="text-xs text-muted-foreground">
+                    ⚡ This is running on {sponsorText}.
+                  </span>
+                </div>
+              )}
+              
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -268,10 +283,6 @@ function ChatPageContent() {
               </button>
             </div>
             
-            {/* Sponsor Attribution */}
-            <div className="text-center m-2">
-              <span className="text-xs text-muted-foreground">⚡ This is running on Exoscale infrastructure in Switzerland and Austria.</span>
-            </div>
           </div>
         </div>
       </div>
