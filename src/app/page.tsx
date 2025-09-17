@@ -108,6 +108,35 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Hugging Face Partnership */}
+        <section className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-2xl font-medium text-black mb-4">
+                🤗📡🤝
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Julien and Simon's team just helped us launch as an official inference provider on Hugging Face!
+              </p>
+                <Link 
+                href="/huggingface"
+                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
+              >
+                Read more
+              </Link>
+            </div>
+            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
+              <Image 
+                src="/people/nanobanana_julien_simon.png" 
+                alt="With love, from Switzerland" 
+                width={400}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Airbus for AI */}
         <section className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-start">
