@@ -116,7 +116,7 @@ export default function Home() {
                 🤗📡🤝
               </h2>
               <p className="text-gray-600 mb-6">
-                Julien and Simon's team just helped us launch as an official inference provider on Hugging Face!
+                Julien and Simon&apos;s team just helped us launch as an official inference provider on Hugging Face!
               </p>
                 <Link 
                 href="/huggingface"
