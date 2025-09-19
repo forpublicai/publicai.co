@@ -267,6 +267,15 @@ export default function Home() {
               />
             </a>
           </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://www.fz-juelich.de/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/juelich.png" 
+                alt="Juelich Supercomputing Center" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
         </div>
       </section>
 
