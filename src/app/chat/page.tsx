@@ -3,7 +3,7 @@
 import { Suspense, useState, useEffect, useRef } from 'react';
 import { AssistantRuntimeProvider, useThread, useComposerRuntime } from '@assistant-ui/react';
 import { useChatRuntime } from '@assistant-ui/react-ai-sdk';
-import { useRouter, useSearchParams, type AppRouterInstance } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Thread } from '@/components/assistant-ui/thread';
 
 function ChatPageContent() {
@@ -46,11 +46,12 @@ function ChatWrapper({
   messageCount: number;
   setMessageCount: (count: number) => void;
   initialMessage: string | null;
-  router: AppRouterInstance;
+  router: ReturnType<typeof useRouter>;
 }) {
   const thread = useThread();
   const composer = useComposerRuntime();
   const initialSubmitted = useRef(false);
+  const [sponsorText, setSponsorText] = useState<string | null>(null);
 
   // Handle initial message submission using composer
   useEffect(() => {
@@ -70,7 +71,7 @@ function ChatWrapper({
     }
   }, [initialMessage, router, composer]);
 
-  // Monitor message count for auth modal
+  // Monitor message count for auth modal and sponsor text
   useEffect(() => {
     const messages = thread.messages;
     const userMessages = messages.filter(m => m.role === 'user');
@@ -78,15 +79,28 @@ function ChatWrapper({
     if (userMessages.length !== messageCount) {
       setMessageCount(userMessages.length);
 
-      // Show auth modal after 5 user messages
+      // Show auth modal after 3 user messages
       if (userMessages.length === 3) {
         setShowAuthModal(true);
       }
+
+      // Set sponsor text on first message
+      if (userMessages.length === 1 && !sponsorText) {
+        setSponsorText(Math.random() < 0.9 ? 'AWS infrastructure in Switzerland' : 'Exoscale infrastructure in Switzerland and Austria');
+      }
     }
-  }, [thread.messages, messageCount, setMessageCount, setShowAuthModal]);
+  }, [thread.messages, messageCount, setMessageCount, setShowAuthModal, sponsorText]);
 
   return (
     <div className="h-[calc(100vh-4rem)]">
+      {/* Sponsor Attribution - shown above first message */}
+      {sponsorText && thread.messages.length > 0 && (
+        <div className="text-center py-4 bg-background">
+          <span className="text-xs text-muted-foreground">
+            ⚡ This is running on {sponsorText}.
+          </span>
+        </div>
+      )}
       <Thread />
 
       {/* Auth Modal */}

@@ -126,7 +126,7 @@ export default async function Home() {
           {/* Two cards */}
           <div className="grid md:grid-cols-2 gap-16">
             {/* About Public AI Card */}
-            <Link href="/about/about-us" className="block">
+            <Link href="/about" className="block">
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
                 <Image
                   src="/josh_puppy.jpeg"
@@ -156,7 +156,7 @@ export default async function Home() {
             </Link>
 
             {/* Contributing Card */}
-            <Link href="/about/contributing" className="block">
+            <Link href="/contributing" className="block">
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
                 <Image
                   src="/community.jpeg"

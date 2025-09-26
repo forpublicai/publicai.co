@@ -112,24 +112,24 @@ const ThreadWelcomeSuggestions: FC = () => {
     <div className="aui-thread-welcome-suggestions grid w-full gap-2 @md:grid-cols-2">
       {[
         {
-          title: "What's the weather",
-          label: "in San Francisco?",
-          action: "What's the weather in San Francisco?",
+          title: "Write me a Swiss German",
+          label: "recipe for Rösti",
+          action: "Write me a traditional Swiss German recipe for Rösti with some local tips",
         },
         {
-          title: "Explain React hooks",
-          label: "like useState and useEffect",
-          action: "Explain React hooks like useState and useEffect",
+          title: "What makes Swiss democracy",
+          label: "so unique?",
+          action: "What makes Swiss democracy and its direct democracy system so unique?",
         },
         {
-          title: "Write a SQL query",
-          label: "to find top customers",
-          action: "Write a SQL query to find top customers",
+          title: "Plan a hiking trip",
+          label: "in the Swiss Alps",
+          action: "Plan a 3-day hiking trip in the Swiss Alps with mountain huts and scenic routes",
         },
         {
-          title: "Create a meal plan",
-          label: "for healthy weight loss",
-          action: "Create a meal plan for healthy weight loss",
+          title: "Explain Public AI",
+          label: "vs Big Tech models",
+          action: "Explain the difference between Public AI infrastructure and Big Tech AI models",
         },
       ].map((suggestedAction, index) => (
         <m.div
