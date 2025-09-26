@@ -90,16 +90,18 @@ function ChatWrapper({
   }, [thread.messages, messageCount, setMessageCount, setShowAuthModal, sponsorText]);
 
   return (
-    <div className="h-[calc(100vh-4rem)]">
+    <div className="fixed inset-0 top-16 flex flex-col bg-background">
       {/* Sponsor Attribution - shown above first message */}
       {sponsorText && thread.messages.length > 0 && (
-        <div className="text-center py-4 bg-background">
+        <div className="text-center py-4 bg-background flex-shrink-0">
           <span className="text-xs text-muted-foreground">
-            ⚡ This is running on {sponsorText}.
+            ⚡ This conversation is running on {sponsorText}.
           </span>
         </div>
       )}
-      <Thread />
+      <div className="flex-1 min-h-0">
+        <Thread />
+      </div>
 
       {/* Auth Modal */}
       {showAuthModal && (
