@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="px-6 py-24 flex items-center">
+      <section className="px-2 py-24">
         <div className="max-w-3xl mx-auto w-full">
           <h1 className="text-6xl font-normal text-black mb-8 leading-tight text-center">
             Try Apertus
@@ -21,8 +21,10 @@ export default async function Home() {
           </p>
 
           <ChatInterface />
+        </div>
 
-          <p className="text-2xl text-black text-center mt-12 mb-16 whitespace-nowrap">
+        <div className="max-w-5xl mx-auto w-full">
+          <p className="text-3xl text-black text-center mt-12 mb-16">
             What if AI were public infrastructure like highways, water, or electricity?
           </p>
         </div>
