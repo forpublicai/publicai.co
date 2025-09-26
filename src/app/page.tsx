@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="px-6 py-24 min-h-[85vh] flex items-center">
+      <section className="px-6 py-24 flex items-center">
         <div className="max-w-3xl mx-auto w-full">
           <h1 className="text-6xl font-normal text-black mb-8 leading-tight text-center">
             Try Apertus
@@ -25,7 +25,7 @@ export default async function Home() {
       </section>
 
       {/* Content Sections */}
-      <div className="px-6 space-y-40">
+      <div className="px-6 space-y-24">
         {/* Featured News Section */}
         {featuredNewsItems.length > 0 && (
           <section className="max-w-6xl mx-auto">
@@ -211,9 +211,9 @@ export default async function Home() {
       </div>
 
       {/* Partners Gallery */}
-      <section className="max-w-6xl mx-auto px-6 py-24 mt-32">
+      <section className="max-w-6xl mx-auto px-6 py-24 mt-16">
         <div className="text-center mb-12">
-          <h2 className="text-2xl font-medium text-gray-900 mb-4">Partners</h2>
+          <h2 className="text-2xl font-medium text-gray-900 mb-4">Our partners</h2>
           <p className="text-gray-600">Powered by models and compute from leading institutions and organizations</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 items-center justify-center justify-items-center">
@@ -292,11 +292,50 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Call to Action Section */}
+      <section className="max-w-4xl mx-auto px-6 py-24 mt-16">
+        <div className="text-center space-y-8">
+          <h2 className="text-5xl font-normal text-black leading-tight">
+            By the people, for the people
+          </h2>
+          <p className="text-lg text-gray-600">
+            Join the movement to make AI accessible to everyone
+          </p>
+          <div className="pt-8">
+            <a
+              href="https://chat.publicai.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-black text-white text-lg font-medium px-12 py-4 rounded-full hover:bg-gray-800 transition-colors"
+            >
+              TRY IT ↗
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="max-w-6xl mx-auto px-6 py-24 mt-32">
-          <div className="text-center text-sm text-gray-500 mt-8">
-            &copy; 2025 Public AI Inference Utility, All rights reserved. &nbsp;
-            <Link href="/tc" className="hover:text-gray-800">Terms & conditions</Link>
+      <footer className="max-w-6xl mx-auto px-6 py-24 mt-16">
+          <div className="space-y-16">
+            {/* Navigation Links */}
+            <div className="flex space-x-12">
+              <Link href="/tc" className="text-black hover:text-gray-600 transition-colors text-sm font-medium">
+                TERMS & CONDITIONS
+              </Link>
+              <a href="mailto:hello@publicai.co" className="text-black hover:text-gray-600 transition-colors text-sm font-medium">
+                CONTACT US
+              </a>
+            </div>
+
+            {/* Copyright */}
+            <div className="flex justify-between items-center text-sm text-gray-500">
+              <div>
+                &copy; Public AI Inference Utility &nbsp;&nbsp; 2025
+              </div>
+              <div>
+                All Rights Reserved
+              </div>
+            </div>
           </div>
       </footer>
     </div>
