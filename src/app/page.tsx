@@ -23,11 +23,6 @@ export default async function Home() {
           <LandingChatInterface />
         </div>
 
-        <div className="max-w-5xl mx-auto w-full">
-          <p className="text-3xl text-black text-center mt-12 mb-16">
-            What if AI were public infrastructure like highways, water, or electricity?
-          </p>
-        </div>
       </section>
 
       {/* Content Sections */}
@@ -52,9 +47,6 @@ export default async function Home() {
 
                     {/* Featured Text Content */}
                     <div className="space-y-6">
-                      <div className="inline-block bg-black text-white text-xs font-medium px-3 py-1 rounded-full">
-                        FEATURED
-                      </div>
                       <div>
                         <h2 className="text-4xl font-bold text-black leading-tight mb-4">{item.title}</h2>
                         <p className="text-sm text-gray-500 mb-6">{item.date}</p>
