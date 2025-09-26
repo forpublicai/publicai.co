@@ -22,13 +22,13 @@ export default function Navbar() {
 
       <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-16">
         <button
-          className="text-gray-700 hover:text-gray-900 font-semibold transition-colors"
+          className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out"
           onClick={() => window.open('https://platform.publicai.co', '_blank')}
         >
           DEVELOPERS
         </button>
         <button
-          className="text-gray-700 hover:text-gray-900 font-semibold transition-colors"
+          className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out"
           onClick={() => router.push('/about')}
         >
           ABOUT

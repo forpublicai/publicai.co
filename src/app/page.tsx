@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getFeaturedNewsItems, getRegularNewsItems } from "@/lib/news";
+import { getFeaturedNewsItems, getRegularNewsItems } from "@/lib/stories";
 import LandingChatInterface from "@/components/LandingChatInterface";
 
 export default async function Home() {
@@ -31,7 +31,7 @@ export default async function Home() {
         {featuredNewsItems.length > 0 && (
           <section className="max-w-6xl mx-auto">
             {featuredNewsItems.map((item) => (
-              <Link key={item.slug} href={`/news/${item.slug}`} className="block">
+              <Link key={item.slug} href={`/stories/${item.slug}`} className="block">
                 <div className="hover:opacity-95 transition-opacity cursor-pointer">
                   <div className="grid md:grid-cols-2 gap-16 items-center">
                     {/* Large Featured Image */}
@@ -74,15 +74,15 @@ export default async function Home() {
         <section className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-medium text-black">Latest news</h2>
-            <Link href="/news" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">
+            <h2 className="text-2xl font-medium text-black">Latest stories</h2>
+            <Link href="/stories" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">
               View all
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {regularNewsItems.map((item) => (
-              <Link key={item.slug} href={`/news/${item.slug}`} className="block">
+              <Link key={item.slug} href={`/stories/${item.slug}`} className="block">
                 <div className="hover:opacity-80 transition-opacity cursor-pointer">
                   <div className="grid grid-cols-[1fr_2fr] gap-6 items-start">
                     {/* Smaller Square Image */}

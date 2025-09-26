@@ -23,7 +23,7 @@ export const getNewsItems = async (): Promise<NewsItem[]> => {
 
   for (const config of newsItemConfigs) {
     try {
-      const mdxModule = await import(`../app/news/${config.slug}/page.mdx`);
+      const mdxModule = await import(`../app/stories/${config.slug}/page.mdx`);
       newsItems.push({
         slug: config.slug,
         ...mdxModule.metadata,
