@@ -15,9 +15,7 @@ function ChatPageContent() {
   // Get initial message from URL parameter
   const initialMessage = searchParams.get('message');
 
-  const runtime = useChatRuntime({
-    api: '/api/chat',
-  });
+  const runtime = useChatRuntime();
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
