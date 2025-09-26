@@ -21,6 +21,10 @@ export default async function Home() {
           </p>
 
           <ChatInterface />
+
+          <p className="text-2xl text-black text-center mt-12 mb-16 whitespace-nowrap">
+            What if AI were public infrastructure like highways, water, or electricity?
+          </p>
         </div>
       </section>
 
