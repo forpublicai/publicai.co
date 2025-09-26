@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getFeaturedNewsItems, getRegularNewsItems } from "@/lib/news";
-import ChatInterface from "@/components/ChatInterface";
+import LandingChatInterface from "@/components/LandingChatInterface";
 
 export default async function Home() {
   const featuredNewsItems = await getFeaturedNewsItems();
@@ -20,7 +20,7 @@ export default async function Home() {
             ⛰️
           </p>
 
-          <ChatInterface />
+          <LandingChatInterface />
         </div>
 
         <div className="max-w-5xl mx-auto w-full">

@@ -1,122 +1,94 @@
-import OpenAI from 'openai';
-import { NextRequest, NextResponse } from 'next/server';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { createOpenAI } from "@ai-sdk/openai";
+import { frontendTools } from "@assistant-ui/react-ai-sdk";
+import { convertToModelMessages, streamText } from "ai";
+import { readFileSync } from "fs";
+import { join } from "path";
 
-// Rate limiting
-const rateLimits = new Map<string, { count: number; resetTime: number }>();
-const MAX_REQUESTS_PER_MINUTE = 20;
-const MAX_MESSAGE_LENGTH = 10000;
+export const maxDuration = 30;
 
-function getClientIP(req: NextRequest): string {
-  return req.headers.get('x-forwarded-for')?.split(',')[0] || 
-         req.headers.get('x-real-ip') || 
-         'unknown';
-}
+// Simple in-memory rate limiting
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
-function isRateLimited(clientIP: string): boolean {
+function getRateLimitStatus(ip: string): { allowed: boolean; resetTime: number } {
   const now = Date.now();
-  const client = rateLimits.get(clientIP);
-  
-  if (!client || now > client.resetTime) {
-    // Reset or create new rate limit window
-    rateLimits.set(clientIP, { count: 1, resetTime: now + 60000 });
-    return false;
+  const windowMs = 60 * 1000; // 1 minute
+  const maxRequests = 20;
+
+  const current = rateLimitMap.get(ip);
+
+  if (!current || now > current.resetTime) {
+    // Reset or initialize
+    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs });
+    return { allowed: true, resetTime: now + windowMs };
   }
-  
-  if (client.count >= MAX_REQUESTS_PER_MINUTE) {
-    return true;
+
+  if (current.count >= maxRequests) {
+    return { allowed: false, resetTime: current.resetTime };
   }
-  
-  client.count++;
-  return false;
+
+  // Increment count
+  current.count++;
+  rateLimitMap.set(ip, current);
+
+  return { allowed: true, resetTime: current.resetTime };
 }
 
-export async function POST(req: NextRequest) {
-  try {
-    const { messages, model = "swiss-ai/apertus-8b-instruct" } = await req.json();
-    
-    // Rate limiting check
-    const clientIP = getClientIP(req);
-    if (isRateLimited(clientIP)) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please wait a moment before trying again.' },
-        { status: 429 }
-      );
-    }
-    
-    // Message length validation
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage?.content?.length > MAX_MESSAGE_LENGTH) {
-      return NextResponse.json(
-        { error: 'Message too long. Please keep messages under 10000 characters.' },
-        { status: 400 }
-      );
-    }
+function getClientIP(request: Request): string {
+  // Try various headers for IP detection
+  const forwarded = request.headers.get('x-forwarded-for');
+  const realIp = request.headers.get('x-real-ip');
+  const cfConnectingIp = request.headers.get('cf-connecting-ip');
 
-    // Create client for Swiss AI API
-    const client = new OpenAI({
-      apiKey: process.env.LITELLM_API_KEY!,
-      baseURL: "https://api-internal.publicai.co/v1",
-      timeout: 15000, // 15 second timeout
-    });
+  if (cfConnectingIp) return cfConnectingIp;
+  if (realIp) return realIp;
+  if (forwarded) return forwarded.split(',')[0].trim();
 
-    // Read system prompt from file
-    const systemPromptPath = join(process.cwd(), 'src/app/api/chat/system_prompt.md');
-    const systemPromptContent = readFileSync(systemPromptPath, 'utf-8');
-    
-    const systemPrompt = {
-      role: "system" as const,
-      content: systemPromptContent
-    };
+  return 'unknown';
+}
 
-    const messagesWithSystem = [systemPrompt, ...messages];
-    
-    const stream = await client.chat.completions.create({
-      model,
-      messages: messagesWithSystem,
-      stream: true,
-    });
+const openai = createOpenAI({
+  baseURL: "https://api-internal.publicai.co/v1",
+  apiKey: process.env.LITELLM_API_KEY,
+});
 
-    const encoder = new TextEncoder();
-    
-    const readable = new ReadableStream({
-      async start(controller) {
-        try {
-          for await (const chunk of stream) {
-            const content = chunk.choices[0]?.delta?.content || '';
-            if (content) {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
-            }
-          }
-          
-          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-          controller.close();
-        } catch (error) {
-          controller.error(error);
+// Load system prompt
+const systemPrompt = readFileSync(
+  join(process.cwd(), 'src/app/api/chat/system_prompt.md'),
+  'utf-8'
+);
+
+export async function POST(req: Request) {
+  // Rate limiting
+  const clientIP = getClientIP(req);
+  const { allowed, resetTime } = getRateLimitStatus(clientIP);
+
+  if (!allowed) {
+    const waitTime = Math.ceil((resetTime - Date.now()) / 1000);
+    return new Response(
+      JSON.stringify({
+        error: `Too many requests. Please wait ${waitTime} seconds before trying again.`
+      }),
+      {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Retry-After': waitTime.toString(),
         }
-      },
-    });
-
-    return new Response(readable, {
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
-    });
-  } catch (error) {
-    console.error('Chat API error:', error);
-    console.error('Error details:', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined
-    });
-    return NextResponse.json(
-      { 
-        error: 'Failed to process chat request',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
+      }
     );
   }
+
+  const { messages, system, tools } = await req.json();
+
+  const result = streamText({
+    model: openai.chat("swiss-ai/apertus-8b-instruct"),
+    messages: convertToModelMessages(messages),
+    system: systemPrompt,
+    tools: {
+      ...frontendTools(tools),
+      // add backend tools here
+    },
+  });
+
+  return result.toUIMessageStreamResponse();
 }
