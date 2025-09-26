@@ -131,47 +131,29 @@ export default async function Home() {
 
         {/* About Public AI Section */}
         <section className="max-w-6xl mx-auto">
-          {/* Two column header text */}
-          <div className="grid md:grid-cols-2 gap-16 mb-16">
-            <div>
-              <h2 className="text-4xl font-bold text-black leading-tight">
-              Our mission is to make AI a public infrastructure, accessible to everyone—like highways, water, or electricity. 
-              </h2>
-            </div>
-            <div className="space-y-6 text-gray-700">
-              <p className="text-lg leading-relaxed">
-                We&apos;re a nonprofit building products and organizing advocacy to support public AI model builders worldwide.
-              </p>
-              <p className="text-lg leading-relaxed">
-              We support national labs, open-source communities, and anyone contributing to the public good.
-              </p>
-            </div>
-          </div>
-
           {/* Two cards */}
           <div className="grid md:grid-cols-2 gap-16">
-            {/* About Us Card */}
+            {/* About Public AI Card */}
             <Link href="/about/about-us" className="block">
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
                 <Image
                   src="/josh_puppy.jpeg"
                   alt="Public AI Team"
                   width={600}
                   height={800}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30"></div>
                 <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
                   <div className="space-y-4">
                     <div>
-                      <h3 className="text-2xl font-semibold mb-2">About Us</h3>
-                      <p className="text-sm text-gray-200">Who we are</p>
+                      <h3 className="text-2xl font-semibold mb-2">About Public AI</h3>
                     </div>
                     <p className="text-white leading-relaxed">
-                      We&apos;re a nonprofit team building the global movement for public AI. Fiscally sponsored by Metagov and funded by Mozilla and others.
+                      We&apos;re a nonprofit building products and organizing advocacy to support public AI model builders worldwide.
                     </p>
                     <span className="inline-flex items-center font-medium hover:underline">
-                      Learn about our mission
+                      Learn more about our mission
                       <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -183,7 +165,7 @@ export default async function Home() {
 
             {/* Contributing Card */}
             <Link href="/about/contributing" className="block">
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
                 <Image
                   src="/community.jpeg"
                   alt="Community"
@@ -191,15 +173,14 @@ export default async function Home() {
                   height={800}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30"></div>
                 <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
                   <div className="space-y-4">
                     <div>
-                      <h3 className="text-2xl font-semibold mb-2">Get Involved</h3>
-                      <p className="text-sm text-gray-200">Help us build AI for everyone</p>
+                      <h3 className="text-2xl font-semibold mb-2">Call for Contributors</h3>
                     </div>
                     <p className="text-white leading-relaxed">
-                    It's launched! Now we really need your help. Joseph needs your help building the inference service. Just send PRs – it's all open source.
+                      It&apos;s launched! Now we really need your help. Just send PRs – it&apos;s all open source.
                     </p>
                     <span className="inline-flex items-center font-medium hover:underline">
                       Start contributing
