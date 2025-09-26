@@ -1,204 +1,217 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowUp } from "lucide-react";
+import { getFeaturedNewsItems, getRegularNewsItems } from "@/lib/news";
+import ChatInterface from "@/components/ChatInterface";
 
-export default function Home() {
-  const [inputValue, setInputValue] = useState("");
-  const router = useRouter();
-
-  const handleSubmit = () => {
-    if (inputValue.trim()) {
-      router.push(`/chat?message=${encodeURIComponent(inputValue.trim())}`);
-    }
-  };
+export default async function Home() {
+  const featuredNewsItems = await getFeaturedNewsItems();
+  const regularNewsItems = await getRegularNewsItems();
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="px-6 py-20">
-        <div className="max-w-3xl mx-auto">
+      <section className="px-6 py-24 min-h-[85vh] flex items-center">
+        <div className="max-w-3xl mx-auto w-full">
           <h1 className="text-6xl font-normal text-black mb-8 leading-tight text-center">
             Try Apertus
           </h1>
-          
+
           <p className="text-lg text-gray-600 mb-8 text-center">
             ⛰️
           </p>
 
-          {/* Input Field */}
-          <div className="relative mb-6">
-            <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-              placeholder="What's Apertus?"
-              className="w-full h-16 px-6 pr-16 text-lg bg-card border-border rounded-xl focus:border-ring focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
-            />
-            <Button
-              size="sm"
-              onClick={handleSubmit}
-              className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 p-0 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg"
-              disabled={!inputValue.trim()}
-            >
-              <ArrowUp className="w-4 h-4" />
-            </Button>
-          </div>
-
-          {/* Suggested Prompts */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <Button
-              variant="outline"
-              onClick={() => setInputValue("What's public AI?")}
-              className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
-            >
-              What&apos;s public AI?
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setInputValue("Was ist souveräne KI?")}
-              className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
-            >
-              Was ist souveräne KI?
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setInputValue("C'est quoi, ce plan secret ultra top secret?")}
-              className="bg-white hover:bg-gray-50 border-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm"
-            >
-              C&apos;est quoi, ce plan secret ultra top secret?
-            </Button>
-          </div>
+          <ChatInterface />
         </div>
       </section>
 
       {/* Content Sections */}
-      <div className="px-6 space-y-20">
-        {/* With love from Switzerland */}
-        <section className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <h2 className="text-2xl font-medium text-black mb-4">
-                With love, from Switzerland
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Imanol&apos;s team just launched Apertus, the most powerful open-source language model ever released by a public institution.
-              </p>
-              <Link 
-                href="/apertus"
-                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
-              >
-                Read more
+      <div className="px-6 space-y-40">
+        {/* Featured News Section */}
+        {featuredNewsItems.length > 0 && (
+          <section className="max-w-6xl mx-auto">
+            {featuredNewsItems.map((item) => (
+              <Link key={item.slug} href={`/news/${item.slug}`} className="block">
+                <div className="hover:opacity-95 transition-opacity cursor-pointer">
+                  <div className="grid md:grid-cols-2 gap-16 items-center">
+                    {/* Large Featured Image */}
+                    <div className="aspect-[3/4] bg-pink-100 rounded-2xl overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.alt}
+                        width={600}
+                        height={450}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Featured Text Content */}
+                    <div className="space-y-6">
+                      <div className="inline-block bg-black text-white text-xs font-medium px-3 py-1 rounded-full">
+                        FEATURED
+                      </div>
+                      <div>
+                        <h2 className="text-4xl font-bold text-black leading-tight mb-4">{item.title}</h2>
+                        <p className="text-sm text-gray-500 mb-6">{item.date}</p>
+                      </div>
+                      <p className="text-xl text-gray-700 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="pt-4">
+                        <span className="inline-flex items-center text-black font-medium hover:underline">
+                          Read the full story
+                          <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </Link>
-            </div>
-            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
-              <Image 
-                src="/switzerland.png" 
-                alt="With love, from Switzerland" 
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
-            </div>
+            ))}
+          </section>
+        )}
+
+        {/* Latest News Section */}
+        <section className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-medium text-black">Latest news</h2>
+            <Link href="/news" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">
+              View all
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {regularNewsItems.map((item) => (
+              <Link key={item.slug} href={`/news/${item.slug}`} className="block">
+                <div className="hover:opacity-80 transition-opacity cursor-pointer">
+                  <div className="grid grid-cols-[1fr_2fr] gap-6 items-start">
+                    {/* Smaller Square Image */}
+                    <div className="aspect-square bg-pink-100 rounded-xl overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.alt}
+                        width={200}
+                        height={200}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Text Content */}
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="text-lg font-medium text-black leading-tight mb-2">{item.title}</h3>
+                        <p className="text-xs text-gray-500">{item.date}</p>
+                      </div>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="pt-2">
+                        <span className="inline-flex items-center text-sm text-black font-medium hover:underline">
+                          Read more
+                          <svg className="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 
-        {/* Hugging Face Partnership */}
+        {/* About Public AI Section */}
         <section className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          {/* Two column header text */}
+          <div className="grid md:grid-cols-2 gap-16 mb-16">
             <div>
-              <h2 className="text-2xl font-medium text-black mb-4">
-                🤗📡🤝
+              <h2 className="text-4xl font-bold text-black leading-tight">
+              Our mission is to make AI a public infrastructure, accessible to everyone—like highways, water, or electricity. 
               </h2>
-              <p className="text-gray-600 mb-6">
-                Julien and Simon&apos;s team just helped us launch as an official inference provider on Hugging Face!
-              </p>
-                <Link 
-                href="/huggingface"
-                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
-              >
-                Read more
-              </Link>
             </div>
-            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
-              <Image 
-                src="/people/nanobanana_julien_simon.png" 
-                alt="With love, from Switzerland" 
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
+            <div className="space-y-6 text-gray-700">
+              <p className="text-lg leading-relaxed">
+                We&apos;re a nonprofit building products and organizing advocacy to support public AI model builders worldwide.
+              </p>
+              <p className="text-lg leading-relaxed">
+              We support national labs, open-source communities, and anyone contributing to the public good.
+              </p>
             </div>
           </div>
-        </section>
 
-        {/* Airbus for AI */}
-        <section className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
-              <Image 
-                src="/airbus.jpg" 
-                alt="Airbus for AI" 
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-2xl font-medium text-black mb-4">
-                An Airbus for AI
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Diane and her co-authors argue for a third way frontier lab for AI—built from existing national labs and national champions.
-              </p>
-              <Link 
-                href="/airbus"
-                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
-              >
-                Read more
-              </Link>
-            </div>
-          </div>
-        </section>
+          {/* Two cards */}
+          <div className="grid md:grid-cols-2 gap-16">
+            {/* About Us Card */}
+            <Link href="/about/about-us" className="block">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
+                <Image
+                  src="/josh_puppy.jpeg"
+                  alt="Public AI Team"
+                  width={600}
+                  height={800}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
+                <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-2xl font-semibold mb-2">About Us</h3>
+                      <p className="text-sm text-gray-200">Who we are</p>
+                    </div>
+                    <p className="text-white leading-relaxed">
+                      We&apos;re a nonprofit team building the global movement for public AI. Fiscally sponsored by Metagov and funded by Mozilla and others.
+                    </p>
+                    <span className="inline-flex items-center font-medium hover:underline">
+                      Learn about our mission
+                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
 
-        {/* Call for Contributions */}
-        <section className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <h2 className="text-2xl font-medium text-black mb-4">
-                It&apos;s launched! Now we really need your help.
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Joseph needs your help building the inference service. Just send PRs – it&apos;s all open source.
-              </p>
-              <Link 
-                href="/contributing"
-                className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2 text-sm font-medium transition-colors"
-              >
-                Read more
-              </Link>
-            </div>
-            <div className="bg-pink-100 rounded-lg aspect-square overflow-hidden">
-              <Image 
-                src="/community.jpeg" 
-                alt="Call for contributions – help Joseph!" 
-                width={400}
-                height={400}
-                className="w-full h-full object-cover"
-              />
-            </div>
+            {/* Contributing Card */}
+            <Link href="/about/contributing" className="block">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow group">
+                <Image
+                  src="/community.jpeg"
+                  alt="Community"
+                  width={600}
+                  height={800}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
+                <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-2xl font-semibold mb-2">Get Involved</h3>
+                      <p className="text-sm text-gray-200">Help us build AI for everyone</p>
+                    </div>
+                    <p className="text-white leading-relaxed">
+                    It's launched! Now we really need your help. Joseph needs your help building the inference service. Just send PRs – it's all open source.
+                    </p>
+                    <span className="inline-flex items-center font-medium hover:underline">
+                      Start contributing
+                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
         </section>
 
       </div>
 
       {/* Partners Gallery */}
-      <section className="max-w-6xl mx-auto px-6 py-16 mt-20">
+      <section className="max-w-6xl mx-auto px-6 py-24 mt-32">
         <div className="text-center mb-12">
           <h2 className="text-2xl font-medium text-gray-900 mb-4">Partners</h2>
           <p className="text-gray-600">Powered by models and compute from leading institutions and organizations</p>
@@ -280,9 +293,9 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="max-w-6xl mx-auto px-6 py-20 mt-20">
+      <footer className="max-w-6xl mx-auto px-6 py-24 mt-32">
           <div className="text-center text-sm text-gray-500 mt-8">
-            &copy; 2025, All rights reserved. &nbsp;
+            &copy; 2025 Public AI Inference Utility, All rights reserved. &nbsp;
             <Link href="/tc" className="hover:text-gray-800">Terms & conditions</Link>
           </div>
       </footer>

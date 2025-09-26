@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react";
 const navigationItems = [
   {
     label: "Inference Utility",
-    action: (router: ReturnType<typeof useRouter>) => router.push('/utility'),
+    action: (router: ReturnType<typeof useRouter>) => router.push('/about/inference-utility'),
     variant: "ghost" as const,
   },
   {
@@ -18,8 +18,8 @@ const navigationItems = [
     variant: "ghost" as const,
   },
   {
-    label: "About",
-    action: (router: ReturnType<typeof useRouter>) => router.push('/about'),
+    label: "Community",
+    action: (router: ReturnType<typeof useRouter>) => router.push('/about/contributing'),
     variant: "ghost" as const,
   },
 ];
