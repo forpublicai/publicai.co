@@ -20,6 +20,21 @@ export default function Navbar() {
         />
       </div>
 
+      <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-16">
+        <button
+          className="text-gray-700 hover:text-gray-900 font-semibold transition-colors"
+          onClick={() => window.open('https://platform.publicai.co', '_blank')}
+        >
+          DEVELOPERS
+        </button>
+        <button
+          className="text-gray-700 hover:text-gray-900 font-semibold transition-colors"
+          onClick={() => router.push('/about')}
+        >
+          ABOUT
+        </button>
+      </div>
+
       <div className="flex items-center gap-4">
         <Button
           className="bg-red-500 text-white hover:bg-red-600 rounded-full px-6 py-2 font-medium"
