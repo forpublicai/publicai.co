@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
         destination: '/stories/airbus',
         permanent: true,
       },
+      {
+        source: '/utility',
+        destination: '/stories/utility',
+        permanent: true,
+      },
     ];
   },
 };
