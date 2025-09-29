@@ -3,6 +3,8 @@ import Image from "next/image";
 import { getFeaturedNewsItems, getRegularNewsItems } from "@/lib/stories";
 import LandingChatInterface from "@/components/LandingChatInterface";
 import FAQSection from "@/components/FAQ/FAQSection";
+import CallToAction from "@/components/CallToAction";
+import Footer from "@/components/Footer";
 
 export default async function Home() {
   const featuredNewsItems = await getFeaturedNewsItems();
@@ -299,51 +301,10 @@ export default async function Home() {
       <FAQSection />
 
       {/* Call to Action Section */}
-      <section className="max-w-4xl mx-auto px-6 py-24 mt-16">
-        <div className="text-center space-y-8">
-          <h2 className="text-5xl font-normal text-black leading-tight">
-            By the people, for the people
-          </h2>
-          <p className="text-lg text-gray-600">
-            Join the movement to make AI accessible to everyone
-          </p>
-          <div className="pt-8">
-            <a
-              href="https://chat.publicai.co"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-black text-white text-lg font-medium px-12 py-4 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              TRY IT ↗
-            </a>
-          </div>
-        </div>
-      </section>
+      <CallToAction />
 
       {/* Footer */}
-      <footer className="max-w-6xl mx-auto px-6 py-24 mt-16">
-          <div className="space-y-16">
-            {/* Navigation Links */}
-            <div className="flex space-x-12">
-              <Link href="/tc" className="text-black hover:text-gray-600 transition-colors text-sm font-medium">
-                TERMS & CONDITIONS
-              </Link>
-              <a href="mailto:hello@publicai.co" className="text-black hover:text-gray-600 transition-colors text-sm font-medium">
-                CONTACT US
-              </a>
-            </div>
-
-            {/* Copyright */}
-            <div className="flex justify-between items-center text-sm text-gray-500">
-              <div>
-                &copy; Public AI Inference Utility &nbsp;&nbsp; 2025
-              </div>
-              <div>
-                All Rights Reserved
-              </div>
-            </div>
-          </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

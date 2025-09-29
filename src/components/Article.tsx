@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import CallToAction from "./CallToAction";
+import Footer from "./Footer";
 
 interface ArticleSection {
   type: 'heading' | 'paragraph' | 'list' | 'image' | 'html' | 'quote';
@@ -114,17 +116,11 @@ export default function Article({ title, subtitle, date, heroImage, sections }: 
         </div>
       </article>
 
+      {/* Call to Action Section */}
+      <CallToAction />
+
       {/* Footer */}
-      <footer className="px-6 py-12 mt-16 border-t border-gray-200">
-        <div className="max-w-4xl mx-auto text-center">
-          <Link 
-            href="/" 
-            className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-8 py-3 text-sm font-medium transition-colors"
-          >
-            Back to Home
-          </Link>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import type { MDXComponents } from 'mdx/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import CallToAction from './src/components/CallToAction'
+import Footer from './src/components/Footer'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -50,16 +52,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             {children}
           </div>
         </article>
-        <footer className="px-6 py-12 mt-16 border-t border-gray-200">
-          <div className="max-w-4xl mx-auto text-center">
-            <Link 
-              href="/" 
-              className="inline-block bg-black text-white hover:bg-gray-800 rounded-full px-8 py-3 text-sm font-medium transition-colors"
-            >
-              Back to Home
-            </Link>
-          </div>
-        </footer>
+        <CallToAction />
+        <Footer />
       </div>
     ),
     ...components,
