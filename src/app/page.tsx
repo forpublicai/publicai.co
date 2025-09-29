@@ -270,6 +270,29 @@ export default async function Home() {
             </a>
           </div>
         </div>
+
+        {/* Partner Contribution Links */}
+        <div className="mt-16 max-w-2xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12">
+            <Link href="/contributing/model-partners" className="block">
+              <div className="flex items-center justify-between py-4 border-b border-gray-200 hover:border-gray-400 transition-colors">
+                <span className="text-lg font-medium text-black">List your model with us</span>
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+
+            <Link href="/contributing/inference-partners" className="block">
+              <div className="flex items-center justify-between py-4 border-b border-gray-200 hover:border-gray-400 transition-colors">
+                <span className="text-lg font-medium text-black">Become an inference partner</span>
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* FAQ Section */}

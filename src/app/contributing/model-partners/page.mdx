@@ -1,0 +1,160 @@
+# FAQ for Model Partners
+
+Launching models with the Public AI Inference Utility
+
+# General
+
+### What is this about?
+
+The [Public AI Inference Utility](http://publicai.co) provides stable, public access to AI models built by national labs, public research institutions, and governments. By collaborating with us, your model can be deployed globally in a way that is technically robust, transparent, and aligned with public-interest values.
+
+### Who are typical model partners?
+
+National supercomputing centers, government-funded AI institutes, universities, and government ministries or agencies commissioning model development. Our current partners include Switzerland (Swiss National AI Institute) and Singapore (AI Singapore).
+
+We prioritize partners that bring:
+
+* Impact on culture – Models with a clear national or scientific identity.  
+* A news hook or tie-in – Launches aligned with national events, AI strategies, or regional initiatives.  
+* Government support – Endorsement or sponsorship from public institutions, ensuring legitimacy and long-term sustainability.
+
+### Why partner with Public AI?
+
+Because deploying a model at scale requires more than training it. The Public AI Inference Utility:
+
+* Handles user-facing infrastructure, including frontend, routing, failover, data storage, and compliance with relevant laws such as GDPR.  
+* Provides stable APIs (OpenAI-compatible) and a tested deployment stack.  
+* Integrates automatically with Hugging Face through our status as [an official inference provider](https://huggingface.co/blog/inference-providers-publicai).  
+* Supports launch activities (PR, media, community engagement).  
+* Manages inference partners (cloud providers and HPC centers contributing compute).  
+* Ensures your model is visible, discoverable, and used.
+
+> "**So many people have been using Public AI to get an idea of the model. It's been extremely valuable to just get the word out and get people to play around with it.** People are already building on the API. There's actually a very nice use-case that came out immediately: a company building on open-source models has a system for answering tax questions in Zurich. That's now our go-to use case, because it shows links, hallucinates very little, and highlights what you can build with \[Apertus\]. I was actually surprised it worked so well out of the box."
+>
+> <img src="/people/imanol.png" alt="Imanol Schlag" width="80" height="80" style={{display: 'inline', borderRadius: '50%', marginRight: '8px'}} />— Imanol Schlag, co-lead of Apertus, Swiss AI Initiative
+
+### Who is the Public AI Inference Utility?
+
+The [Public AI Inference Utility](https://publicai.co/stories/utility) is a nonprofit, open-source project. Our team builds products and organizes advocacy to support the work of public AI model builders like the Swiss AI Initiative, AI Singapore, AI Sweden, and the Barcelona Supercomputing Center. We believe in public AI—AI as public infrastructure like highways, water, or electricity. 
+
+We are fiscally sponsored by [Metagov](https://metagov.org/) and funded by Mozilla, the Future of Life Institute, and the Center for Cultural Innovation. We are part of the global movement for public AI.
+
+# Purpose & Benefits
+
+### What’s in it for a government or public lab?
+
+* Provide citizens, researchers, and businesses with reliable public access.  
+* Gain visibility as a leader in responsible and open AI.  
+* Demonstrate AI leadership to a global audience.  
+* Attract partnerships, funding, and talent by showing your model in action.
+
+### Why not just release the model weights directly on Hugging Face?
+
+Releasing weights alone doesn’t address real-world accessibility. Without APIs and inference hosting, most startups, developers, researchers, and users won’t be able to benefit from your work. By contrast, Public AI ensures your model is deployed with stable APIs, a tested frontend, and global reach.
+
+As one government partner put it: “A big problem for us is how to expose the model to startups via APIs. They don’t have the resources to deploy the model themselves.” The Utility solves this problem, ensuring that your model reaches the hands of the people it was built for.
+
+Public AI is also an [official Hugging Face Inference Provider](https://huggingface.co/blog/inference-providers-publicai) (and the only nonprofit out of 14 companies), which means that models launched with us are integrated directly into the Hugging Face ecosystem, both directly on your model page on HF as well as through their backend. This provides immediate visibility, credibility, and seamless access for developers worldwide—something weights alone cannot achieve.
+
+### How will our institution be recognized?
+
+Your institution will be credited in all communications, launch materials, and directly in the system prompt. Joint press releases and media visibility are part of every launch.
+
+# Launch & Deployment
+
+### What does a launch look like?
+
+Launches are public-facing events coordinated between Public AI and the model partner. They typically include:
+
+* A public press release and media briefings.  
+* Featured placement on [publicai.co](https://publicai.co).  
+* A defined pilot period with free worldwide public access.  
+* Community events (hackathons, workshops) where possible.
+
+### What infrastructure do we need to provide?
+
+Minimal. You provide the model; Public AI handles frontend, orchestration, load balancing, and user access. If you also wish to contribute compute, we’ll integrate it with our global load balancer.
+
+That said, we cannot launch the pilot without compute. And while we can handle and follow up with the relationship with an inference compute partner once a warm connection is made, we usually depend on the model partner to make those initial connections.
+
+### When can we launch?
+
+Launch dates are flexible and coordinated with your institution’s communications team. We recommend aligning with national AI initiatives or public events for maximum visibility and organizing a media roundtable for reach.
+
+That said, we don't offer a turnkey service for hosting and launching models, so advance notice of at least 1-2 months is crucial.
+
+# Technical
+
+### How is the model deployed?
+
+* Models are containerized using vLLM, exposing an OpenAI-compatible API.  
+* Public AI integrates these into its distributed inference utility.  
+* End users can access your model at [chat.publicai.co](https://chat.publicai.co) or via API.
+
+### Do we need to provide compute?
+
+Not necessarily. Public AI partners with inference providers worldwide who donate compute. However, to ensure a successful pilot period with free compute, **we *highly* encourage working with us to rally inference partners to support your launch.**
+
+If your institution has its own compute that it wishes to donate (or funds to purchase compute), we can add it directly to the routing pool.
+
+### How is traffic managed?
+
+The Utility’s global load balancer routes queries across available inference nodes. If your node is down, traffic automatically fails over.
+
+### What happens after the pilot?
+
+We will jointly evaluate usage and impact. Options include extending free public access through additional funding or sponsorships, moving toward a sustainable utility model (anchored by state support), or transitioning to a new project phase.
+
+# Governance & Sustainability
+
+### Who owns the model?
+
+The model remains entirely owned by your institution. Public AI provides deployment, not ownership.
+
+### How is the service funded?
+
+In the short term, by donated compute and philanthropic grants. In the long term, by public-sector contributions, advertising subsidies, and planned “plus/pro” tiers. Governments are invited to co-fund sustained public inference of their models.
+
+### How can ministries explain this to their teams?
+
+* Think of the Utility like a public water or electricity grid—but for AI. Your institution provides the “source” (the model), while the Inference Utility handles the pipes, taps, and access points.  
+* This collaboration ensures your investment in AI research translates into real, visible, and trusted access for citizens and global users.
+
+# Communications
+
+### Who leads on communications?
+
+In most cases, your government or agency will lead on communications around the launch. Public AI will support your team by supplying frontend access, technical details, background materials.
+
+### What role does Public AI play?
+
+Our team will provide technical context and talking points, support with our own press release (which will be patterned after your comms materials), and ensure consistent messaging on [publicai.co](https://publicai.co) and partner platforms such as AWS, Exoscale, Cudo, CSCS, Australia NCI, AI Singapore, and Juelich Supercomputing Centre.
+
+### What if we need more help?
+
+Public AI offers optional, paid communications support, ranging from light assistance to a fully managed comms package. This can include:
+
+* Drafting press releases and FAQs.  
+* Media training and Q\&A preparation.  
+* Social media campaigns, video explainers, and launch event support.  
+* Coordination with international press and research communities.
+
+### Can Public AI manage the entire comms campaign?
+
+Yes. If desired, Public AI can deliver a turnkey, fully managed communications package for your model launch. This allows your institution to maintain ownership of the message while leveraging Public AI’s experience with international media, open source, the machine learning research community, and public engagement.
+
+### How does coordination work?
+
+* Your comms team sets the central narrative.  
+* Public AI ensures technical accuracy, ecosystem alignment, and (if contracted) manages campaign execution.  
+* All materials are reviewed and approved by your institution before publication.
+
+# Next Steps
+
+How do we become a Model Partner?
+
+1. To express interest, contact: josh@publicai.co.  
+2. Agree on scope and timing of launch.  
+3. Sign a Memorandum of Understanding (see [template](https://docs.google.com/document/d/16TMubUv02JLT5rpEtutgB_kv6L2pGJFbM4bdhYQKc8w/edit?tab=t.0)).  
+4. Prepare model weights and technical repo.  
+5. Jointly coordinate launch and communications.
