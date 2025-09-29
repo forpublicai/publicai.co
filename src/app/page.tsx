@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getFeaturedNewsItems, getRegularNewsItems } from "@/lib/stories";
 import LandingChatInterface from "@/components/LandingChatInterface";
+import FAQSection from "@/components/FAQ/FAQSection";
 
 export default async function Home() {
   const featuredNewsItems = await getFeaturedNewsItems();
@@ -192,7 +193,7 @@ export default async function Home() {
       {/* Partners Gallery */}
       <section className="max-w-6xl mx-auto px-6 py-24 mt-16">
         <div className="text-center mb-12">
-          <h2 className="text-2xl font-medium text-gray-900 mb-4">Our partners</h2>
+          <h2 className="text-4xl font-normal text-black leading-tight mb-4">Our Partners</h2>
           <p className="text-gray-600">Powered by models and compute from leading institutions and organizations</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 items-center justify-center justify-items-center">
@@ -270,6 +271,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* Call to Action Section */}
       <section className="max-w-4xl mx-auto px-6 py-24 mt-16">
