@@ -196,7 +196,10 @@ export default async function Home() {
       <section className="max-w-6xl mx-auto px-6 py-24 mt-16">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-normal text-black leading-tight mb-4">Our Partners</h2>
-          <p className="text-gray-600">Powered by models and compute from leading institutions and organizations</p>
+          <p className="text-gray-600">Powered by models and compute from leading institutions and organizations.</p>
+          <p className="text-gray-600 mt-2">
+            Interested in joining? Apply to become a <Link href="/contributing/model-partners" className="text-blue-600 hover:text-blue-800 underline">model</Link> or <Link href="/contributing/inference-partners" className="text-blue-600 hover:text-blue-800 underline">inference</Link> partner.
+          </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 items-center justify-center justify-items-center">
           <div className="flex items-center justify-center h-20 w-44">
@@ -270,29 +273,6 @@ export default async function Home() {
                 className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               />
             </a>
-          </div>
-        </div>
-
-        {/* Partner Contribution Links */}
-        <div className="mt-16 max-w-2xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
-            <Link href="/contributing/model-partners" className="block">
-              <div className="flex items-center justify-between py-4 border-b border-gray-200 hover:border-gray-400 transition-colors">
-                <span className="text-lg font-medium text-black">List your model with us</span>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </Link>
-
-            <Link href="/contributing/inference-partners" className="block">
-              <div className="flex items-center justify-between py-4 border-b border-gray-200 hover:border-gray-400 transition-colors">
-                <span className="text-lg font-medium text-black">Become an inference partner</span>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </Link>
           </div>
         </div>
       </section>

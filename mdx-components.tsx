@@ -52,7 +52,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             {children}
           </div>
         </article>
-        <CallToAction />
         <Footer />
       </div>
     ),
