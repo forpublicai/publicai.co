@@ -16,7 +16,8 @@ export const getNewsItems = async (): Promise<NewsItem[]> => {
     { slug: 'apertus', featured: true },
     { slug: 'huggingface' },
     { slug: 'airbus' },
-    { slug: 'utility' }
+    { slug: 'utility' },
+    { slug: 'open-source-win'}
   ];
 
   const newsItems: NewsItem[] = [];

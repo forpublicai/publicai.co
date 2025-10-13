@@ -1,0 +1,62 @@
+export const metadata = {
+  title: "If open source is to win, it must go public",
+  description: "Katherine and her co-authors argue that open source AI must be embedded within broader public AI infrastructures to truly democratize access to AI.",
+  date: "July 12, 2025",
+  image: "/people/kate_elkins.png",
+  alt: "Katherine Elkins"
+};
+
+# If open source is to win, it must go public
+
+*Open source AI must be complemented by public AI: infrastructure and institutions that ensure models are accessible, sustainable, and governed in the public interest.*
+
+*July 12, 2025*
+
+<img src="/people/kate_elkins.png" alt="Katherine Elkins" />
+
+Open source projects have made incredible progress in producing transparent and widely usable machine learning models and systems. From PyTorch to Hugging Face, from EleutherAI to BigScience, the ML community has embraced openness as both a cultural and technical norm. But open source alone will face challenges in fully democratizing access to AI.
+
+Unlike traditional software, AI models require substantial resources for activationcompute, post-training, deployment, and oversightwhich only a few actors can currently provide. In a new paper presented at ICML 2025, the authors make the case that open source AI must be complemented by public AI: infrastructure and institutions that ensure models are accessible, sustainable, and governed in the public interest.
+
+- Read the [full paper: "If open source is to win, it must go public"](/open-source-win.pdf).
+
+## The Challenge: Open Weights Aren't Enough
+
+Open source has always straddled a line between emancipatory ideals and strategic commercial goals. This compromise has proven remarkably productive in many software categories. But it's breaking down for the largest foundation models in AI.
+
+Large language models are incredibly expensive to train. Once trained, open source weights alone are inertwithout inference, fine-tuning, localization, tooling, and interfaces, they remain unusable to all but a small elite with the capital, compute, and engineering to deploy them. And even when deployed, the decentralized nature of open source means that important RLHF and query data become stranded across many silos.
+
+The paper identifies several critical challenges:
+
+**Pretraining Requires Capital and Scale**: Modern models are trained on thousands of GPUs over weeks or months, demanding massive datasets, robust engineering teams, and complex distributed training infrastructure.
+
+**Inference is Not Free**: Unlike software libraries that run on CPUs, inference at scale demands ongoing GPU access, orchestration systems, and cost management. While there is sometimes research funding for training, there is comparatively little for inferencewith concomitant gaps in equitable access.
+
+**Post-training involves proprietary data**: The fine-tuning, alignment, tool integration, and prompt orchestration that make models actually useful are often kept closed. While model weights may be public, the systems that give them utility are private.
+
+**Licensing is Ambiguous**: The Llama license, while widely used, contains restrictive terms and explicit revocability. Efforts to describe Llama as open source have been widely criticized, as these models have not met the agreed standard for "open source."
+
+## A Vision for Public AI
+
+The authors propose that open source AI must be embedded within a broader vision of public AI, defined by four principles:
+
+- **Public Support**: Public funding and infrastructure for inference, deployment, post-training, and data flywheelsnot just pretraining.
+- **Public Access**: EveryoneGlobal South researchers, civic technologists, local communities outside of Big Techmust be enabled to build, adapt, and use competitive models.
+- **Public Governance**: Institutions accountable to the publicgovernments, national labs, public utilities, universities, and nonprofitsmust provision, host, and maintain models and related infrastructure.
+- **Private Commitments**: Private actors must be encouraged or required to make commitments around openness, safety, and community control.
+
+Public AI is not a theoretical aspiration. Around the world, countries are already experimenting with concrete strategies: from outsourced provision (like the USA's NAIRR pilot) to networked collaboration (like Empire AI in New York State) to public options (like Sweden's GPT-SW3 or Japan's ABCI).
+
+## Why This Matters
+
+Without structural intervention from public institutions, current open source efforts in AI will not democratize access to AI nor provision public goods as comparable open source efforts have done in other categories. This will hurt the machine learning research community, startups, and even large firms promoting open weight AI.
+
+Public AI shifts the focus away from monolithic frontier labs and toward shared infrastructure, cooperative development, and inclusive deployment. For ML researchers, it means shared model libraries and pooled inference capacity that democratize frontier experimentation. For governments and funders, it offers a key plank of digital sovereignty and national innovation strategies. For the broader public, it supports democratic accountability and contestability.
+
+As the authors conclude: "The machine learning community should not conflate open source with public good. We argue for a future in which open source AI is nested within public AI infrastructures: institutions and commitments that activate, sustain, and distribute AI systems for the public benefit."
+
+If open source is to win, it must go public.
+
+---
+
+*Joshua Tan is a computer scientist at the Public AI Network and Metagov. Nicholas Vincent is a researcher at Simon Fraser University. Katherine Elkins is a philosopher at Kenyon College. Magnus Sahlgren is an AI scientist at AI Sweden.*
