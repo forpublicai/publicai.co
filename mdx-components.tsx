@@ -30,14 +30,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     // Custom components
     img: ({ src, alt, ...props }) => (
-      <Image
-        src={src || ''}
-        alt={alt || ''}
-        width={800}
-        height={400}
-        className="rounded-lg"
-        {...props}
-      />
+      <div className="my-8">
+        <Image
+          src={src || ''}
+          alt={alt || ''}
+          width={600}
+          height={300}
+          className="rounded-lg max-w-md mx-auto"
+          {...props}
+        />
+      </div>
     ),
     a: ({ href, children, ...props }) => (
       <Link href={href || ''} className="text-blue-600 hover:text-blue-800 underline" {...props}>
