@@ -95,7 +95,30 @@ function ChatWrapper({
       {sponsorText && thread.messages.length > 0 && (
         <div className="text-center py-4 bg-background flex-shrink-0">
           <span className="text-xs text-muted-foreground">
-            ⚡ This conversation is running on {sponsorText}.
+            ⚡ This conversation is running on{' '}
+            {sponsorText.includes('AWS') ? (
+              <>
+                <a
+                  href="https://aws.amazon.com/blogs/alps/switzerlands-open-source-apertus-llms-now-available-on-amazon-sagemaker-ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground transition-colors"
+                >
+                  AWS infrastructure in Switzerland
+                </a>
+              </>
+            ) : (
+              <>
+                <a
+                  href="https://www.exoscale.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground transition-colors"
+                >
+                  Exoscale infrastructure in Switzerland and Austria
+                </a>
+              </>
+            )}.
           </span>
         </div>
       )}
