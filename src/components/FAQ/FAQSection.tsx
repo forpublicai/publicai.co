@@ -1,7 +1,44 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { faqData, FAQItem } from './data';
+
+// Helper function to parse markdown links and convert to JSX
+function parseMarkdownLinks(text: string): ReactNode[] {
+  const parts: ReactNode[] = [];
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    // Add text before the link
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+
+    // Add the link
+    parts.push(
+      <a
+        key={match.index}
+        href={match[2]}
+        className="text-blue-600 hover:text-blue-800 underline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {match[1]}
+      </a>
+    );
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.substring(lastIndex));
+  }
+
+  return parts.length > 0 ? parts : [text];
+}
 
 export default function FAQSection() {
   const [openItems, setOpenItems] = useState<number[]>([]);
@@ -51,7 +88,7 @@ export default function FAQSection() {
               <div className="px-6 pb-4">
                 <div className="pt-2 border-t border-gray-100">
                   <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                    {item.answer}
+                    {parseMarkdownLinks(item.answer)}
                   </p>
                 </div>
               </div>
