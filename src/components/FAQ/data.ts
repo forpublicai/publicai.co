@@ -39,5 +39,13 @@ export const faqData: FAQItem[] = [
   {
     question: "I don't see any environmental objectives on your website. I understand it's not your primary concern, but was wondering what steps, if any, you take to minimize your environmental footprint.",
     answer: "While we don't explicitly optimize for emissions in our code or resource orchestration, our mission fundamentally supports better resource allocation than private actors operating independently. Our consortium approach is specifically designed to minimize excessive duplication that comes from competition between private actors—rather than each company building redundant infrastructure, we coordinate shared resources. In practice, we coordinate donated GPUs from many different sources, so environmental aspects are handled by our inference partners, some of whom do focus explicitly on environmental footprint (e.g., Exoscale)."
+  },
+  {
+    question: "I'm a researcher. How can I get access to your data?",
+    answer: "We're happy to share our data—subject to our [terms and conditions](/tc)—with researchers who are interested in studying the impact of public AI on society. We are particularly interested in working with researchers who can help us make the data from our platform more accessible to the public. Please contact us at hello@publicai.co to learn more."
+  },
+  {
+    question: "What is Public AI Plus?",
+    answer: "Public AI Plus (or Public AI+) is a way for users to publish tools directly to our platform's shared frontend. It also facilitates data contributions to the public AI commons."
   }
 ];
