@@ -26,6 +26,12 @@ export default function Navbar() {
       <div className="hidden md:absolute md:left-1/2 md:transform md:-translate-x-1/2 md:flex md:items-center md:gap-16">
         <button
           className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out"
+          onClick={() => router.push('/stories/utility')}
+        >
+          UTILITY
+        </button>
+        <button
+          className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out"
           onClick={() => window.open('https://platform.publicai.co', '_blank')}
         >
           DEVELOPERS
@@ -62,6 +68,15 @@ export default function Navbar() {
           {isOpen && (
             <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
               <div className="py-2">
+                <button
+                  className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-black font-semibold transition-colors"
+                  onClick={() => {
+                    router.push('/stories/utility');
+                    setIsOpen(false);
+                  }}
+                >
+                  UTILITY
+                </button>
                 <button
                   className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-black font-semibold transition-colors"
                   onClick={() => {
