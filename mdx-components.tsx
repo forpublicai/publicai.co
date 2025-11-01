@@ -3,8 +3,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import CallToAction from './src/components/CallToAction'
 import Footer from './src/components/Footer'
+import SubstackBox from './src/components/SubstackBox'
+
+// Track if Substack box has been rendered
+let substackBoxRendered = false
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
+  // Reset the flag for each page render
+  substackBoxRendered = false
+  
   return {
     // Custom headings with lighter font weights
     h1: ({ children, ...props }) => (
@@ -12,11 +19,21 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h1>
     ),
-    h2: ({ children, ...props }) => (
-      <h2 className="text-2xl font-medium text-black mb-4 mt-8" {...props}>
-        {children}
-      </h2>
-    ),
+    h2: ({ children, ...props }) => {
+      const shouldShowSubstack = !substackBoxRendered
+      if (shouldShowSubstack) {
+        substackBoxRendered = true
+      }
+      
+      return (
+        <>
+          {shouldShowSubstack && <SubstackBox />}
+          <h2 className="text-2xl font-medium text-black mb-4 mt-8" {...props}>
+            {children}
+          </h2>
+        </>
+      )
+    },
     h3: ({ children, ...props }) => (
       <h3 className="text-xl font-medium text-black mb-3 mt-6" {...props}>
         {children}

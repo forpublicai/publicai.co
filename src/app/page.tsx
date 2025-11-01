@@ -36,7 +36,7 @@ export default async function Home() {
             {featuredNewsItems.map((item) => (
               <Link key={item.slug} href={`/stories/${item.slug}`} className="block">
                 <div className="hover:opacity-95 transition-opacity cursor-pointer">
-                  <div className="grid md:grid-cols-2 gap-16 items-center">
+                  <div className="grid md:grid-cols-2 gap-16 items-start">
                     {/* Large Featured Image */}
                     <div className="aspect-[3/4] bg-pink-100 rounded-2xl overflow-hidden">
                       <Image
@@ -51,7 +51,7 @@ export default async function Home() {
                     {/* Featured Text Content */}
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-4xl font-bold text-black leading-tight mb-4">{item.title}</h2>
+                        <h2 className="text-4xl font-normal text-black leading-tight mb-4">{item.title}</h2>
                         <p className="text-sm text-gray-500 mb-6">{item.date}</p>
                       </div>
                       <p className="text-xl text-gray-700 leading-relaxed">
