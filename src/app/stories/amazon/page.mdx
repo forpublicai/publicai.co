@@ -1,0 +1,60 @@
+export const metadata = {
+  title: "AWS Zurich Powers Swiss Public AI",
+  description: "AWS Zurich helped us bring Swiss public AI to the world with credits and infrastructure support for Apertus.",
+  date: "November 24, 2025",
+  image: "/people/nanobanana_nicolas_malte.png",
+  alt: "AWS Zurich"
+};
+
+# AWS Zurich Powers Swiss Public AI
+
+*AWS Zurich provided crucial infrastructure support and credits to help Public AI launch Switzerland's Apertus models, demonstrating how cloud giants can accelerate public AI as a global infrastructure.*
+
+*November 24, 2025*
+
+<img src="/people/nicolas_jourdan.jpg" alt="nicolas_jourdan" />
+
+When we set out to make Switzerland's Apertus language models accessible to developers worldwide, we faced a challenge familiar to many public infrastructure projects: how do you scale cutting-edge AI from research to production without massive upfront capital?
+
+Enter [Nicolas Jourdan](https://www.linkedin.com/in/nicolas-jourdan-1023b8a3/) and [Malte Reimann](https://www.linkedin.com/in/malte-reimann/) from AWS Zurich. They rolled up their sleeves to help us architect, secure, and optimize our deployment of both the 8B and 70B parameter Apertus models. Together, we set up 4x p4d.24xlarge instances in anticipation of high peak loads at launch, and the infrastructure held up beautifully.
+
+## Building Public Infrastructure Together
+
+Nicolas and Malte helped us tackle the full stack of challenges that come with running production AI infrastructure:
+
+**Production-Grade Deployment** - Optimizing the deployment configuration for Apertus 8B and 70B models on P4D instances, fine-tuning everything from tensor parallelism to memory allocation to ensure reliable, cost-effective inference.
+
+**Safety at Scale** - Implementing AWS Bedrock guardrails to protect against abuse and prompt injection while keeping the service open and accessible. This was critical for maintaining trust in public AI infrastructure.
+
+**Collaborative Architecture** - Working closely together to design a flexible gateway architecture using LiteLLM, enabling seamless integration with AWS services while maintaining compatibility with the broader AI ecosystem.
+
+**Cost Optimization** - Leveraging AWS capacity reservations and monitoring tools to make every credit count, ensuring we could serve the maximum number of users while maintaining quality.
+
+<img src="/early_architecture.png" alt="early_architecture" />
+
+*An early iteration of our architecture showing the AWS infrastructure powering Public AI*
+
+## Why This Matters for Public AI
+
+This collaboration exemplifies how cloud providers can accelerate the public AI movement. By providing not just compute credits but hands-on technical partnership, AWS enabled us to:
+
+- **Launch faster**: What might have taken months of infrastructure planning happened in weeks
+- **Scale smarter**: Professional guidance on architecture meant we avoided costly mistakes
+- **Stay secure**: Enterprise-grade security features made public AI safe and trustworthy
+- **Serve more users**: Cost optimization meant credits went further, serving more developers and researchers
+
+Public AI shouldn't mean second-class infrastructure. Thanks to AWS, our deployment runs on the same cutting-edge P4D instances that power commercial AI applications—but in service of the public good.
+
+<img src="/people/malte_reimann.jpg" alt="malte_reimann" />
+
+## A Model for the Future
+
+As we continue to expand Public AI's reach—adding more models, serving more regions, supporting more use cases—we're grateful for partners like AWS who understand that the future of AI should be public, accessible, and built on world-class infrastructure.
+
+To Nicolas, Malte, and the entire AWS Zurich team: thank you for believing in public AI and making it real.
+
+## Learn More
+
+- [AWS blog post on Apertus](https://aws.amazon.com/blogs/alps/switzerlands-open-source-apertus-llms-now-available-on-amazon-sagemaker-ai/)
+- [Try Apertus on our platform](https://chat.publicai.co)
+- [Developer documentation](https://platform.publicai.co)

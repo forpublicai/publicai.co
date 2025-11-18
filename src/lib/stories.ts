@@ -14,6 +14,7 @@ export const getNewsItems = async (): Promise<NewsItem[]> => {
   // Define the news items we want to load
   const newsItemConfigs = [
     { slug: 'apertus', featured: true },
+    { slug: 'amazon' },
     { slug: 'huggingface' },
     { slug: 'airbus' },
     { slug: 'utility' },
