@@ -48,5 +48,8 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.6",
     "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "lightningcss": "^1.30.2"
   }
 }
