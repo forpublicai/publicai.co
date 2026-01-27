@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="relative flex items-center justify-between px-6 py-4 bg-white">
+    <nav className="relative flex items-center justify-between px-6 py-4 bg-white" role="navigation" aria-label="Main navigation">
       <Link href="/" className="flex items-center gap-2 cursor-pointer">
         <Image
           src="/logo-full.png"
@@ -60,7 +60,9 @@ export default function Navbar() {
           <button
             className="flex flex-col gap-1 p-2"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             <span className="block w-6 h-0.5 bg-gray-700 transition-transform"></span>
             <span className="block w-6 h-0.5 bg-gray-700 transition-transform"></span>
@@ -68,7 +70,7 @@ export default function Navbar() {
           </button>
 
           {isOpen && (
-            <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
+            <div id="mobile-menu" className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50" role="menu">
               <div className="py-2">
                 <Link
                   href="/stories/utility"

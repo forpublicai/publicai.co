@@ -13,14 +13,14 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="px-2 py-24">
+      <section className="px-2 py-24" aria-labelledby="hero-heading">
         <div className="max-w-3xl mx-auto w-full">
-          <h1 className="text-6xl font-normal text-black mb-8 leading-tight text-center">
+          <h1 id="hero-heading" className="text-6xl font-normal text-black mb-4 leading-tight text-center">
             Try Apertus
           </h1>
 
           <p className="text-lg text-gray-600 mb-8 text-center">
-            ⛰️
+            Free, open-source AI built by the people, for the people.
           </p>
 
           <LandingChatInterface />
