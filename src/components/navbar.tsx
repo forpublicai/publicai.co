@@ -23,12 +23,6 @@ export default function Navbar() {
       {/* Desktop Navigation */}
       <div className="hidden md:absolute md:left-1/2 md:transform md:-translate-x-1/2 md:flex md:items-center md:gap-16">
         <Link
-          href="/demo"
-          className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out cursor-pointer"
-        >
-          Demo
-        </Link>
-        <Link
           href="/stories/utility"
           className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out cursor-pointer"
         >
@@ -76,13 +70,6 @@ export default function Navbar() {
           {isOpen && (
             <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
               <div className="py-2">
-                <Link
-                  href="/demo"
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-black font-semibold transition-colors cursor-pointer"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Demo
-                </Link>
                 <Link
                   href="/stories/utility"
                   className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-black font-semibold transition-colors cursor-pointer"
