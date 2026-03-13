@@ -212,6 +212,24 @@ export default async function Home() {
             </a>
           </div>
           <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://www.cscs.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/cscs.jpg" 
+                alt="Swiss National Supercomputing Centre" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
+            <a href="https://intel.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
+              <img 
+                src="/inference_partners/intel.png" 
+                alt="Intel" 
+                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-center h-20 w-44">
             <a href="https://aws.amazon.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
               <img 
                 src="/inference_partners/aws.png" 
@@ -243,15 +261,6 @@ export default async function Home() {
               <img 
                 src="/inference_partners/cudo.png" 
                 alt="Cudo Compute"
-                className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-              />
-            </a>
-          </div>
-          <div className="flex items-center justify-center h-20 w-44">
-            <a href="https://www.cscs.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity duration-300">
-              <img 
-                src="/inference_partners/cscs.jpg" 
-                alt="Swiss National Supercomputing Centre" 
                 className="max-h-16 max-w-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               />
             </a>
