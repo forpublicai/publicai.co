@@ -1,0 +1,109 @@
+export const metadata = {
+  title: "AWS Zurich Powers Swiss Public AI",
+  description: "Nichoas and Malte helped us deploy Apertus at national scale",
+  date: "November 24, 2025",
+  image: "/people/nanobanana_nicolas_malte.png",
+  alt: "Nicolas Jourdan and Malte Reimann"
+};
+
+# AWS Zurich Powers Swiss Public AI 
+
+*The first in a series examining inference economics across different providers, featuring the people who actually do inference, as we search for a sustainable model for public AI.*
+
+*November 24, 2025*
+
+<img src="/people/nicolas_jourdan.jpg" alt="nicolas_jourdan" />
+
+## The Beginning
+
+The project began with an introduction from Swiss AI, who believed Apertus belonged in the hands of the public—and that we'd need real compute to make that happen. Our first call brought together [Nicholas Jourdan](https://www.linkedin.com/in/nicolas-jourdan-1023b8a3/), [Malte Reimann](https://www.linkedin.com/in/malte-reimann/), Milan Vopalka, and Swiss AI's Imanol Schlag and Mauricio Moncada. Nicholas joined from Dresden, Malte from Zurich. Swiss AI had essentially set the expectation: if we were going to run Apertus at national scale, these were the people who could help us land it.
+
+Before any GPUs were spun up, there was the obligatory "landing zone" meeting with Simone Pomata, a long tour through AWS org structures, SCPs, and cross-account boundaries. Fortunately, Josh had set up all the org-level policy scaffolding a year earlier for an unrelated experiment, which meant we could skip most of the onboarding and move straight into the work.
+
+## Early Architecture and the First Pods
+
+Once the preliminaries were out of the way, the conversations shifted immediately into architecture. On Slack, Joseph and Nicholas compared diagrams and walked through tradeoffs: using Cloudflare instead of CloudFront + WAF, letting developers hit the Zuplo API directly, and keeping the routing layer simple enough to inspect under load.
+
+Open source licensing came up before code even left the repository. Malte noticed we hadn't added a license and recommended MIT-0 to keep things unambiguous. It was an easy oversight, and we fixed it.
+
+At the same time, another thread began on Bedrock integration. Joseph struggled with AWS–OpenAI compatibility quirks, and the documentation sent him through several loops: whether to use Open WebUI, whether LiteLLM needed to be upstream or downstream of guardrails, and how to get Bedrock's safety features applied on the right side of the traffic path.
+
+Meanwhile, Cognito introduced its own detours. Logout flow wasn't OIDC-compatible, so Joseph explored patching the Open WebUI Docker image, wiring a Lambda to fake the expected logout sequence, and working around SES's default email-verification quotas. Malte joined those threads too—debugging Cognito's rate caps, helping configure SES, and submitting quota requests when the defaults throttled us.
+
+<img src="/early_architecture.png" alt="early_architecture" />
+
+*An early iteration of our architecture showing the AWS infrastructure powering Public AI*
+
+## Guardrails, Routing, and the Zurich Pods
+
+As we moved closer to serving real traffic, the Slack channel filled with the details that actually make—or break—a public deployment.
+
+Guardrails came first. Nicholas walked Joseph through setting up Bedrock protections for PII, abuse, and prompt-injection filtering, with LiteLLM acting as the enforcement layer. He dropped full YAML samples for a namespace, service account, configmap, secret, and deployment—pieces we adapted almost verbatim.
+
+The routing layer evolved alongside it. Joseph started testing custom auth in Open WebUI for rate limiting and per-user budgets in LiteLLM. Redis experiments followed: exploring whether it could handle routing, caching, or both; identifying what broke when requests spiked; fine-tuning the budget logic to avoid locking users out prematurely.
+
+Then came the core question: how many replicas, how much GPU, and how do you keep costs sane?
+
+Those conversations produced the final plan for three 8-GPU pods in Zurich, running a fully sharded Apertus 70B and a lighter 8B replica. Nicholas and Joseph traded notes on the right CPU/memory ratios, how to squeeze more throughput from the 8B model, and what a realistic concurrency target looked like.
+
+This was also when AWS Zurich allocated roughly $124,000 in compute credits—sized around the burn-rate model we'd built together. It wasn't ceremonial. It was pegged directly to the architecture.
+
+<img src="/people/malte_reimann.jpg" alt="malte_reimann" />
+
+## The Launch and the Demo
+
+Once the pods were online, every conversation served from Zurich began showing the small line:
+
+> "Served from Zurich on AWS infrastructure."
+
+Traffic ramped faster than expected. Monitoring dashboards came alive. Nicholas, Malte, and Joseph spent several late-night threads tracking throughput, watching p95s rise and fall, and experimenting with ways to keep the burn rate reasonable.
+
+During the AWS Zurich event, Swiss AI wanted to demo Apertus live. That week, we shifted most of the traffic to Zurich so that Nicholas and Malte's team could show the cluster under actual load—not a stub, not a simulated endpoint. The pods held up. No theatrics. Just solid engineering.
+
+## After the Credits
+
+As the credits dwindled, we began folding in the first Intel-backed nodes running in the same region. Routing became hybrid. The Zurich region never went down. The system simply leaned more heavily on Intel while the remaining AWS pods wound down, the way a public service should behave when one provider's runway ends.
+
+We managed to stretch the compute allotment far longer than initial projections through careful batch efficiency, hybrid routing across providers, and traffic shaping. More importantly, the collaboration gave us real empirical grounding for the cost curve of public inference—something policy documents talk about abstractly, but engineers deal with directly.
+
+---
+
+## Sidebar: The 3×8-GPU Zurich Pods & Burn-Rate Model
+
+### Pod Layout
+
+Each pod ran:
+- 8×A100 GPUs
+- A full 70B Apertus shard (with the 8B model on a paired replica)
+- Local batching
+- KV cache reuse
+- Guardrails applied via LiteLLM
+- A LiteLLM router with custom rate-limiting logic
+
+### Throughput Benchmark
+
+We targeted concurrency by comparing against the Llama-3 launch:
+- Meta reached ~5,000 concurrent users at peak
+- Our realistic target was ~2,500 concurrent users
+- This determined both the pod count and the credit request
+
+### Burn-Rate Components
+
+- **Idle-to-peak behavior**: public traffic is lumpy; autoscaling suppression reduced wastage
+- **Batching**: maintained ~70–80% GPU utilization without queue buildup
+- **Request composition**: moderate lengths kept steady throughput
+- **Safety overhead**: Bedrock guardrails added ~5–8% latency
+
+### Outcome
+
+The credits lasted far longer than the initial projections. Batch efficiency, hybrid Intel routing, and careful traffic shaping all contributed. More importantly, the model gave us a real empirical grounding for the cost curve of public inference—something policy documents talk about abstractly, but engineers deal with directly.
+
+---
+
+*This is the first in a series examining inference economics across different cloud providers and infrastructure partners. Future posts will feature the engineers behind Intel's deployment, Cloudflare's edge inference experiments, and other emerging models for sustainable public AI infrastructure.*
+
+## Learn More
+
+- [AWS blog post on Apertus](https://aws.amazon.com/blogs/alps/switzerlands-open-source-apertus-llms-now-available-on-amazon-sagemaker-ai/)
+- [Try Apertus on our platform](https://chat.publicai.co)
+- [Developer documentation](https://platform.publicai.co)
