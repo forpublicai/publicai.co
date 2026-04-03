@@ -42,6 +42,12 @@ export default function Navbar() {
         >
           About
         </Link>
+        <Link
+          href="/dialogue"
+          className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out cursor-pointer"
+        >
+          Dialogue
+        </Link>
       </div>
 
       <div className="flex items-center gap-4">
@@ -92,6 +98,13 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                 >
                   About
+                </Link>
+                <Link
+                  href="/dialogue"
+                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-black font-semibold transition-colors cursor-pointer"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Dialogue
                 </Link>
                 <a
                   href="https://chat.publicai.co"
