@@ -12,3 +12,7 @@ The site features:
 - Full-featured developer platform at platform.publicai.co
 - Full chat application at chat.publicai.co
 - AI as public infrastructure: free or low-cost inference for nation-scale AI deployments
+
+## Workflow
+- Always run `npm run build` before committing and pushing to ensure the build passes
+- Do not add co-author lines to commit messages
