@@ -1,80 +1,39 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import dynamic from "next/dynamic";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { totalParticipation } from "@/components/dialogue/mockAnalytics";
 import CantonMap from "@/components/dialogue/CantonMap";
+import LanguageToggle from "@/components/dialogue/LanguageToggle";
+import MessageList, {
+  parseAssistantContent,
+  type Message,
+  type AnalysisData,
+} from "@/components/dialogue/MessageList";
+import InputBar from "@/components/dialogue/InputBar";
+import OnboardingCTA from "@/components/dialogue/OnboardingCTA";
+import type { LanguageCode } from "@/lib/languages";
 
-// ── Types ──
-
-interface Message {
-  role: "user" | "assistant";
-  content: string;
-}
-
-interface TopicScore {
-  topic: string;
-  userPosition: string;
-  alignmentWithMajority: number;
-}
-
-interface AnalysisData {
-  summary: string;
-  topThemes: string[];
-  topicScores: TopicScore[];
-}
-
-// ── Text parsing ──
-
-/** Extract [[option]] items and split content into text + options */
-function parseAssistantContent(content: string): {
-  textBefore: string;
-  options: string[];
-  analysis: AnalysisData | null;
-} {
-  // Check for analysis block
-  const analysisMatch = content.match(/```ANALYSIS\s*\n([\s\S]*?)\n```/);
-  let analysis: AnalysisData | null = null;
-  let remaining = content;
-
-  if (analysisMatch) {
-    try {
-      analysis = JSON.parse(analysisMatch[1]);
-    } catch {
-      // ignore parse errors
-    }
-    remaining = content.replace(analysisMatch[0], "").trim();
-  }
-
-  // Extract [[options]]
-  const optionRegex = /^\[\[(.+?)\]\]$/gm;
-  const options: string[] = [];
-  let match;
-  while ((match = optionRegex.exec(remaining)) !== null) {
-    options.push(match[1]);
-  }
-
-  // Text before options (remove option lines)
-  const textBefore = remaining
-    .replace(/^\[\[.+?\]\]$/gm, "")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
-
-  return { textBefore, options, analysis };
-}
+// Lazy-load VoiceMode to avoid SSR issues with LiveKit
+const VoiceMode = dynamic(
+  () => import("@/components/dialogue/VoiceMode"),
+  { ssr: false }
+);
 
 // ── Streaming ──
 
 async function streamChat(
   messages: { role: string; content: string }[],
+  language: LanguageCode,
   onChunk: (chunk: string) => void,
   onDone: () => void
 ) {
   const res = await fetch("/api/dialogue", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify({ messages, language }),
   });
 
   if (!res.ok || !res.body) {
@@ -111,37 +70,15 @@ async function streamChat(
   onDone();
 }
 
-// ── Components ──
+// ── Analysis Dashboard ──
 
-function OptionButtons({
-  options,
-  onSelect,
-  disabled,
+function AnalysisDashboard({
+  data,
+  onCopySummary,
 }: {
-  options: string[];
-  onSelect: (option: string) => void;
-  disabled: boolean;
+  data: AnalysisData;
+  onCopySummary: () => void;
 }) {
-  return (
-    <div className="mt-3 flex flex-col gap-2">
-      {options.map((option, i) => (
-        <motion.button
-          key={`${option}-${i}`}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: i * 0.04 }}
-          onClick={() => !disabled && onSelect(option)}
-          disabled={disabled}
-          className="w-fit rounded-full border border-border bg-background px-4 py-2 text-left text-sm text-foreground transition-all hover:border-red-300 hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:border-border disabled:hover:bg-background disabled:hover:text-foreground dark:hover:border-red-800 dark:hover:bg-red-950 dark:hover:text-red-300"
-        >
-          {option}
-        </motion.button>
-      ))}
-    </div>
-  );
-}
-
-function AnalysisDashboard({ data }: { data: AnalysisData }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -195,15 +132,23 @@ function AnalysisDashboard({ data }: { data: AnalysisData }) {
                 transition={{ delay: 0.2 + i * 0.06 }}
               >
                 <div className="mb-1 flex items-baseline justify-between">
-                  <span className="text-sm font-medium text-foreground">{score.topic}</span>
-                  <span className="text-xs text-muted-foreground">{score.userPosition}</span>
+                  <span className="text-sm font-medium text-foreground">
+                    {score.topic}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {score.userPosition}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${score.alignmentWithMajority}%` }}
-                      transition={{ delay: 0.3 + i * 0.06, duration: 0.6, ease: "easeOut" }}
+                      transition={{
+                        delay: 0.3 + i * 0.06,
+                        duration: 0.6,
+                        ease: "easeOut",
+                      }}
                       className={`h-full rounded-full ${
                         score.alignmentWithMajority >= 70
                           ? "bg-green-500"
@@ -221,31 +166,36 @@ function AnalysisDashboard({ data }: { data: AnalysisData }) {
             ))}
           </div>
         </div>
-        <div className="flex flex-wrap gap-3 border-t border-border pt-5">
-          <Link href="/" className="rounded-full bg-red-500 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-red-600">
-            Back to Public AI
-          </Link>
-          <a href="https://chat.publicai.co" target="_blank" rel="noopener noreferrer" className="rounded-full border border-border px-6 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted">
-            Try Apertus Chat
-          </a>
-        </div>
+        <OnboardingCTA onCopySummary={onCopySummary} />
       </div>
     </motion.div>
   );
 }
 
-function TypingIndicator() {
+// ── Mic button ──
+
+function MicToggleButton({ onClick }: { onClick: () => void }) {
   return (
-    <div className="flex items-center gap-1 py-2">
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={i}
-          className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
-        />
-      ))}
-    </div>
+    <button
+      onClick={onClick}
+      title="Switch to voice mode"
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+        <line x1="12" y1="19" x2="12" y2="22" />
+      </svg>
+    </button>
   );
 }
 
@@ -257,8 +207,10 @@ export default function DialoguePage() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
+  const [language, setLanguage] = useState<LanguageCode>("en");
+  const [voiceMode, setVoiceMode] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const startedRef = useRef(false);
   const messagesRef = useRef(messages);
   messagesRef.current = messages;
@@ -276,47 +228,56 @@ export default function DialoguePage() {
     scrollToBottom();
   }, [messages, streamingContent, scrollToBottom]);
 
-  const doSend = useCallback(async (newMessages: Message[]) => {
-    setMessages(newMessages);
-    setStreamingContent("");
-    setIsStreaming(true);
-    setInputValue("");
-
-    let acc = "";
-
-    try {
-      await streamChat(
-        newMessages.map((m) => ({ role: m.role, content: m.content })),
-        (text) => {
-          acc += text;
-          setStreamingContent(acc);
-        },
-        () => {
-          const assistantMsg: Message = { role: "assistant", content: acc };
-          setMessages((prev) => [...prev, assistantMsg]);
-          setStreamingContent("");
-          setIsStreaming(false);
-
-          // Check for analysis in the final content
-          const { analysis } = parseAssistantContent(acc);
-          if (analysis) {
-            setAnalysisData(analysis);
-          }
-        }
-      );
-    } catch (error) {
-      console.error("Stream error:", error);
-      setIsStreaming(false);
+  const doSend = useCallback(
+    async (newMessages: Message[]) => {
+      setMessages(newMessages);
       setStreamingContent("");
-    }
-  }, []);
+      setIsStreaming(true);
+      setInputValue("");
+      setHasStarted(true);
 
-  // Auto-start
+      let acc = "";
+
+      try {
+        await streamChat(
+          newMessages.map((m) => ({ role: m.role, content: m.content })),
+          language,
+          (text) => {
+            acc += text;
+            setStreamingContent(acc);
+          },
+          () => {
+            const assistantMsg: Message = { role: "assistant", content: acc };
+            setMessages((prev) => [...prev, assistantMsg]);
+            setStreamingContent("");
+            setIsStreaming(false);
+
+            const { analysis } = parseAssistantContent(acc);
+            if (analysis) {
+              setAnalysisData(analysis);
+            }
+          }
+        );
+      } catch (error) {
+        console.error("Stream error:", error);
+        setIsStreaming(false);
+        setStreamingContent("");
+      }
+    },
+    [language]
+  );
+
+  // Auto-start (text mode only)
   useEffect(() => {
-    if (startedRef.current) return;
+    if (startedRef.current || voiceMode) return;
     startedRef.current = true;
-    doSend([{ role: "user", content: "Hello! I'd like to participate in the Swiss AI Dialogue." }]);
-  }, [doSend]);
+    doSend([
+      {
+        role: "user",
+        content: "Hello! I'd like to participate in the Swiss AI Dialogue.",
+      },
+    ]);
+  }, [doSend, voiceMode]);
 
   const handleOptionSelect = useCallback(
     (option: string) => {
@@ -326,15 +287,36 @@ export default function DialoguePage() {
     [isStreaming, doSend]
   );
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      const text = inputValue.trim();
-      if (!text || isStreaming) return;
-      doSend([...messagesRef.current, { role: "user", content: text }]);
+  const handleSubmit = useCallback(() => {
+    const text = inputValue.trim();
+    if (!text || isStreaming) return;
+    doSend([...messagesRef.current, { role: "user", content: text }]);
+  }, [inputValue, isStreaming, doSend]);
+
+  const handleCopySummary = useCallback(() => {
+    if (!analysisData) return;
+    const text = `Swiss AI Dialogue Summary\n\n${analysisData.summary}\n\nKey themes: ${analysisData.topThemes.join(", ")}`;
+    navigator.clipboard.writeText(text);
+  }, [analysisData]);
+
+  const handleVoiceTranscript = useCallback(
+    (role: "user" | "assistant", text: string) => {
+      setMessages((prev) => [...prev, { role, content: text }]);
     },
-    [inputValue, isStreaming, doSend]
+    []
   );
+
+  const handleVoiceEnd = useCallback(() => {
+    setVoiceMode(false);
+  }, []);
+
+  const handleVoiceStart = useCallback(() => {
+    if (hasStarted) return; // Voice mode only available before first exchange
+    setVoiceMode(true);
+    setHasStarted(true);
+    // Prevent text auto-start
+    startedRef.current = true;
+  }, [hasStarted]);
 
   return (
     <div className="fixed inset-0 flex flex-col bg-background">
@@ -343,38 +325,62 @@ export default function DialoguePage() {
         {/* Hero header */}
         <div className="px-6 pt-12 pb-8">
           <div className="mx-auto max-w-2xl text-center">
-            <Link href="/" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              &larr; Back to Public AI
-            </Link>
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <p className="text-sm font-medium text-red-500 mt-4 mb-3 tracking-wide uppercase">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/"
+                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                &larr; Back to Public AI
+              </Link>
+              <LanguageToggle value={language} onChange={setLanguage} />
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="mt-4 mb-3 text-sm font-medium uppercase tracking-wide text-red-500">
                 Swiss National AI Dialogue
               </p>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h1 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
                 Your voice shapes Swiss AI
               </h1>
-              <p className="text-base text-muted-foreground max-w-lg mx-auto mb-6">
-                Join {totalParticipation.toLocaleString()} citizens across all 26 cantons in defining how AI is built and governed in Switzerland.
+              <p className="mx-auto mb-2 max-w-lg text-base text-muted-foreground">
+                Join {totalParticipation.toLocaleString()} citizens across all
+                26 cantons in defining how AI is built and governed in
+                Switzerland.
+              </p>
+              <p className="mx-auto mb-6 max-w-lg text-xs text-muted-foreground">
+                This takes about 10 minutes. Your responses are anonymous and go
+                toward shaping Swiss AI policy.
               </p>
             </motion.div>
-            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground flex-wrap mb-6">
+            <div className="mb-6 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-red-500" />
+                <span className="h-2 w-2 rounded-full bg-red-500" />
                 CIP
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-red-500" />
+                <span className="h-2 w-2 rounded-full bg-red-500" />
                 Public AI
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-red-500" />
+                <span className="h-2 w-2 rounded-full bg-red-500" />
                 Swiss AI
               </span>
             </div>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }}>
-              <div className="text-center mb-4">
-                <div className="text-2xl font-bold text-foreground">{totalParticipation.toLocaleString()}</div>
-                <div className="text-sm text-muted-foreground">citizens have shared their views across all 26 cantons</div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <div className="mb-4 text-center">
+                <div className="text-2xl font-bold text-foreground">
+                  {totalParticipation.toLocaleString()}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  citizens have shared their views across all 26 cantons
+                </div>
               </div>
               <CantonMap />
             </motion.div>
@@ -386,89 +392,55 @@ export default function DialoguePage() {
           <div className="h-px bg-border" />
         </div>
 
-        {/* Messages */}
+        {/* Voice mode UI */}
+        {voiceMode && (
+          <div className="px-4 py-6">
+            <div className="mx-auto max-w-2xl">
+              <VoiceMode
+                language={language}
+                onEnd={handleVoiceEnd}
+                onTranscript={handleVoiceTranscript}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Messages (shown in both modes — voice transcripts appear here too) */}
         <div className="px-4 py-6">
           <div className="mx-auto max-w-2xl space-y-4">
-          <AnimatePresence mode="popLayout">
-            {messages.map((msg, i) => {
-              // Hide auto-start message
-              if (i === 0 && msg.role === "user") return null;
-
-              if (msg.role === "user") {
-                return (
-                  <motion.div key={`msg-${i}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex justify-end">
-                    <div className="max-w-[80%] rounded-3xl bg-muted px-5 py-2.5 text-sm text-foreground">
-                      {msg.content}
-                    </div>
-                  </motion.div>
-                );
-              }
-
-              // Assistant message — parse for options and analysis
-              const { textBefore, options, analysis } = parseAssistantContent(msg.content);
-              const isLast = i === messages.length - 1 && !isStreaming;
-
-              return (
-                <motion.div key={`msg-${i}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-1">
-                  {textBefore && (
-                    <div className="text-sm leading-7 text-foreground whitespace-pre-wrap">{textBefore}</div>
-                  )}
-                  {options.length > 0 && (
-                    <OptionButtons
-                      options={options}
-                      onSelect={handleOptionSelect}
-                      disabled={!isLast}
-                    />
-                  )}
-                  {analysis && <AnalysisDashboard data={analysis} />}
-                </motion.div>
-              );
-            })}
-
-            {/* Streaming */}
-            {isStreaming && streamingContent && (
-              <motion.div key="streaming" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-1">
-                <div className="text-sm leading-7 text-foreground whitespace-pre-wrap">
-                  {parseAssistantContent(streamingContent).textBefore || streamingContent}
-                </div>
-              </motion.div>
-            )}
-
-            {isStreaming && !streamingContent && (
-              <motion.div key="typing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <TypingIndicator />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <div className="h-4" />
-        </div>
+            <MessageList
+              messages={messages}
+              streamingContent={streamingContent}
+              isStreaming={isStreaming}
+              onOptionSelect={handleOptionSelect}
+              renderAnalysis={(data) => (
+                <AnalysisDashboard
+                  data={data}
+                  onCopySummary={handleCopySummary}
+                />
+              )}
+            />
+            <div className="h-4" />
+          </div>
         </div>
       </div>
 
-      {/* Input */}
-      {!analysisData && (
+      {/* Input bar — hidden in voice mode and after analysis */}
+      {!analysisData && !voiceMode && (
         <div className="shrink-0 border-t border-border bg-background px-4 py-4">
-          <form onSubmit={handleSubmit} className="mx-auto flex max-w-2xl items-center gap-2">
-            <input
-              ref={inputRef}
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Type your thoughts..."
-              disabled={isStreaming}
-              className="flex-1 rounded-full border border-border bg-muted px-5 py-2.5 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-red-300 focus:ring-1 focus:ring-red-300 disabled:opacity-50"
-            />
-            <button
-              type="submit"
-              disabled={isStreaming || !inputValue.trim()}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-opacity hover:opacity-80 disabled:opacity-30"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="19" x2="12" y2="5" />
-                <polyline points="5 12 12 5 19 12" />
-              </svg>
-            </button>
-          </form>
+          <div className="mx-auto flex max-w-2xl items-center gap-2">
+            {!hasStarted && (
+              <MicToggleButton onClick={handleVoiceStart} />
+            )}
+            <div className="flex-1">
+              <InputBar
+                value={inputValue}
+                onChange={setInputValue}
+                onSubmit={handleSubmit}
+                disabled={isStreaming}
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>

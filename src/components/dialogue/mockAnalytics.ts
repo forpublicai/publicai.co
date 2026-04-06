@@ -41,3 +41,37 @@ export const totalParticipation = cantonData.reduce((sum, c) => sum + c.particip
 export function getCantonById(id: string): CantonData | undefined {
   return cantonData.find((c) => c.id === id);
 }
+
+/** Mock per-topic agreement percentages for feedback cards */
+export const topicInsights: Record<string, { topic: string; percentage: number; template: string }> = {
+  privacy: {
+    topic: "Privacy & Data",
+    percentage: 68,
+    template: "{pct}% of {canton} participants share your concern about data sovereignty",
+  },
+  governance: {
+    topic: "Governance",
+    percentage: 54,
+    template: "{pct}% of participants in {canton} also favor citizen-led AI oversight",
+  },
+  access: {
+    topic: "Access & Inclusion",
+    percentage: 72,
+    template: "{pct}% of {canton} residents agree AI should be accessible to everyone",
+  },
+  boundaries: {
+    topic: "AI Boundaries",
+    percentage: 61,
+    template: "{pct}% of participants across Switzerland share similar views on AI limits",
+  },
+  culture: {
+    topic: "Cultural Values",
+    percentage: 58,
+    template: "{pct}% of {canton} citizens want AI to reflect local cultural values",
+  },
+  trust: {
+    topic: "Trust",
+    percentage: 65,
+    template: "{pct}% of Swiss participants share your level of trust in public AI",
+  },
+};

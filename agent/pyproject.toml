@@ -1,0 +1,18 @@
+[project]
+name = "dialogue-agent"
+version = "0.1.0"
+description = "Swiss National AI Dialogue voice agent powered by LiveKit"
+requires-python = ">=3.10"
+dependencies = [
+    "livekit-agents>=1.2.0",
+    "livekit-plugins-deepgram>=1.2.0",
+    "livekit-plugins-openai>=1.2.0",
+    "livekit-plugins-cartesia>=1.2.0",
+    "livekit-plugins-silero>=1.2.0",
+    "livekit-plugins-turn-detector>=1.2.0",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
