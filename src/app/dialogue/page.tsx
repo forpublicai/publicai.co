@@ -172,33 +172,6 @@ function AnalysisDashboard({
   );
 }
 
-// ── Mic button ──
-
-function MicToggleButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      title="Switch to voice mode"
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-    >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-        <line x1="12" y1="19" x2="12" y2="22" />
-      </svg>
-    </button>
-  );
-}
-
 // ── Main page ──
 
 export default function DialoguePage() {
@@ -267,17 +240,17 @@ export default function DialoguePage() {
     [language]
   );
 
-  // Auto-start (text mode only)
-  useEffect(() => {
-    if (startedRef.current || voiceMode) return;
+  const startTextMode = useCallback(() => {
+    if (startedRef.current) return;
     startedRef.current = true;
+    setHasStarted(true);
     doSend([
       {
         role: "user",
         content: "Hello! I'd like to participate in the Swiss AI Dialogue.",
       },
     ]);
-  }, [doSend, voiceMode]);
+  }, [doSend]);
 
   const handleOptionSelect = useCallback(
     (option: string) => {
@@ -425,21 +398,47 @@ export default function DialoguePage() {
         </div>
       </div>
 
-      {/* Input bar — hidden in voice mode and after analysis */}
-      {!analysisData && !voiceMode && (
-        <div className="shrink-0 border-t border-border bg-background px-4 py-4">
-          <div className="mx-auto flex max-w-2xl items-center gap-2">
-            {!hasStarted && (
-              <MicToggleButton onClick={handleVoiceStart} />
-            )}
-            <div className="flex-1">
-              <InputBar
-                value={inputValue}
-                onChange={setInputValue}
-                onSubmit={handleSubmit}
-                disabled={isStreaming}
-              />
+      {/* Mode picker — shown before interview starts */}
+      {!hasStarted && !voiceMode && (
+        <div className="shrink-0 border-t border-border bg-background px-4 py-6">
+          <div className="mx-auto flex max-w-2xl flex-col items-center gap-3">
+            <p className="text-sm text-muted-foreground">How would you like to participate?</p>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={startTextMode}
+                className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                Type
+              </button>
+              <button
+                onClick={handleVoiceStart}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                  <line x1="12" y1="19" x2="12" y2="22" />
+                </svg>
+                Speak
+              </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Text input bar — shown during text mode */}
+      {hasStarted && !analysisData && !voiceMode && (
+        <div className="shrink-0 border-t border-border bg-background px-4 py-4">
+          <div className="mx-auto max-w-2xl">
+            <InputBar
+              value={inputValue}
+              onChange={setInputValue}
+              onSubmit={handleSubmit}
+              disabled={isStreaming}
+            />
           </div>
         </div>
       )}
