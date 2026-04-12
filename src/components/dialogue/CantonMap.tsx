@@ -1,115 +1,320 @@
 "use client";
 
-import { useState } from "react";
-import { cantonData, type CantonData } from "./mockAnalytics";
+import { useState, useMemo } from "react";
+import { motion } from "motion/react";
+import {
+  cantonSvgPaths,
+  cantonCentroids,
+  cantonBounds,
+  MAP_VIEWBOX,
+} from "./cantonPaths";
 
-const maxParticipation = Math.max(...cantonData.map((c) => c.participation));
-
-function getColor(participation: number): string {
-  const intensity = participation / maxParticipation;
-  // Interpolate from light gray (#e5e7eb) to primary red (#ef4444)
-  const r = Math.round(229 + (239 - 229) * intensity);
-  const g = Math.round(231 - (231 - 68) * intensity);
-  const b = Math.round(235 - (235 - 68) * intensity);
-  return `rgb(${r}, ${g}, ${b})`;
+export interface CantonData {
+  id: string;
+  name: string;
+  nameFr: string;
+  nameIt: string;
 }
 
-// Simplified canton paths (approximate boundaries)
-const cantonPaths: Record<string, string> = {
-  ZH: "M 295 115 L 330 100 L 355 115 L 350 145 L 320 155 L 290 140 Z",
-  BE: "M 170 180 L 220 155 L 270 170 L 280 220 L 260 270 L 210 290 L 170 260 L 155 220 Z",
-  LU: "M 275 170 L 310 160 L 325 185 L 310 210 L 280 210 L 265 190 Z",
-  UR: "M 310 215 L 335 205 L 345 240 L 330 270 L 310 260 L 305 235 Z",
-  SZ: "M 325 185 L 355 175 L 365 200 L 350 215 L 330 210 Z",
-  OW: "M 280 215 L 310 210 L 310 240 L 290 245 L 275 235 Z",
-  NW: "M 290 245 L 310 240 L 315 260 L 295 265 L 285 255 Z",
-  GL: "M 365 200 L 395 190 L 405 215 L 390 235 L 370 225 L 360 210 Z",
-  ZG: "M 310 160 L 330 155 L 335 175 L 325 185 L 310 180 Z",
-  FR: "M 140 220 L 175 205 L 195 230 L 185 265 L 155 275 L 135 250 Z",
-  SO: "M 210 130 L 250 120 L 265 140 L 255 160 L 220 160 L 205 145 Z",
-  BS: "M 230 90 L 250 85 L 255 100 L 240 105 Z",
-  BL: "M 205 95 L 230 90 L 240 105 L 255 100 L 250 120 L 220 125 L 200 110 Z",
-  SH: "M 310 75 L 340 65 L 355 80 L 340 95 L 315 90 Z",
-  AR: "M 395 150 L 415 140 L 425 155 L 410 165 L 395 160 Z",
-  AI: "M 405 165 L 420 158 L 428 172 L 415 180 Z",
-  SG: "M 355 115 L 395 100 L 420 120 L 415 140 L 395 150 L 395 190 L 365 200 L 355 175 L 350 145 Z",
-  GR: "M 345 240 L 395 220 L 440 240 L 460 290 L 430 330 L 380 330 L 350 300 L 340 270 Z",
-  AG: "M 250 120 L 295 115 L 305 135 L 290 155 L 265 155 L 250 140 Z",
-  TG: "M 340 95 L 375 85 L 395 100 L 380 115 L 355 115 L 340 105 Z",
-  TI: "M 300 300 L 340 290 L 360 330 L 340 380 L 310 385 L 290 350 Z",
-  VD: "M 80 230 L 140 220 L 155 275 L 140 310 L 100 320 L 65 290 L 60 260 Z",
-  VS: "M 140 310 L 210 290 L 260 300 L 300 300 L 290 350 L 240 370 L 180 360 L 140 340 Z",
-  NE: "M 130 175 L 170 165 L 175 195 L 150 210 L 130 200 Z",
-  GE: "M 50 285 L 75 270 L 85 295 L 70 315 L 50 310 Z",
-  JU: "M 130 110 L 170 100 L 185 125 L 170 150 L 140 150 L 125 135 Z",
-};
+export const cantonData: CantonData[] = [
+  { id: "ZH", name: "Zürich", nameFr: "Zurich", nameIt: "Zurigo" },
+  { id: "BE", name: "Bern", nameFr: "Berne", nameIt: "Berna" },
+  { id: "LU", name: "Luzern", nameFr: "Lucerne", nameIt: "Lucerna" },
+  { id: "UR", name: "Uri", nameFr: "Uri", nameIt: "Uri" },
+  { id: "SZ", name: "Schwyz", nameFr: "Schwyz", nameIt: "Svitto" },
+  { id: "OW", name: "Obwalden", nameFr: "Obwald", nameIt: "Obvaldo" },
+  { id: "NW", name: "Nidwalden", nameFr: "Nidwald", nameIt: "Nidvaldo" },
+  { id: "GL", name: "Glarus", nameFr: "Glaris", nameIt: "Glarona" },
+  { id: "ZG", name: "Zug", nameFr: "Zoug", nameIt: "Zugo" },
+  { id: "FR", name: "Freiburg", nameFr: "Fribourg", nameIt: "Friburgo" },
+  { id: "SO", name: "Solothurn", nameFr: "Soleure", nameIt: "Soletta" },
+  {
+    id: "BS",
+    name: "Basel-Stadt",
+    nameFr: "Bâle-Ville",
+    nameIt: "Basilea Città",
+  },
+  {
+    id: "BL",
+    name: "Basel-Landschaft",
+    nameFr: "Bâle-Campagne",
+    nameIt: "Basilea Campagna",
+  },
+  {
+    id: "SH",
+    name: "Schaffhausen",
+    nameFr: "Schaffhouse",
+    nameIt: "Sciaffusa",
+  },
+  {
+    id: "AR",
+    name: "Appenzell Ausserrhoden",
+    nameFr: "Appenzell Rh.-Ext.",
+    nameIt: "Appenzello Esterno",
+  },
+  {
+    id: "AI",
+    name: "Appenzell Innerrhoden",
+    nameFr: "Appenzell Rh.-Int.",
+    nameIt: "Appenzello Interno",
+  },
+  { id: "SG", name: "St. Gallen", nameFr: "Saint-Gall", nameIt: "San Gallo" },
+  {
+    id: "GR",
+    name: "Graubünden",
+    nameFr: "Grisons",
+    nameIt: "Grigioni",
+  },
+  { id: "AG", name: "Aargau", nameFr: "Argovie", nameIt: "Argovia" },
+  { id: "TG", name: "Thurgau", nameFr: "Thurgovie", nameIt: "Turgovia" },
+  { id: "TI", name: "Ticino", nameFr: "Tessin", nameIt: "Ticino" },
+  { id: "VD", name: "Waadt", nameFr: "Vaud", nameIt: "Vaud" },
+  { id: "VS", name: "Wallis", nameFr: "Valais", nameIt: "Vallese" },
+  { id: "NE", name: "Neuenburg", nameFr: "Neuchâtel", nameIt: "Neuchâtel" },
+  { id: "GE", name: "Genf", nameFr: "Genève", nameIt: "Ginevra" },
+  { id: "JU", name: "Jura", nameFr: "Jura", nameIt: "Giura" },
+];
 
-export default function CantonMap() {
-  const [hoveredCanton, setHoveredCanton] = useState<CantonData | null>(null);
+export function getCantonById(id: string): CantonData | undefined {
+  return cantonData.find((c) => c.id === id);
+}
+
+// --- Utilities ---
+
+/** Seeded PRNG (mulberry32) for deterministic dot placement */
+function seededRandom(seed: number) {
+  let t = (seed + 0x6d2b79f5) | 0;
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
+
+/**
+ * Ray-casting point-in-polygon test against simplified SVG path.
+ * Handles M, L, Z commands (ignores curves — uses control points as vertices).
+ */
+function isPointInPolygon(
+  px: number,
+  py: number,
+  pathData: string
+): boolean {
+  const vertices: [number, number][] = [];
+  const nums = pathData.match(/-?\d+\.?\d*/g);
+  if (!nums) return false;
+  for (let i = 0; i < nums.length - 1; i += 2) {
+    const x = parseFloat(nums[i]);
+    const y = parseFloat(nums[i + 1]);
+    if (x > -500 && x < 1500 && y > -500 && y < 1500) {
+      vertices.push([x, y]);
+    }
+  }
+  if (vertices.length < 3) return false;
+
+  let inside = false;
+  for (let i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
+    const [xi, yi] = vertices[i];
+    const [xj, yj] = vertices[j];
+    if (yi > py !== yj > py && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+interface Dot {
+  x: number;
+  y: number;
+  cantonId: string;
+}
+
+function generateDotsInCanton(
+  cantonId: string,
+  count: number,
+  bounds: { minX: number; minY: number; maxX: number; maxY: number },
+  pathData: string
+): Dot[] {
+  const dots: Dot[] = [];
+  let seed = 0;
+  for (let i = 0; i < cantonId.length; i++) {
+    seed = seed * 31 + cantonId.charCodeAt(i);
+  }
+
+  const padX = (bounds.maxX - bounds.minX) * 0.08;
+  const padY = (bounds.maxY - bounds.minY) * 0.08;
+  const minX = bounds.minX + padX;
+  const maxX = bounds.maxX - padX;
+  const minY = bounds.minY + padY;
+  const maxY = bounds.maxY - padY;
+
+  let attempts = 0;
+  while (dots.length < count && attempts < count * 50) {
+    const r1 = seededRandom(seed + attempts * 7919);
+    const r2 = seededRandom(seed + attempts * 7919 + 1);
+    const x = minX + r1 * (maxX - minX);
+    const y = minY + r2 * (maxY - minY);
+    attempts++;
+    if (isPointInPolygon(x, y, pathData)) {
+      dots.push({ x, y, cantonId });
+    }
+  }
+  return dots;
+}
+
+// Skip labels for tiny cantons
+const SKIP_LABELS = new Set(["BS", "AI", "AR", "OW", "NW", "ZG"]);
+
+// --- Component ---
+
+interface CantonMapProps {
+  participantCounts?: Record<string, number>;
+  highlightedCanton?: string;
+  participantsPerDot?: number;
+}
+
+export default function CantonMap({
+  participantCounts = {},
+  highlightedCanton,
+  participantsPerDot = 3,
+}: CantonMapProps) {
+  const [hoveredCanton, setHoveredCanton] = useState<string | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
+  // Generate all dots
+  const allDots = useMemo(() => {
+    const dots: Dot[] = [];
+    for (const canton of cantonData) {
+      const count = participantCounts[canton.id] || 0;
+      const dotCount = Math.max(1, Math.round(count / participantsPerDot));
+      const pathData = cantonSvgPaths[canton.id];
+      const bounds = cantonBounds[canton.id];
+      if (pathData && bounds && count > 0) {
+        dots.push(...generateDotsInCanton(canton.id, dotCount, bounds, pathData));
+      }
+    }
+    return dots;
+  }, [participantCounts, participantsPerDot]);
+
+  const hoveredData = hoveredCanton ? getCantonById(hoveredCanton) : null;
+  const hoveredCount = hoveredCanton
+    ? participantCounts[hoveredCanton] || 0
+    : 0;
+
   return (
-    <div className="relative w-full max-w-lg mx-auto">
+    <div className="relative w-full max-w-2xl mx-auto">
       <svg
-        viewBox="30 50 450 350"
+        viewBox={MAP_VIEWBOX}
         className="w-full h-auto"
         onMouseLeave={() => setHoveredCanton(null)}
       >
-        {cantonData.map((canton) => (
-          <path
-            key={canton.id}
-            d={cantonPaths[canton.id] || ""}
-            data-canton={canton.id}
-            fill={getColor(canton.participation)}
-            stroke="white"
-            strokeWidth="1.5"
-            className="cursor-pointer transition-opacity duration-150 hover:opacity-80"
-            onMouseEnter={(e) => {
-              setHoveredCanton(canton);
-              const svg = e.currentTarget.ownerSVGElement;
-              if (svg) {
-                const rect = svg.getBoundingClientRect();
-                const pt = svg.createSVGPoint();
-                pt.x = e.clientX;
-                pt.y = e.clientY;
-                setTooltipPos({
-                  x: e.clientX - rect.left,
-                  y: e.clientY - rect.top,
-                });
+        {/* Layer 1: Canton shapes */}
+        {cantonData.map((canton, i) => {
+          const pathData = cantonSvgPaths[canton.id];
+          if (!pathData) return null;
+          const isHovered = hoveredCanton === canton.id;
+          const isHighlighted = highlightedCanton === canton.id;
+          return (
+            <motion.path
+              key={canton.id}
+              d={pathData}
+              fill={
+                isHighlighted
+                  ? "rgba(239,68,68,0.12)"
+                  : isHovered
+                    ? "rgba(239,68,68,0.06)"
+                    : "#fafafa"
               }
-            }}
-            onMouseMove={(e) => {
-              const svg = e.currentTarget.ownerSVGElement;
-              if (svg) {
-                const rect = svg.getBoundingClientRect();
-                setTooltipPos({
-                  x: e.clientX - rect.left,
-                  y: e.clientY - rect.top,
-                });
-              }
-            }}
-          />
-        ))}
-        {/* Canton labels */}
+              stroke="rgba(0,0,0,0.1)"
+              strokeWidth="0.5"
+              className="cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: i * 0.02 }}
+              onMouseEnter={(e) => {
+                setHoveredCanton(canton.id);
+                const svg = e.currentTarget.ownerSVGElement;
+                if (svg) {
+                  const rect = svg.getBoundingClientRect();
+                  setTooltipPos({
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top,
+                  });
+                }
+              }}
+              onMouseMove={(e) => {
+                const svg = e.currentTarget.ownerSVGElement;
+                if (svg) {
+                  const rect = svg.getBoundingClientRect();
+                  setTooltipPos({
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top,
+                  });
+                }
+              }}
+            />
+          );
+        })}
+
+        {/* Layer 2: Participant dots */}
+        {allDots.map((dot, i) => {
+          const isInHovered = hoveredCanton === dot.cantonId;
+          return (
+            <motion.circle
+              key={`dot-${i}`}
+              cx={dot.x}
+              cy={dot.y}
+              r={2.5}
+              fill="#ef4444"
+              className="pointer-events-none"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: isInHovered ? 1 : [0.6, 0.9, 0.6],
+                scale: 1,
+                x: [0, (seededRandom(i * 31) - 0.5) * 1.5, 0],
+                y: [0, (seededRandom(i * 37) - 0.5) * 1.5, 0],
+              }}
+              transition={{
+                opacity: isInHovered
+                  ? { duration: 0.15 }
+                  : {
+                      duration: 3 + seededRandom(i * 41) * 2,
+                      repeat: Infinity,
+                      delay: 0.5 + i * 0.008,
+                    },
+                scale: {
+                  duration: 0.4,
+                  delay: 0.5 + i * 0.008,
+                },
+                x: {
+                  duration: 4 + seededRandom(i * 43) * 3,
+                  repeat: Infinity,
+                  delay: 0.5 + i * 0.008,
+                },
+                y: {
+                  duration: 4 + seededRandom(i * 47) * 3,
+                  repeat: Infinity,
+                  delay: 0.5 + i * 0.008,
+                },
+              }}
+            />
+          );
+        })}
+
+        {/* Layer 3: Canton labels */}
         {cantonData.map((canton) => {
-          const path = cantonPaths[canton.id];
-          if (!path) return null;
-          // Calculate rough center from path
-          const nums = path.match(/\d+/g)?.map(Number) || [];
-          const xs = nums.filter((_, i) => i % 2 === 0);
-          const ys = nums.filter((_, i) => i % 2 === 1);
-          const cx = xs.reduce((a, b) => a + b, 0) / xs.length;
-          const cy = ys.reduce((a, b) => a + b, 0) / ys.length;
+          if (SKIP_LABELS.has(canton.id)) return null;
+          const centroid = cantonCentroids[canton.id];
+          if (!centroid) return null;
           return (
             <text
               key={`label-${canton.id}`}
-              x={cx}
-              y={cy}
+              x={centroid.x}
+              y={centroid.y}
               textAnchor="middle"
               dominantBaseline="central"
-              className="pointer-events-none select-none fill-gray-700"
-              fontSize="8"
-              fontWeight="600"
+              className="pointer-events-none select-none"
+              fontSize="6"
+              fontWeight="500"
+              fill="rgba(0,0,0,0.35)"
             >
               {canton.id}
             </text>
@@ -118,7 +323,7 @@ export default function CantonMap() {
       </svg>
 
       {/* Tooltip */}
-      {hoveredCanton && (
+      {hoveredData && (
         <div
           className="absolute pointer-events-none z-10 bg-white border border-gray-200 shadow-lg rounded-lg px-3 py-2 text-sm"
           style={{
@@ -127,12 +332,12 @@ export default function CantonMap() {
             transform: "translateY(-100%)",
           }}
         >
-          <div className="font-semibold text-gray-900">
-            {hoveredCanton.name}
-          </div>
-          <div className="text-gray-600">
-            {hoveredCanton.participation.toLocaleString()} participants
-          </div>
+          <div className="font-semibold text-gray-900">{hoveredData.name}</div>
+          {hoveredCount > 0 && (
+            <div className="text-gray-500 text-xs">
+              {hoveredCount} participant{hoveredCount !== 1 ? "s" : ""}
+            </div>
+          )}
         </div>
       )}
     </div>
