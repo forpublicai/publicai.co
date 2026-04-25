@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 import { useLanguage } from "@/components/dialogue/LanguageContext";
-import type { DeliberationData } from "@/components/dialogue/useDeliberation";
 import { useSurvey } from "@/components/dialogue/useSurvey";
 import { useInterview } from "@/components/dialogue/useInterview";
 import SurveyHero from "@/components/dialogue/SurveyHero";
@@ -15,20 +14,12 @@ const CantonMap = dynamic(
   { ssr: false }
 );
 
-export default function SurveyContent({
-  deliberationData,
-}: {
-  deliberationData: DeliberationData;
-}) {
+export default function SurveyContent() {
   const { language } = useLanguage();
-  const { deliberation } = deliberationData;
   const { data: surveyData, loading, refresh } = useSurvey();
 
   const interview = useInterview({
-    interviewType: "survey",
     language,
-    deliberationId: deliberation?.id ?? null,
-    deliberationQuestion: null,
     onComplete: refresh,
   });
 

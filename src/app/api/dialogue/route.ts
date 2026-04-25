@@ -11,12 +11,8 @@ export const maxDuration = 60;
 
 const promptDir = join(process.cwd(), "src/app/api/dialogue");
 
-function loadPrompt(interviewType: string): string {
-  const filename =
-    interviewType === "survey"
-      ? "interview_prompt_survey.md"
-      : "interview_prompt_deliberation.md";
-  return readFileSync(join(promptDir, filename), "utf-8");
+function loadPrompt(): string {
+  return readFileSync(join(promptDir, "interview_prompt_survey.md"), "utf-8");
 }
 
 const openai = createOpenAI({
@@ -73,46 +69,9 @@ const surveyTools = {
   }),
 };
 
-const deliberationTools = {
-  complete_deliberation: tool({
-    description:
-      "Call this tool when the interview is complete and the participant has confirmed your summary. Captures the opinion and analysis.",
-    inputSchema: zodSchema(
-      z.object({
-        opinion: z
-          .string()
-          .describe(
-            "A concise 1-3 sentence statement capturing the participant's core position on the deliberation question"
-          ),
-        analysis: z.object({
-          summary: z
-            .string()
-            .describe(
-              "2-3 sentence narrative of the participant's key positions and values"
-            ),
-          topThemes: z.array(z.string()).describe("Top 3 themes from the conversation"),
-          topicScores: z.array(
-            z.object({
-              topic: z.string(),
-              userPosition: z.string().describe("Brief stance label"),
-              alignmentWithMajority: z
-                .number()
-                .min(0)
-                .max(100)
-                .describe("0-100 estimate of alignment with typical Swiss opinion"),
-            })
-          ),
-        }),
-      })
-    ),
-  }),
-};
-
 export async function POST(req: Request) {
-  const { messages, language, deliberationQuestion, interviewType } =
-    await req.json();
+  const { messages, language } = await req.json();
 
-  // Infer canton from Vercel geo headers
   const headersList = await headers();
   const city = headersList.get("x-vercel-ip-city");
   const country = headersList.get("x-vercel-ip-country");
@@ -122,14 +81,7 @@ export async function POST(req: Request) {
     inferredCanton = cityToCanton(city);
   }
 
-  // Build system prompt with language and canton directives
   const directives: string[] = [];
-
-  if (interviewType !== "survey" && deliberationQuestion) {
-    directives.push(
-      `TODAY'S DELIBERATION QUESTION: ${deliberationQuestion}\nFocus the interview on this specific question. All exchanges should explore the participant's views on this topic.`
-    );
-  }
 
   if (language) {
     const langName = getLanguageName(language);
@@ -147,13 +99,11 @@ export async function POST(req: Request) {
     }
   }
 
-  const baseSystemPrompt = loadPrompt(interviewType || "deliberation");
+  const baseSystemPrompt = loadPrompt();
   const systemPrompt =
     directives.length > 0
       ? directives.join("\n") + "\n\n" + baseSystemPrompt
       : baseSystemPrompt;
-
-  const tools = interviewType === "survey" ? surveyTools : deliberationTools;
 
   const result = streamText({
     model: openai.chat("gpt-4o-mini"),
@@ -162,7 +112,7 @@ export async function POST(req: Request) {
       content: m.content,
     })),
     system: systemPrompt,
-    tools,
+    tools: surveyTools,
   });
 
   return result.toUIMessageStreamResponse();

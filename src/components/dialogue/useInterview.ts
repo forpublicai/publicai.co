@@ -4,8 +4,6 @@ import { useState, useRef, useCallback } from "react";
 import { parseAssistantContent, type Message } from "./MessageList";
 import type { LanguageCode } from "@/lib/languages";
 
-export type InterviewType = "deliberation" | "survey";
-
 export interface ToolCallData {
   opinion?: string;
   analysis?: {
@@ -22,8 +20,6 @@ export interface ToolCallData {
 async function streamChat(
   messages: { role: string; content: string }[],
   language: LanguageCode,
-  deliberationQuestion: string | null,
-  interviewType: InterviewType,
   onChunk: (chunk: string) => void,
   onToolCall: (data: ToolCallData) => void,
   onDone: () => void
@@ -34,8 +30,6 @@ async function streamChat(
     body: JSON.stringify({
       messages,
       language,
-      deliberationQuestion,
-      interviewType,
     }),
   });
 
@@ -65,10 +59,8 @@ async function streamChat(
         if (event.type === "text-delta") {
           onChunk(event.delta);
         } else if (event.type === "tool-input-available") {
-          const toolName = event.toolName;
-          const input = event.input;
-          if (toolName === "complete_survey" || toolName === "complete_deliberation") {
-            onToolCall(input as ToolCallData);
+          if (event.toolName === "complete_survey") {
+            onToolCall(event.input as ToolCallData);
           }
         }
       } catch {
@@ -80,18 +72,12 @@ async function streamChat(
 }
 
 interface UseInterviewOptions {
-  interviewType: InterviewType;
   language: LanguageCode;
-  deliberationId: string | null;
-  deliberationQuestion: string | null;
   onComplete: () => void;
 }
 
 export function useInterview({
-  interviewType,
   language,
-  deliberationId,
-  deliberationQuestion,
   onComplete,
 }: UseInterviewOptions) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -121,8 +107,6 @@ export function useInterview({
         await streamChat(
           newMessages.map((m) => ({ role: m.role, content: m.content })),
           language,
-          deliberationQuestion,
-          interviewType,
           (text) => {
             acc += text;
             setStreamingContent(acc);
@@ -140,8 +124,8 @@ export function useInterview({
 
             // Fallback: regex-based completion detection if no tool call received
             if (!receivedToolCall) {
-              const { opinion, surveyResponse } = parseAssistantContent(acc);
-              if (interviewType === "survey" ? surveyResponse : opinion) {
+              const { surveyResponse } = parseAssistantContent(acc);
+              if (surveyResponse) {
                 setCompleted(true);
               }
             }
@@ -153,7 +137,7 @@ export function useInterview({
         setStreamingContent("");
       }
     },
-    [language, deliberationQuestion, interviewType]
+    [language]
   );
 
   const start = useCallback(() => {
@@ -196,8 +180,6 @@ export function useInterview({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            deliberation_id: deliberationId,
-            interview_type: interviewType,
             messages: messages.map((m) => ({
               role: m.role,
               content: m.content,
@@ -216,7 +198,7 @@ export function useInterview({
         setSaving(false);
       }
     },
-    [deliberationId, interviewType, messages, language, saving, onComplete, toolCallData]
+    [messages, language, saving, onComplete, toolCallData]
   );
 
   const reset = useCallback(() => {
