@@ -47,5 +47,9 @@ export const faqData: FAQItem[] = [
   {
     question: "What is Public AI Plus?",
     answer: "Public AI Plus (or Public AI+) is a way for users to publish tools directly to our platform's shared frontend. It also facilitates data contributions to the public AI commons."
+  },
+  {
+    question: "What's with some of the photos on your stories?",
+    answer: "What can we say, we use AI to bring people together."
   }
 ];
