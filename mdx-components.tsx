@@ -4,6 +4,7 @@ import Link from 'next/link'
 import CallToAction from './src/components/CallToAction'
 import Footer from './src/components/Footer'
 import SubstackBox from './src/components/SubstackBox'
+import PhotoFigure from './src/components/PhotoFigure'
 
 // Track if Substack box has been rendered
 let substackBoxRendered = false
@@ -63,6 +64,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </Link>
     ),
+    PhotoFigure,
     // Add wrapper styling with better line spacing
     wrapper: ({ children }) => (
       <div className="min-h-screen bg-white">
