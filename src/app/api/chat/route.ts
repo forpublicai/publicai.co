@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const { messages, system, tools } = await req.json();
 
   const result = streamText({
-    model: openai.chat("swiss-ai/apertus-8b-instruct"),
+    model: openai.chat("swiss-ai/apertus-v1.5-8b-thinking"),
     messages: convertToModelMessages(messages),
     system: systemPrompt,
     tools: {
