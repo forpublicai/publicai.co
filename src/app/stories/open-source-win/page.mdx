@@ -1,10 +1,12 @@
-export const metadata = {
+import { createStoryMetadata } from '@/lib/story-metadata';
+
+export const metadata = createStoryMetadata({
   title: "If open source is to win, it must go public",
   description: "Katherine and her co-authors argue that open source AI must be embedded within broader public AI infrastructures to truly democratize access to AI.",
   date: "July 12, 2025",
   image: "/people/kate_elkins.png",
-  alt: "Katherine Elkins"
-};
+  alt: "Katherine Elkins",
+});
 
 # If open source is to win, it must go public
 

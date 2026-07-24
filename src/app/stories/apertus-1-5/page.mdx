@@ -1,10 +1,13 @@
-export const metadata = {
+import { createStoryMetadata } from '@/lib/story-metadata';
+
+export const metadata = createStoryMetadata({
   title: "With 1.5x love, from Switzerland",
   description: "Apertus 1.5 adds image understanding, 4× longer context, and better tool use. Still fully open, now live on Public AI.",
   date: "July 24, 2026",
   image: "/apertus_team.png",
-  alt: "The Apertus team"
-};
+  alt: "The Apertus team",
+  ogImage: "/apertus-1-5-og.png",
+});
 
 # With 1.5x love, from Switzerland
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getFeaturedNewsItems, getRegularNewsItems } from "@/lib/stories";
@@ -5,6 +6,28 @@ import LandingChatInterface from "@/components/LandingChatInterface";
 import FAQSection from "@/components/FAQ/FAQSection";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  openGraph: {
+    url: "https://publicai.co",
+    title: "Public AI Inference Utility",
+    description: "A nonprofit, open-source service to make public and sovereign AI models more accessible.",
+    images: [
+      {
+        url: "https://publicai.co/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Public AI",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Public AI Inference Utility",
+    description: "A nonprofit, open-source service to make public and sovereign AI models more accessible.",
+    images: ["https://publicai.co/og-image.png"],
+  },
+};
 
 export default async function Home() {
   const featuredNewsItems = await getFeaturedNewsItems();

@@ -1,10 +1,12 @@
-export const metadata = {
+import { createStoryMetadata } from '@/lib/story-metadata';
+
+export const metadata = createStoryMetadata({
   title: "With love, from Switzerland",
   description: "Imanol's team just launched Apertus, the most powerful open-source language model ever released by a public institution.",
   date: "September 2, 2025",
   image: "/switzerland.png",
-  alt: "Switzerland"
-};
+  alt: "Switzerland",
+});
 
 # With love, from Switzerland
 

@@ -1,10 +1,12 @@
-export const metadata = {
+import { createStoryMetadata } from '@/lib/story-metadata';
+
+export const metadata = createStoryMetadata({
   title: "Behind the scenes with AWS Zurich and Intel",
   description: "How Nicolas, Malte, and Diego helped us deploy public AI at national scale and built the layer that now helps host EuroLLM, ALIA, and more.",
   date: "June 16, 2026",
   image: "/people/nanobanana_nicolas_malte_diego.png",
-  alt: "Nicolas Jourdan, Malte Reimann, and Diego Bailón Humpert"
-};
+  alt: "Nicolas Jourdan, Malte Reimann, and Diego Bailón Humpert",
+});
 
 # Behind the scenes: how we shipped the Inference Utility with help from AWS Zurich and Intel
 

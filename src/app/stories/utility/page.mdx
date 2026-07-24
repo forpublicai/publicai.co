@@ -1,10 +1,12 @@
-export const metadata = {
+import { createStoryMetadata } from '@/lib/story-metadata';
+
+export const metadata = createStoryMetadata({
   title: "We launched the Inference Utility!",
   description: "A public access point for public and sovereign AI models.",
   date: "September 2, 2025",
   image: "/inference_utility_puppy.jpeg",
-  alt: "Public AI Inference Utility"
-};
+  alt: "Public AI Inference Utility",
+});
 
 # About the Inference Utility
 
