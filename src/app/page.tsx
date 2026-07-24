@@ -38,12 +38,12 @@ export default async function Home() {
                 <div className="hover:opacity-95 transition-opacity cursor-pointer">
                   <div className="grid md:grid-cols-2 gap-16 items-start">
                     {/* Large Featured Image */}
-                    <div className="aspect-[3/4] bg-pink-100 rounded-2xl overflow-hidden">
+                    <div className="aspect-[3/2] bg-pink-100 rounded-2xl overflow-hidden">
                       <Image
                         src={item.image}
                         alt={item.alt}
-                        width={600}
-                        height={450}
+                        width={800}
+                        height={533}
                         className="w-full h-full object-cover"
                       />
                     </div>

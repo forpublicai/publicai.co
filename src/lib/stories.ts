@@ -13,8 +13,9 @@ export interface NewsItem {
 export const getNewsItems = async (): Promise<NewsItem[]> => {
   // Define the news items we want to load
   const newsItemConfigs = [
+    { slug: 'apertus-1-5', featured: true },
     { slug: 'amazon-intel' },
-    { slug: 'apertus', featured: true },
+    { slug: 'apertus' },
     { slug: 'huggingface' },
     { slug: 'airbus' },
     { slug: 'utility' },
