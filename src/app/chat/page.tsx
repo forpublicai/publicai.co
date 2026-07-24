@@ -5,6 +5,7 @@ import { AssistantRuntimeProvider, useThread, useComposerRuntime } from '@assist
 import { useChatRuntime } from '@assistant-ui/react-ai-sdk';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Thread } from '@/components/assistant-ui/thread';
+import Link from 'next/link';
 
 function ChatPageContent() {
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -49,7 +50,6 @@ function ChatWrapper({
   const thread = useThread();
   const composer = useComposerRuntime();
   const initialSubmitted = useRef(false);
-  const [sponsorText, setSponsorText] = useState<string | null>(null);
 
   // Handle initial message submission using composer
   useEffect(() => {
@@ -69,7 +69,7 @@ function ChatWrapper({
     }
   }, [initialMessage, router, composer]);
 
-  // Monitor message count for auth modal and sponsor text
+  // Monitor message count for auth modal
   useEffect(() => {
     const messages = thread.messages;
     const userMessages = messages.filter(m => m.role === 'user');
@@ -81,45 +81,33 @@ function ChatWrapper({
       if (userMessages.length === 3) {
         setShowAuthModal(true);
       }
-
-      // Set sponsor text on first message
-      if (userMessages.length === 1 && !sponsorText) {
-        setSponsorText(Math.random() < 0.9 ? 'AWS infrastructure in Switzerland' : 'Exoscale infrastructure in Switzerland and Austria');
-      }
     }
-  }, [thread.messages, messageCount, setMessageCount, setShowAuthModal, sponsorText]);
+  }, [thread.messages, messageCount, setMessageCount, setShowAuthModal]);
 
   return (
     <div className="fixed inset-0 top-16 flex flex-col bg-background">
       {/* Sponsor Attribution - shown above first message */}
-      {sponsorText && thread.messages.length > 0 && (
-        <div className="text-center py-4 bg-background flex-shrink-0">
-          <span className="text-xs text-muted-foreground">
-            ⚡ This conversation is running on{' '}
-            {sponsorText.includes('AWS') ? (
-              <>
-                <a
-                  href="https://aws.amazon.com/blogs/alps/switzerlands-open-source-apertus-llms-now-available-on-amazon-sagemaker-ai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-foreground transition-colors"
-                >
-                  AWS infrastructure in Switzerland
-                </a>
-              </>
-            ) : (
-              <>
-                <a
-                  href="https://www.exoscale.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-foreground transition-colors"
-                >
-                  Exoscale infrastructure in Switzerland and Austria
-                </a>
-              </>
-            )}.
-          </span>
+      {thread.messages.length > 0 && (
+        <div className="mx-auto w-full max-w-[44rem] px-4 py-4 bg-background flex-shrink-0">
+          <p className="text-xs text-muted-foreground text-center">
+            ⚡ You&apos;re talking to Switzerland&apos;s{' '}
+            <Link
+              href="/apertus-1-5"
+              className="underline hover:text-foreground transition-colors"
+            >
+              Apertus 1.5 8B Thinking
+            </Link>{' '}
+            model. This conversation is running on{' '}
+            <a
+              href="https://www.cscs.ch/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-foreground transition-colors"
+            >
+              Swiss National Supercomputing Centre
+            </a>{' '}
+            infrastructure in Lugano, Switzerland.
+          </p>
         </div>
       )}
       <div className="flex-1 min-h-0">

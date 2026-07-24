@@ -1,7 +1,7 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { frontendTools } from "@assistant-ui/react-ai-sdk";
 import { convertToModelMessages, streamText } from "ai";
-import { readFileSync } from "fs";
+import { DEMO_CHAT_MODEL_ID } from "@/lib/demo-chat-model";
 import { join } from "path";
 
 export const maxDuration = 30;
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const { messages, system, tools } = await req.json();
 
   const result = streamText({
-    model: openai.chat("swiss-ai/apertus-v1.5-8b-thinking"),
+    model: openai.chat(DEMO_CHAT_MODEL_ID),
     messages: convertToModelMessages(messages),
     system: systemPrompt,
     tools: {

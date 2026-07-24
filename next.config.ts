@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/apertus-1-5',
+        destination: '/stories/apertus-1-5',
+        permanent: true,
+      },
+      {
         source: '/airbus',
         destination: '/stories/airbus',
         permanent: true,
