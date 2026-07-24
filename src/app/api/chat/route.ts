@@ -1,8 +1,9 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { frontendTools } from "@assistant-ui/react-ai-sdk";
 import { convertToModelMessages, streamText } from "ai";
-import { DEMO_CHAT_MODEL_ID } from "@/lib/demo-chat-model";
+import { readFileSync } from "fs";
 import { join } from "path";
+import { DEMO_CHAT_MODEL_ID } from "@/lib/demo-chat-model";
 
 export const maxDuration = 30;
 

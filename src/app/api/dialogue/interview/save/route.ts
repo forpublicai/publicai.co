@@ -5,7 +5,9 @@ import OpenAI from "openai";
 
 export const maxDuration = 60;
 
-const openai = new OpenAI();
+function getOpenAI() {
+  return new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+}
 
 interface ToolCallData {
   opinion?: string;
@@ -95,7 +97,7 @@ export async function POST(req: Request) {
   let embedding: number[] | null = null;
   if (opinionText) {
     try {
-      const embeddingRes = await openai.embeddings.create({
+      const embeddingRes = await getOpenAI().embeddings.create({
         model: "text-embedding-3-small",
         input: opinionText,
       });
