@@ -4,7 +4,7 @@ import { convertToModelMessages, streamText } from "ai";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { apertusThinkingStreamTransform } from "@/lib/apertus-thinking-stream";
-import { DEMO_CHAT_MODEL_ID } from "@/lib/demo-chat-model";
+import { DEMO_CHAT_MODEL_ID, DEMO_CHAT_MODEL_THINKING } from "@/lib/demo-chat-model";
 
 export const maxDuration = 30;
 
@@ -30,7 +30,9 @@ export async function POST(req: Request) {
       ...frontendTools(tools),
       // add backend tools here
     },
-    experimental_transform: apertusThinkingStreamTransform(),
+    experimental_transform: DEMO_CHAT_MODEL_THINKING
+      ? apertusThinkingStreamTransform()
+      : undefined,
   });
 
   return result.toUIMessageStreamResponse();
