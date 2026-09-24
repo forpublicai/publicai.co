@@ -13,6 +13,9 @@ export default function Footer() {
             </Link> &nbsp;&nbsp; 
             <a href="mailto:hello@publicai.co" className="text-gray-500 hover:text-gray-600 transition-colors font-medium">
               Contact Us
+            </a> &nbsp;&nbsp;
+            <a href="https://publicai.network/chapters/" className="text-gray-500 hover:text-gray-600 transition-colors font-medium">
+              University chapters
             </a>
           </div>
         </div>
