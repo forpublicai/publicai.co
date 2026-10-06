@@ -2,9 +2,8 @@ import type { StreamTextTransform, TextStreamPart, ToolSet } from "ai";
 
 const INNER_PREFIX = "<|inner_prefix|>";
 const INNER_SUFFIX = "<|inner_suffix|>";
-const SPECIAL_TOKENS = [INNER_PREFIX, INNER_SUFFIX] as const;
 
-type Phase = "inner" | "outer";
+type Phase = "detecting" | "inner" | "outer";
 
 function maxSuffixPrefixOverlap(text: string, token: string): number {
   const max = Math.min(text.length, token.length - 1);
@@ -14,12 +13,6 @@ function maxSuffixPrefixOverlap(text: string, token: string): number {
     }
   }
   return 0;
-}
-
-function maxSpecialTokenOverlap(text: string): number {
-  return Math.max(
-    ...SPECIAL_TOKENS.map((token) => maxSuffixPrefixOverlap(text, token)),
-  );
 }
 
 function stripSpecialTokens(text: string): string {
@@ -37,7 +30,7 @@ export function apertusThinkingStreamTransform<
   TOOLS extends ToolSet = ToolSet,
 >(): StreamTextTransform<TOOLS> {
   return () => {
-    let phase: Phase = "inner";
+    let phase: Phase = "detecting";
     let buffer = "";
     let streamId = "text-0";
     let reasoningOpen = false;
@@ -108,6 +101,24 @@ export function apertusThinkingStreamTransform<
       controller: TransformStreamDefaultController<TextStreamPart<TOOLS>>,
     ) => {
       while (buffer.length > 0) {
+        if (phase === "detecting") {
+          // If the buffer starts with the full INNER_PREFIX, consume it and transition to inner phase
+          if (buffer.startsWith(INNER_PREFIX)) {
+            buffer = buffer.slice(INNER_PREFIX.length);
+            phase = "inner";
+            continue;
+          }
+
+          // If the buffer is a prefix of INNER_PREFIX, wait for more chunks to decide
+          if (INNER_PREFIX.startsWith(buffer)) {
+            return;
+          }
+
+          // Otherwise, it does not start with the reasoning token, transition to outer (text) phase
+          phase = "outer";
+          continue;
+        }
+
         if (phase === "inner") {
           if (buffer.startsWith(INNER_PREFIX)) {
             buffer = buffer.slice(INNER_PREFIX.length);
@@ -123,7 +134,7 @@ export function apertusThinkingStreamTransform<
             continue;
           }
 
-          const holdback = maxSpecialTokenOverlap(buffer);
+          const holdback = maxSuffixPrefixOverlap(buffer, INNER_SUFFIX);
           const emitLen = buffer.length - holdback;
           if (emitLen <= 0) {
             return;
@@ -134,14 +145,10 @@ export function apertusThinkingStreamTransform<
           return;
         }
 
-        const holdback = maxSpecialTokenOverlap(buffer);
-        const emitLen = buffer.length - holdback;
-        if (emitLen <= 0) {
-          return;
+        if (phase === "outer") {
+          emitText(controller, buffer);
+          buffer = "";
         }
-
-        emitText(controller, buffer.slice(0, emitLen));
-        buffer = buffer.slice(emitLen);
       }
     };
 
@@ -149,12 +156,7 @@ export function apertusThinkingStreamTransform<
       controller: TransformStreamDefaultController<TextStreamPart<TOOLS>>,
     ) => {
       if (buffer.length > 0) {
-        if (phase === "inner") {
-          // Model never emitted a suffix; treat the whole reply as visible text.
-          emitText(controller, buffer);
-        } else {
-          emitText(controller, buffer);
-        }
+        emitText(controller, buffer);
         buffer = "";
       }
 
