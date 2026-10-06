@@ -97,16 +97,7 @@ function ChatWrapper({
             >
               Apertus 1.5 8B Thinking
             </Link>{' '}
-            model. This conversation is running on{' '}
-            <a
-              href="https://www.cscs.ch/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-foreground transition-colors"
-            >
-              Swiss National Supercomputing Centre
-            </a>{' '}
-            infrastructure in Lugano, Switzerland.
+            model.
           </p>
         </div>
       )}
