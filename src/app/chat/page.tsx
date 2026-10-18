@@ -95,7 +95,7 @@ function ChatWrapper({
               href="/apertus-1-5"
               className="underline hover:text-foreground transition-colors"
             >
-              Apertus 1.5 70B
+              Apertus 1 8B
             </Link>{' '}
             model.
           </p>
