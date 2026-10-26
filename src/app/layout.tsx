@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Public_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 import Navbar from "@/components/navbar";
 import "./globals.css";
 
@@ -52,6 +53,24 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Analytics />
+        <Script id="chatwoot-widget" strategy="afterInteractive">
+          {`
+            window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":""};
+            (function(d,t) {
+              var BASE_URL="https://app.chatwoot.com";
+              var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+              g.src=BASE_URL+"/packs/js/sdk.js";
+              g.async = true;
+              s.parentNode.insertBefore(g,s);
+              g.onload=function(){
+                window.chatwootSDK.run({
+                  websiteToken: 'w9uGuvbAEpf5Z6rvDnva9S8o',
+                  baseUrl: BASE_URL
+                })
+              }
+            })(document,"script");
+          `}
+        </Script>
       </body>
     </html>
   );
