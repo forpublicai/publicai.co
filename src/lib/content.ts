@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import type { SidebarNavSection, TocHeadingItem } from "@/components/sections";
 
 const docsDirectory = path.join(process.cwd(), "content/docs");

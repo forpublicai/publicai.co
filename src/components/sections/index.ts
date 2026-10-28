@@ -14,3 +14,12 @@ export {
   type TocHeadingItem,
   type BreadcrumbCrumb,
 } from "./SidebarContentLayout";
+export {
+  WaitlistForm,
+  type WaitlistFormProps,
+  type WaitlistProductId,
+} from "./WaitlistForm";
+export {
+  ModelCatalog,
+  type ModelCatalogProps,
+} from "./ModelCatalog";

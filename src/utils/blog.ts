@@ -2,44 +2,15 @@ import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
 import matter from "gray-matter";
+import {
+  PROJECT_CATEGORIES,
+  type ProjectCategory,
+  type Post,
+} from "./blog-types";
+
+export { PROJECT_CATEGORIES, type ProjectCategory, type Post };
 
 const postsDirectory = path.join(process.cwd(), "content/projects");
-
-export type ProjectCategory =
-  | "All"
-  | "Projects & Case Studies"
-  | "Partner Work"
-  | "Model Launches"
-  | "Essays & Policy";
-
-export const PROJECT_CATEGORIES: ProjectCategory[] = [
-  "All",
-  "Projects & Case Studies",
-  "Partner Work",
-  "Model Launches",
-  "Essays & Policy",
-];
-
-export interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  datePublished: string;
-  category: Exclude<ProjectCategory, "All">;
-  description: string;
-  excerpt: string;
-  author: string;
-  coverImage?: string;
-  coverImageAlt?: string;
-  ogImage?: string;
-  tags: string[];
-  models: string[];
-  linkedinHook?: string;
-  linkedinBullets?: string[];
-  linkedinPost?: string;
-  draft?: boolean;
-  content: string;
-}
 
 /**
  * Fallback helper: if a Markdown/MDX file in content/projects/ omits `datePublished` / `date`,

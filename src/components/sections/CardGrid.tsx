@@ -18,8 +18,9 @@ export interface CardGridItem {
   title: string;
   description: string;
   badge?: string;
-  badgeTone?: "default" | "amber" | "teal" | "outline";
-  icon?: LucideIcon | React.ComponentType<{ className?: string }>;
+  badgeTone?: "default" | "amber" | "teal" | "outline" | "secondary";
+  badgeVariant?: "default" | "amber" | "teal" | "outline" | "secondary";
+  icon?: LucideIcon | React.ComponentType<{ className?: string }> | React.ReactNode;
   href?: string;
   ctaLabel?: string;
   external?: boolean;
@@ -46,6 +47,13 @@ export function CardGrid({ items, columns = 3, className }: CardGridProps) {
     <div className={cn("grid gap-6", gridCols, className)}>
       {items.map((item, idx) => {
         const Icon = item.icon;
+        const tone = item.badgeTone ?? item.badgeVariant;
+        const renderIcon = () => {
+          if (!Icon) return null;
+          if (React.isValidElement(Icon)) return Icon;
+          const IconComp = Icon as React.ComponentType<{ className?: string }>;
+          return <IconComp className="h-5 w-5" />;
+        };
         return (
           <Card
             key={item.id ?? `${item.title}-${idx}`}
@@ -56,19 +64,19 @@ export function CardGrid({ items, columns = 3, className }: CardGridProps) {
               <div className="flex items-center justify-between gap-2">
                 {Icon ? (
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-primary">
-                    <Icon className="h-5 w-5" />
+                    {renderIcon()}
                   </div>
                 ) : (
                   <span />
                 )}
                 {item.badge && (
                   <Badge
-                    variant={item.badgeTone === "outline" ? "outline" : "secondary"}
+                    variant={tone === "outline" ? "outline" : "secondary"}
                     className={cn(
                       "rounded-full px-2.5 py-0.5 text-xs font-semibold",
-                      item.badgeTone === "amber" &&
+                      tone === "amber" &&
                         "bg-warning text-warning-foreground border-transparent",
-                      item.badgeTone === "teal" &&
+                      tone === "teal" &&
                         "bg-brand-teal/15 text-brand-teal border-brand-teal/30"
                     )}
                   >

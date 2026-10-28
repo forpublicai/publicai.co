@@ -167,7 +167,41 @@
       },
       "post": {
         "summary": "Creates a model response for the given chat conversation",
-        "description": "",
+        "description": "Generates a synchronous or streaming (SSE) chat completion from a sovereign or open-weight text or multimodal vision model (such as Apertus 1.5, SEA-LION v4, Olmo 3, or Salamandra).",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCompletionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatCompletionResponse"
+                }
+              }
+            }
+          }
+        },
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
@@ -198,7 +232,19 @@
       },
       "post": {
         "summary": "Creates a completion for the provided prompt",
-        "description": "",
+        "description": "Legacy OpenAI-compatible text completion endpoint accepting a string or array prompt.",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
@@ -220,6 +266,86 @@
           }
         },
         "operationId": "completions-route-a7f3b8c9",
+        "x-internal": false
+      }
+    },
+    "/v1/responses": {
+      "post": {
+        "summary": "Creates a stateful model response (OpenAI Responses API)",
+        "description": "Unified OpenAI Responses API endpoint supporting multi-turn text, multimodal image inputs, and structured tool calling across sovereign models.",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
+        "operationId": "responses-create",
+        "x-internal": false
+      }
+    },
+    "/v1/messages": {
+      "post": {
+        "summary": "Creates a model message (Anthropic Messages API compatible)",
+        "description": "Anthropic SDK-compatible endpoint allowing tools like Claude Code and Anthropic client libraries to route requests directly to PublicAI sovereign models.",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
+        "operationId": "messages-create",
+        "x-internal": false
+      }
+    },
+    "/v1/developer/pricing": {
+      "get": {
+        "summary": "Returns live per-million-token pricing for all active models",
+        "description": "Queries real-time input and output token rates (USD per 1M tokens) and rate-limit metadata across the PublicAI model catalog.",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
+        "operationId": "developer-pricing-get",
+        "x-internal": false
+      }
+    },
+    "/v1/developer/api-key": {
+      "post": {
+        "summary": "Creates or rotates a developer API key programmatically",
+        "description": "Generates a new scoped API key for authenticated developer accounts.",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
+        "operationId": "developer-api-key-post",
         "x-internal": false
       }
     }
