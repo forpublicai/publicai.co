@@ -1,0 +1,90 @@
+---
+title: "Batch API Quickstart"
+description: "Run thousands of asynchronous chat and multimodal vision-LLM requests at 50–80% lower cost with 4-hour and 24-hour completion windows."
+section: "Platform Capabilities"
+order: 4
+---
+
+> **Status: Coming Soon** — The Public AI Batch API is currently in preview. Join the early access waitlist on the **[API Product Page (`/products/api#batch`)](/products/api#batch)**.
+
+The **Public AI Batch API** lets you submit large volumes of chat and multimodal vision-LLM requests asynchronously across our global sovereign compute network at **50–80% lower cost** than synchronous endpoints, without impacting your real-time per-minute rate limits.
+
+## Completion Windows
+
+We offer two completion windows designed around research pipelines and spare sovereign GPU capacity:
+
+| Window | Parameter | Discount | Ideal Use Cases |
+|---|---|---|---|
+| **4-Hour Express Window** | `"completion_window": "4h"` | **50% off** synchronous token rates | Chained data pipelines, daily model evaluations, and multi-stage agentic workflows |
+| **24-Hour Standard Window** | `"completion_window": "24h"` | **Up to 80% off** synchronous token rates | Massive dataset labeling, synthetic corpus generation, cross-lingual benchmarking, and archive processing |
+
+## Method 1: Inline JSON Array (`POST /v1/batches`)
+
+Modeled on the **OpenRouter Batch Quickstart**, you can submit a batch job directly with an inline `requests` array—no separate file upload required:
+
+```bash
+curl -X POST https://api.publicai.co/v1/batches \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "endpoint": "/v1/chat/completions",
+    "completion_window": "24h",
+    "model": "swiss-ai/apertus-v1.5-70b",
+    "callback_url": "https://example.org/webhooks/publicai-batch",
+    "requests": [
+      {
+        "custom_id": "req-001",
+        "body": {
+          "messages": [
+            { "role": "user", "content": "Translate this civic notice into Romansh, German, French, and Italian." }
+          ],
+          "max_tokens": 1024
+        }
+      },
+      {
+        "custom_id": "req-002",
+        "body": {
+          "messages": [
+            { "role": "user", "content": "Summarize key provisions of the Swiss AI Charter." }
+          ],
+          "max_tokens": 1024
+        }
+      }
+    ]
+  }'
+```
+
+### Poll Batch Status (`GET /v1/batches/{batch_id}`)
+
+```bash
+curl -X GET https://api.publicai.co/v1/batches/batch_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0"
+```
+
+## Method 2: JSONL File Upload (OpenAI SDK Compatible)
+
+For large jobs up to **50,000 requests** or **200 MB**, upload a `.jsonl` file via `POST /v1/files` (`purpose="batch"`) and create the batch job using the standard OpenAI Python or TypeScript SDK:
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.publicai.co/v1",
+    api_key="YOUR_API_KEY",
+    default_headers={"User-Agent": "MyApp/1.0"},
+)
+
+batch_input_file = client.files.create(
+    file=open("requests.jsonl", "rb"),
+    purpose="batch",
+)
+
+batch_job = client.batches.create(
+    input_file_id=batch_input_file.id,
+    endpoint="/v1/chat/completions",
+    completion_window="4h",  # "4h" or "24h"
+)
+print("Created batch:", batch_job.id, batch_job.status)
+```

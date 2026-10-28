@@ -1,0 +1,32 @@
+{
+  "portalTitle": "Developer Documentation",
+  "portalSubtitle": "Public AI Gateway & SDKs",
+  "sections": [
+    {
+      "label": "Getting Started",
+      "items": [
+        { "title": "Quick Start", "href": "/docs" },
+        { "title": "Available Models", "href": "/docs/models" },
+        { "title": "Plans & Rate Limits", "href": "/docs/plans" }
+      ]
+    },
+    {
+      "label": "Platform Capabilities",
+      "items": [
+        { "title": "OpenAPI Reference", "href": "/docs/api", "badge": "OAS 3.1" },
+        { "title": "Batch API Quickstart", "href": "/docs/batch", "badge": "Soon" },
+        { "title": "Public AI Chat Guide", "href": "/docs/chat" }
+      ]
+    },
+    {
+      "label": "Community & Console",
+      "items": [
+        { "title": "Inference Partners FAQ", "href": "/docs/inference-partners-faq" },
+        { "title": "Support Us (Plus Tier)", "href": "/docs/support-us" },
+        { "title": "API Keys Console", "href": "https://platform.publicai.co/settings/api-keys", "external": true },
+        { "title": "Billing & Wallet", "href": "https://platform.publicai.co/account/billing", "external": true },
+        { "title": "LLMs.txt", "href": "/llms.txt", "external": true }
+      ]
+    }
+  ]
+}

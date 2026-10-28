@@ -1,0 +1,51 @@
+---
+title: "Plans & Rate Limits"
+description: "Usage tiers, per-minute rate limits, and wallet token billing on the Public AI Gateway."
+section: "Getting Started"
+order: 3
+---
+
+The Public AI Gateway offers four usage tiers. Rate limits apply per API key and are enforced on every request.
+
+## Tiers
+
+| Tier | Rate Limit | How to Get It |
+|---|---|---|
+| **Free** | `100 requests/minute` | Default when you create an API key + \$2 free starter credit |
+| **Plus** | `200 requests/minute` | Contribute via [OpenCollective](/docs/support-us) |
+| **Pro** | `300 requests/minute` | Contact [support@publicai.co](mailto:support@publicai.co) |
+| **Enterprise** | `10,000 requests/minute` | Contact [support@publicai.co](mailto:support@publicai.co) |
+
+## Upgrading Your Plan
+
+### Free (default)
+
+Every new API key starts on the Free tier. [Create an API key](https://platform.publicai.co/settings/api-keys) after signing in to get started.
+
+### Plus
+
+Support Public AI through [OpenCollective](/docs/support-us). To receive the Plus tier upgrade:
+
+1. Create at least one API key in the [developer portal](https://platform.publicai.co/settings/api-keys)
+2. Contribute using the **same email address** as your portal account
+
+Your rate limit will be upgraded to `200 requests/minute` once your contribution is processed.
+
+### Pro and Enterprise
+
+For higher rate limits, dedicated clusters, or custom SLA arrangements, email [support@publicai.co](mailto:support@publicai.co) with your account email and use case.
+
+## Usage Billing
+
+Rate limits and token usage billing are separate:
+
+- **Rate limits** control how many requests you can make per minute (based on your tier above).
+- **Token usage** is billed against wallet credits on the [Billing Console](https://platform.publicai.co/account/billing).
+
+Every new user account receives **\$2.00 of free starter credit**. This credit is used for API calls at the per-token prices listed on the [Pricing](/pricing) and [Billing](https://platform.publicai.co/account/billing) pages. You can add a payment method and top up your wallet to continue using models after your starter credit is used.
+
+## Rate Limit Exceeded
+
+When you exceed your tier's rate limit, the API returns a `429 Too Many Requests` response. Wait for the rate limit window to reset (one minute) before retrying, or upgrade your plan for a higher limit.
+
+See the [OpenAPI Reference](/docs/api) for full endpoint documentation.

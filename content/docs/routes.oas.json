@@ -1,0 +1,721 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Public AI Gateway API"
+  },
+  "servers": [
+    {
+      "url": "https://api.publicai.co"
+    },
+    {
+      "url": "http://localhost:9000"
+    }
+  ],
+  "paths": {
+    "/v1/models": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "get": {
+        "summary": "Lists the currently available models",
+        "description": "Returns a list of all available models that can be used with the chat completions endpoint.",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelListResponse"
+                },
+                "example": {
+                  "object": "list",
+                  "data": [
+                    {
+                      "id": "swiss-ai/apertus-v1.5-8b",
+                      "object": "model",
+                      "created": 1677610602,
+                      "owned_by": "swiss-ai",
+                      "pricing": {
+                        "input": 0.1,
+                        "output": 0.2
+                      },
+                      "context_length": 128000
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "default",
+            "module": "$import(./modules/models-handler)",
+            "options": {}
+          },
+          "policies": {
+            "inbound": [
+              "api-key-inbound"
+            ]
+          }
+        },
+        "operationId": "d14aaaa6-d5c5-4734-82de-082ec6d536ed"
+      }
+    },
+    "/deprecated/chat/completions": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "post": {
+        "summary": "Creates a model response for the given chat conversation",
+        "description": "Creates a completion for the chat message",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "User-Agent header identifying the client application",
+            "example": "MyApp/1.0"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatCompletionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatCompletionResponse"
+                },
+                "example": {
+                  "id": "chatcmpl-6d5e4c0fba54aec4b099fc524c13247a",
+                  "object": "chat.completion",
+                  "created": 1757652946,
+                  "model": "swiss-ai/apertus-v1.5-8b",
+                  "choices": [
+                    {
+                      "index": 0,
+                      "message": {
+                        "role": "assistant",
+                        "content": "Open-source AI refers to machine learning models whose weights and training code are publicly available for anyone to use, study, and build upon."
+                      },
+                      "finish_reason": "stop"
+                    }
+                  ],
+                  "usage": {
+                    "prompt_tokens": 63,
+                    "completion_tokens": 19,
+                    "total_tokens": 82
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlForwardHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "baseUrl": "https://api-internal.publicai.co"
+            }
+          },
+          "policies": {
+            "inbound": [
+              "api-key-inbound",
+              "user-rate-limit",
+              "bedrock-guardrail-policy",
+              "set-litellm-auth",
+              "set-litellm-headers"
+            ]
+          }
+        },
+        "operationId": "7b9f73aa-21c3-4ab1-9b81-51c2d3aaf5eb",
+        "x-internal": true
+      }
+    },
+    "/v1/chat/completions": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "post": {
+        "summary": "Creates a model response for the given chat conversation",
+        "description": "",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlRewriteHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "rewritePattern": "https://api-internal.publicai.co/v1/chat/completions"
+            }
+          },
+          "policies": {
+            "inbound": [
+              "api-key-inbound",
+              "user-rate-limit",
+              "set-litellm-headers"
+            ],
+            "outbound": [
+              "add-inference-id-header"
+            ]
+          }
+        },
+        "operationId": "new-route-12fd1eff",
+        "x-internal": false
+      }
+    },
+    "/v1/completions": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "post": {
+        "summary": "Creates a completion for the provided prompt",
+        "description": "",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlRewriteHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "rewritePattern": "https://api-internal.publicai.co/v1/completions"
+            }
+          },
+          "policies": {
+            "inbound": [
+              "api-key-inbound",
+              "user-rate-limit",
+              "set-litellm-headers"
+            ],
+            "outbound": [
+              "add-inference-id-header"
+            ]
+          }
+        },
+        "operationId": "completions-route-a7f3b8c9",
+        "x-internal": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Model": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The model identifier",
+            "example": "swiss-ai/apertus-v1.5-8b"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "model"
+            ],
+            "description": "The object type, which is always 'model'",
+            "example": "model"
+          },
+          "created": {
+            "type": "integer",
+            "description": "The Unix timestamp (in seconds) when the model was created",
+            "example": 1677610602
+          },
+          "owned_by": {
+            "type": "string",
+            "description": "The organization that owns the model (extracted from model ID prefix)",
+            "example": "swiss-ai"
+          },
+          "pricing": {
+            "type": "object",
+            "description": "Pricing information for the model",
+            "properties": {
+              "input": {
+                "type": "number",
+                "description": "Price in US dollars per million input tokens",
+                "example": 0.1
+              },
+              "output": {
+                "type": "number",
+                "description": "Price in US dollars per million output tokens",
+                "example": 0.2
+              }
+            },
+            "required": [
+              "input",
+              "output"
+            ]
+          },
+          "context_length": {
+            "type": "integer",
+            "description": "Supported context length in tokens",
+            "example": 128000
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "created",
+          "owned_by"
+        ]
+      },
+      "ModelListResponse": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": [
+              "list"
+            ],
+            "description": "The object type, which is always 'list'",
+            "example": "list"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Model"
+            },
+            "description": "The list of models"
+          }
+        },
+        "required": [
+          "object",
+          "data"
+        ]
+      },
+      "ChatMessage": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "system",
+              "user",
+              "assistant",
+              "tool"
+            ],
+            "description": "The role of the message author"
+          },
+          "content": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "text",
+                        "image_url"
+                      ]
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "image_url": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "detail": {
+                          "type": "string",
+                          "enum": [
+                            "auto",
+                            "low",
+                            "high"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ]
+                }
+              }
+            ],
+            "description": "The contents of the message"
+          },
+          "name": {
+            "type": "string",
+            "description": "An optional name for the participant"
+          },
+          "tool_call_id": {
+            "type": "string",
+            "description": "Tool call that this message is responding to"
+          },
+          "tool_calls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "function"
+                  ]
+                },
+                "function": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "arguments": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "arguments"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "type",
+                "function"
+              ]
+            }
+          }
+        },
+        "required": [
+          "role",
+          "content"
+        ],
+        "example": {
+          "role": "user",
+          "content": "Hello!"
+        }
+      },
+      "ChatCompletionRequest": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "ID of the model to use"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            },
+            "description": "A list of messages comprising the conversation so far"
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "description": "What sampling temperature to use, between 0 and 2"
+          },
+          "top_p": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "An alternative to sampling with temperature"
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "How many chat completion choices to generate for each input message"
+          },
+          "stream": {
+            "type": "boolean",
+            "description": "If set, partial message deltas will be sent"
+          },
+          "stop": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 4
+              }
+            ],
+            "description": "Up to 4 sequences where the API will stop generating further tokens"
+          },
+          "max_tokens": {
+            "type": "integer",
+            "description": "The maximum number of tokens to generate in the chat completion"
+          },
+          "presence_penalty": {
+            "type": "number",
+            "minimum": -2,
+            "maximum": 2,
+            "description": "Number between -2.0 and 2.0"
+          },
+          "frequency_penalty": {
+            "type": "number",
+            "minimum": -2,
+            "maximum": 2,
+            "description": "Number between -2.0 and 2.0"
+          },
+          "logit_bias": {
+            "type": "object",
+            "description": "Modify the likelihood of specified tokens appearing in the completion"
+          },
+          "user": {
+            "type": "string",
+            "description": "A unique identifier representing your end-user"
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "function"
+                  ]
+                },
+                "function": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "parameters": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "function"
+              ]
+            }
+          },
+          "tool_choice": {
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "auto"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "function"
+                    ]
+                  },
+                  "function": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "function"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "model",
+          "messages"
+        ],
+        "example": {
+          "model": "swiss-ai/apertus-v1.5-8b",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Hello!"
+            }
+          ]
+        }
+      },
+      "ChatCompletionChoice": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "description": "The index of the choice in the list of choices"
+          },
+          "message": {
+            "$ref": "#/components/schemas/ChatMessage"
+          },
+          "finish_reason": {
+            "type": "string",
+            "enum": [
+              "stop",
+              "length",
+              "tool_calls",
+              "content_filter",
+              "function_call"
+            ],
+            "description": "The reason the model stopped generating tokens"
+          }
+        },
+        "required": [
+          "index",
+          "message",
+          "finish_reason"
+        ],
+        "example": {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Open-source AI refers to machine learning models whose weights and training code are publicly available for anyone to use, study, and build upon."
+          },
+          "finish_reason": "stop"
+        }
+      },
+      "ChatCompletionUsage": {
+        "type": "object",
+        "properties": {
+          "prompt_tokens": {
+            "type": "integer",
+            "description": "Number of tokens in the prompt"
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "description": "Number of tokens in the generated completion"
+          },
+          "total_tokens": {
+            "type": "integer",
+            "description": "Total number of tokens used in the request"
+          }
+        },
+        "required": [
+          "prompt_tokens",
+          "completion_tokens",
+          "total_tokens"
+        ],
+        "example": {
+          "prompt_tokens": 63,
+          "completion_tokens": 19,
+          "total_tokens": 82
+        }
+      },
+      "ChatCompletionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A unique identifier for the chat completion"
+          },
+          "object": {
+            "type": "string",
+            "enum": [
+              "chat.completion"
+            ],
+            "description": "The object type, which is always 'chat.completion'"
+          },
+          "created": {
+            "type": "integer",
+            "description": "The Unix timestamp (in seconds) of when the chat completion was created"
+          },
+          "model": {
+            "type": "string",
+            "description": "The model used for the chat completion"
+          },
+          "system_fingerprint": {
+            "type": "string",
+            "description": "This fingerprint represents the backend configuration that the model runs with"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatCompletionChoice"
+            },
+            "description": "A list of chat completion choices"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/ChatCompletionUsage"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "created",
+          "model",
+          "choices",
+          "usage"
+        ],
+        "example": {
+          "id": "chatcmpl-6d5e4c0fba54aec4b099fc524c13247a",
+          "object": "chat.completion",
+          "created": 1757652946,
+          "model": "swiss-ai/apertus-v1.5-8b",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "Open-source AI refers to machine learning models whose weights and training code are publicly available for anyone to use, study, and build upon."
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 63,
+            "completion_tokens": 19,
+            "total_tokens": 82
+          }
+        }
+      }
+    }
+  }
+}

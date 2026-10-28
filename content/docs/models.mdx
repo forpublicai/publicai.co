@@ -1,0 +1,71 @@
+---
+title: "Available Models"
+description: "Query and configure open-source and sovereign models on the Public AI Gateway."
+section: "Getting Started"
+order: 2
+---
+
+The Public AI Gateway provides a unified, OpenAI-compatible API for open-source and sovereign models from multiple national labs and inference partners. Model IDs use the format `provider/model-name`.
+
+> Explore our interactive, searchable model directory with live token pricing on the **[Models Directory](/models)** page.
+
+## List Models Programmatically
+
+Fetch the current catalog programmatically via `GET /v1/models`:
+
+```bash
+curl -X GET https://api.publicai.co/v1/models \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0"
+```
+
+Each model entry includes `id`, `owned_by`, and — when available — `pricing` (per million tokens) and `context_length`. See the [Pricing](/pricing) page or [Account Billing](https://platform.publicai.co/account/billing) for the latest per-model token rates.
+
+Inference parameters (`temperature`, `top_p`, `max_tokens`, etc.) vary by model. Check each model's Hugging Face card in the [Models Directory](/models) for provider recommendations.
+
+## Example Requests
+
+### Swiss AI Apertus 1.5 (Multimodal & Reasoning)
+
+```bash
+curl -X POST https://api.publicai.co/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0" \
+  -d '{
+    "model": "swiss-ai/apertus-v1.5-8b",
+    "messages": [
+      { "role": "user", "content": "Explain open-source AI in one paragraph." }
+    ]
+  }'
+```
+
+### Allen AI OLMo 3
+
+```bash
+curl -X POST https://api.publicai.co/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0" \
+  -d '{
+    "model": "allenai/Olmo-3-7B-Instruct",
+    "messages": [
+      { "role": "user", "content": "What is machine learning?" }
+    ]
+  }'
+```
+
+### AI Singapore SEA-LION v4
+
+```bash
+curl -X POST https://api.publicai.co/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0" \
+  -d '{
+    "model": "aisingapore/Gemma-SEA-LION-v4-27B-IT",
+    "messages": [
+      { "role": "user", "content": "Hello!" }
+    ]
+  }'
+```

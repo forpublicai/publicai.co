@@ -1,0 +1,121 @@
+---
+title: "Quick Start"
+description: "Get started with the Public AI Inference Utility API in under 2 minutes."
+section: "Getting Started"
+order: 1
+---
+
+Welcome to the **Public AI Inference Utility** developer documentation. The Public AI Gateway (`https://api.publicai.co/v1`) provides a unified, OpenAI-compatible API serving sovereign and open-source language models hosted across our global partner network.
+
+> **For AI Agents & LLMs:** A single-file plain-text version of our developer documentation is available at [`/llms.txt`](/llms.txt) and [`/LLMS.md`](/LLMS.md).
+
+## 1. Get your API key
+
+Every new developer account receives **\$2.00 of free starter credit**, used for API calls at our listed per-token prices.
+
+1. **Sign up / Sign in**: Open the [Public AI Developer Console](https://platform.publicai.co/settings/api-keys)
+2. **Open Account Billing**: Visit [Billing & Wallet](https://platform.publicai.co/account/billing) to view your starter credit balance
+3. **Create API key**: Open [API Keys](https://platform.publicai.co/settings/api-keys) and click **Create API Key**
+4. **Generate**: Enter a name, set expiration, and click **Generate Key**
+
+## 2. Explore available models
+
+See our interactive [Models Directory](/models) (or [Available Models Guide](/docs/models)) for the full catalog of hosted models, including Swiss AI **Apertus 1.5**, AI Singapore **SEA-LION v4**, Allen AI **OLMo 3**, Spain's **ALIA**, Poland's **Bielik**, and more.
+
+You can also list models programmatically:
+
+```bash
+curl -X GET https://api.publicai.co/v1/models \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0"
+```
+
+## 3. Make your first request
+
+Once you have an API key, you can make requests using any OpenAI-compatible SDK or `curl`:
+
+```bash
+curl -X POST https://api.publicai.co/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "User-Agent: MyApp/1.0" \
+  -d '{
+    "model": "swiss-ai/apertus-v1.5-8b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Can you help me understand open-source AI?"
+      }
+    ]
+  }'
+```
+
+### Python (OpenAI SDK)
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.publicai.co/v1",
+    api_key="YOUR_API_KEY",
+    default_headers={"User-Agent": "MyApp/1.0"},
+)
+
+response = client.chat.completions.create(
+    model="swiss-ai/apertus-v1.5-70b",
+    messages=[
+        {"role": "user", "content": "Explain why public AI infrastructure matters."}
+    ],
+)
+print(response.choices[0].message.content)
+```
+
+### TypeScript / Node.js (OpenAI SDK)
+
+```typescript
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://api.publicai.co/v1",
+  apiKey: process.env.PUBLICAI_API_KEY,
+  defaultHeaders: { "User-Agent": "MyApp/1.0" },
+});
+
+const completion = await client.chat.completions.create({
+  model: "swiss-ai/apertus-v1.5-8b",
+  messages: [{ role: "user", content: "Hello from Public AI!" }],
+});
+
+console.log(completion.choices[0]?.message?.content);
+```
+
+## Supported Modalities
+
+- **Text Generation & Reasoning:** Full support for chat completions, streaming (`stream: true`), thinking/reasoning traces, tool calling, and structured JSON outputs.
+- **Multimodal Image Inputs (Vision LLMs):** Pass image URLs or base64-encoded images alongside text in `messages` to vision-capable models such as `swiss-ai/apertus-v1.5-70b` and `swiss-ai/apertus-v1.5-8b`.
+- *Note:* The Public AI Gateway does not serve predictive/diffusion image generation, video generation, or `/v1/embeddings`.
+
+## Authentication Requirements
+
+All API requests require two headers:
+
+1. **API Key**: Include your key in the `Authorization` header:
+   ```text
+   Authorization: Bearer YOUR_API_KEY
+   ```
+2. **User-Agent Header**: Specify an application `User-Agent` to prevent automated bot abuse:
+   ```text
+   User-Agent: MyApp/1.0
+   ```
+
+## Rate limits and billing
+
+Rate limits depend on your plan tier. See [Plans & Rate Limits](/docs/plans) and [Pricing](/pricing) for details on Free, Plus, Pro, and Enterprise tiers. Usage and wallet balance are managed under [Account Billing](https://platform.publicai.co/account/billing).
+
+## What's next?
+
+- Browse the live [Models Directory](/models) and [Available Models Guide](/docs/models)
+- Read the [Batch API Quickstart](/docs/batch) for 4-hour and 24-hour async batch processing
+- Review [Plans & Rate Limits](/docs/plans) and [Pricing](/pricing)
+- Explore the complete [OpenAPI Reference](/docs/api)
+- [Support Us](/docs/support-us) to upgrade to the Plus tier via OpenCollective

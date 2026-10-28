@@ -1,0 +1,105 @@
+---
+title: Public AI Seminar
+layout: page
+nav_title: Seminar
+description: A research seminar to study public AI and other forms of public interest AI.
+---
+
+<style>
+table {  border-spacing: 0; }
+table td, table th {  padding: 4px; /* default is 12px */ vertical-align: top; }
+table td:first-child { white-space: nowrap; width: 3.5em;  /* don't break on date */ }
+table th { text-align: center; }
+</style>
+
+A research seminar to study public AI and other forms of public interest AI. You can [apply](https://forms.gle/1f8fkcCEjEoJF6L78) to join a future season of the seminar.
+
+## Season 4
+The fourth season of the seminar focuses on the business of public AI, including public infrastructure exemplars, funding/business models, and case studies. In particular, we will consider the opportunities for public AI across applications, models, inference, and physical infrastructure.
+
+### Sessions
+Unless indicated otherwise, **all sessions are held Tuesdays, 11am–1pm ET** (UTC-4). Seminar seats are limited, so [please apply to join this season](https://forms.gle/1f8fkcCEjEoJF6L78) (if your application is accepted, see email for registration details).
+
+| Date | Session | Outputs |
+|------|---------|---------|
+| **11 Aug 2026** | **Exemplars: The Internet:** What can public AI learn from efforts to build the internet as public infrastructure?<br />**Presenter: [Janet Abbate](https://www.linkedin.com/in/jabbate/)**, [Professor, Department of Science, Technology, and Society](https://liberalarts.vt.edu/departments-and-schools/department-of-science-technology-and-society/faculty/janet-abbate.html), [Virginia Tech](https://www.vt.edu/)<br />**Preread: [Privatizing the Internet: Competing Visions and Chaotic Events, 1987–1995](https://doi.org/10.1109/MAHC.2010.24)** (Janet Abbate, IEEE Annals of the History of Computing, Jan–Mar 2010) | <a href="https://youtu.be/YtsDnsn2F7I" title="view recording on YouTube"><img src="https://publicai.network/assets/seminar/season04/intro-01-the-internet.png" alt="video thumbnail showing session 01 details: Exemplars: The Internet with Janet Abbate"></a> |
+| **18 Aug 2026** | **Funding: Cooperative Models:** How can public AI be sustained using cooperative/distributed funding?<br />**Presenter: [Nathan Schneider](https://www.linkedin.com/in/nathanschneider/)**, [Assistant Professor of Media Studies](https://nathanschneider.info/), [University of Colorado Boulder](https://www.colorado.edu/)<br />**Preread: [Collective Governance for AI: Points of Intervention](https://metagov.org/cg-ai/)** (Nathan Schneider/Metagov, Nov 2025) | <a href="https://youtu.be/NgWmK6_WZP0" title="view recording on YouTube"><img src="https://publicai.network/assets/seminar/season04/intro-02-cooperative-models.png" alt="video thumbnail showing session 02 details: Funding: Cooperative Models with Nathan Schneider"></a> |
+| **25 Aug 2026** | **Exemplars: Government:** Examples and opportunities for government investment, policies, and practices to support public-interest AI.<br />**Presenter: [Victoria Houed](https://victoriahoued.com/)**, Executive Director, Ready State Labs; Former: Managing Director, [Recoding America Fund](https://recodingamerica.org/); Director of AI Policy and Strategy, [Office of the Under Secretary for Economic Affairs, US Department of Commerce](https://www.commerce.gov/bureaus-and-offices/ousea); Manager, [Schmidt Futures](https://www.schmidtsciences.org/); [TechCongress](https://techcongress.io/) Fellow, US House Speaker Nancy Pelosi.<br />**Preread: [Executive Summary from “Generative Artificial Intelligence and Open Data: Guidelines and Best Practices”](https://www.commerce.gov/sites/default/files/2025-01/GenerativeAI-Open-Data.pdf)** (pp7–12, AI and Open Government Data Assets Working Group, US Department of Commerce, Jan 2025) | <a href="https://youtu.be/rYVrwZOZeIo" title="view recording on YouTube"><img src="https://publicai.network/assets/seminar/season04/intro-03-government.png" alt="video thumbnail showing session 03 details: Exemplars: Government with Victoria Houed"></a> |
+| **1 Sep 2026** | **Exemplars: Broadband:** What can public AI learn from efforts to provide broadband internet access as public infrastructure?<br />**Presenter: [Nick Garcia](https://www.linkedin.com/in/npgarcia001/)**, Senior Policy Council, [Public Knowledge](https://publicknowledge.org/)<br />**Preread: [Fact Sheet: Snapshots of Municipal Broadband](https://ilsr.org/article/community-broadband-networks/snapshots-muni-broadband-fact-sheet/)** (ILSR, May 2021) and **[Six Community Broadband Networks Demonstrate Diversity of Approaches to Connectivity Challenges](https://communitynetworks.org/sites/www.muninetworks.org/files/Six%20Community%20Broadband%20Networks%20Demonstrate%20Diversity%20of%20Approaches%20to%20Connectivity%20Challenges.pdf)** (Benton Institute for Broadband & Society, Aug 2021) | <a href="https://youtu.be/OUICVumlUn0" title="view recording on YouTube"><img src="https://publicai.network/assets/seminar/season04/intro-04-broadband.png" alt="video thumbnail showing session 04 details: Exemplars: Broadband with Nick Garcia"></a> |
+| **8 Sep 2026** | **Case Studies: Products:** What efforts are happening to build, deploy, and support public AI products?<br />**Presenter: [Allyson Ettinger](https://aetting.github.io/)**, Senior Research Scientist, [Allen Institute for AI](https://allenai.org/)<br />**Preread: [Olmo 3: Charting a path through the model flow to lead open-source AI](https://allenai.org/blog/olmo3)** (Ai2, 20 Nov 2025, updated 12 Dec 2025) | TBD |
+| **15 Sep 2026** | **Case Studies: Compute:** What efforts are happening to build public AI compute?<br />**Presenter: [Devin Gaffney](https://www.linkedin.com/in/devin-gaffney)**, [CEO](https://www.devingaffney.com/), [Graze Social](https://www.graze.social/)<br />**Preread: [Can we billionaire-proof inference?](https://graze.leaflet.pub/3molilyuk5k2a)** (Graze Social Newsletter, 18 Jun 2026) | TBD |
+| **22 Sep 2026** | **Case Studies: Global:** What public AI efforts are happening around the globe?<br />**Presenters: [Patricio Del Boca](https://pdelboca.me/about.html)**, Tech Lead and Open Activist, [Open Knowledge Foundation](https://okfn.org/) and **[Jaanus Vänt](https://www.linkedin.com/in/jaanus-vant/)**, AI and Data Strategy Coordinator, [Ministry of Justice and Digital Affairs, Republic of Estonia](https://www.justdigi.ee/)<br />**Prereads: [Public AI is not a technology stack. It is an operating model.](https://publicai.network/docs/Public_AI_is_an_operating_model_not_a_stack__lessons_from_Estonia_v5.pdf)** (Jaanus Vänt, Sep 2026) and **[New Field Guide: Connecting AI to Government Data](https://blog.okfn.org/2026/09/16/new-field-guide-connecting-ai-to-government-data/)** (OKFN Blog, 16 Sep 2026) | TBD |
+| **NOTE Wed not Tue<br />30 Sep 2026** | **Case Studies: Commercial Offerings:** How are commercial AI companies supporting public AI?<br />**Presenter: [Saayeli Bruni](https://www.linkedin.com/in/saayeli/)**, [Principal](https://mozilla.vc/team/saayeli-mukherji-bruni/), [Mozilla Ventures](https://mozilla.vc/)<br />**Preread: [Trustworthy AI in Action: An exploration of the investment opportunity in open, secure and trustworthy AI](https://www.impactvc.co/_files/ugd/5dff30_c22a7e9a8a0c4d03affbfa898cff4c0d.pdf)** (ImpactVC & Mozilla Ventures, Jul 2026) | TBD |
+
+### Join
+To join for the seminar, please [apply](https://forms.gle/1f8fkcCEjEoJF6L78).
+
+### Organizers
+* [Nate Angell](https://www.linkedin.com/in/nateangell/), [Founder](https://xolotl.org/), [Nudgital](https://nudgital.com/)
+
+## Season 3
+Season 3 ran from April 22 to June 10, 2025, with two special sessions later in the summer. The seminar surveyed positions on AI emerging from art and culture, and considered the relationship between AI and the creative industries through four lenses: political power, cultural power, technological power, and economic power. Several spots were reserved for creative professionals in any medium interested in exploring public AI.
+
+*⭐ denotes a case study of public AI*
+
+| Date | Seminar | Recording |
+|------|---------|-----------|
+| Apr 21 | Introductions & goals of the seminar |
+| Apr 22 | Do Not Train, with Mat Dryhurst (artist), and AI and copyright, with Reema Selhi (DACS, British Copyright Council) | [Video](https://youtu.be/PTXqXvWh5jk), [Text](https://docs.google.com/document/d/1dA6y01RaEvgApO6VrCAEjd4K-eZl5U9oN_2xP40GzNs/edit?tab=t.0) |
+| Apr 29 | Generative AI is not useful for making art, with Ted Chiang (author) | |
+| May 6 | ⭐ Community data and the case of [Common Voice](https://github.com/common-voice/common-voice), with EM Lewis-Jong (Mozilla) | [Text](https://docs.google.com/document/d/11K5Mln8f4RmzTqmjfwahsRJax3SepiiRgE24Kv0-op8/edit?tab=t.0) |
+| May 13 | A Vision for Public AI in California, with Teri Olle and Taylor Jo Isenberg (Economic Security Project) | [Video](https://youtu.be/HorkM5CndtE), [Text](https://docs.google.com/document/d/1rjO6enuPU7YlCb_RCnAmhfs9nW_v7CNy9suXTlTSOjE/edit?usp=drive_link) |
+| May 20 | ⭐ Public interest AI, with Martin Tisné (AI Collaborative, Current AI) | [Video](https://youtu.be/3kd39SvaOr8), [Text](https://docs.google.com/document/d/1mFQvRwSY3ou9eVSEdnJJrgI61g-I3rRs_kWbmmWU-S0/edit?tab=t.0) |
+| May 27 | AI & entertainment industry, with David White (3CG Ventures), and AI & the freelancer economy, with Angie Kim and Jessica Mele (CCI) | [Video](https://youtu.be/U3oJQ51vOBU), [Text](https://docs.google.com/document/d/1lKzkxsS-8boabpbKud1X7iOhWWjWs-x1PnrhU6GnBsg/edit?tab=t.0) |
+| Jun 3 | Past and future narratives for tech, with Gideon Lichfield (journalist) and Nils Gilman (historian) | [Video](https://youtu.be/3UVfaegU2vk), [Text](https://docs.google.com/document/d/1vWZQPKtWbtQM0AfJCjsSxNSZsZiSVBJ0f-V146nJ5DM/edit?tab=t.0) |
+| Jun 10 | The near possible future of AI, with Kim Stanley Robinson (author) | [Video](https://youtu.be/qQe7H9CY5Bw), [Text](https://docs.google.com/document/d/1POa6jdSMKxWt-ktxoyxezLKu8PD4GtAxUshSAdbtgU8/edit?tab=t.0) |
+| Jul 11 | ⭐ The [National Deep Inference Fabric](https://ndif.us), with David Bau (Northeastern) | [Video](https://youtu.be/y6DZloFMZT4), [Text](https://docs.google.com/document/d/1gCCvDQN54xjcgXu8X5BHSIqvEIkXrVDPe-UaiQwLO4g/edit?tab=t.0) |
+| Aug 21 | Public strategies for AI Agents, with Dan Zhao (NYU, Microsoft Research) | [Video](https://www.youtube.com/watch?v=wZ23B9ohMvQ), [Memo](https://docs.google.com/document/d/1eVaVJVkwHw3HIKePBsfTVd_q6h4mawnsnXXql6NHqc8/edit?tab=t.0)
+
+Organizers: Joshua Tan (Metagov), Alek Tarkowski (Open Future), B Cavello (Aspen Digital)
+
+## Season 2
+Season 2 ran from August 13 to October 15, 2024. This season focused especially on connecting and relating a cluster of political narratives around public AI.  Narratives included those centered around responsible/safe AI, public compute, sovereign/national AI, democratic AI, open source AI, and AI for science.
+
+| Date | Seminar | Recording |
+|------|---------|-----------|
+| Aug 6 | Introductions & goals of the seminar | |
+| Aug 13 | ⭐ Towards a network of publicly-funded AI labs, with Yoshua Bengio (Mila) | [Video](https://archive.org/details/public-ai-bengio), [Text](https://docs.google.com/document/d/1na9xHK95XLW9TaUOx5DF_bpTu9mgTQYSAT7bWzWAMHM/edit) |
+| Aug 20 | ⭐ Public compute and [NAIRR](https://nairrpilot.org/), with Nicole DeCario (Allen Institute) and Katie Antypas (National Science Foundation) | [Video](https://archive.org/details/public-ai-decario-antypas), [Text](https://docs.google.com/document/d/1Dr3UlH9Orb7GD0wYga94xNIVKOrEkjH2P_A1qqvBWZ4/edit?usp=sharing) |
+| Aug 27 | ⭐ [SEA-LION](https://sea-lion.ai/), with Leslie Teo (AI Singapore) | [Video](https://archive.org/details/public-ai-teo), [Text](https://docs.google.com/document/d/18TPtkUfRmhZbpvuQPgrmr_kCiK9R_mBhHa6aDKYekMI/edit) |
+| Sep 3 | AI and the labor market, with Julia Lane (NYU) and Adam Leonard (Texas Workforce Commission) | [Video](https://archive.org/details/public-ai-lane-leonard), [Text](https://docs.google.com/document/d/1pD3Ytmjgd7eTvAqfhLsm9IXkzdg60yA0uqHGSsdSr5I/edit) |
+| Sep 10 | The role of openness in AI, with Irene Solaiman (HuggingFace) | [Video](https://archive.org/details/public-ai-solaiman), [Text](https://docs.google.com/document/d/1qV-1StRDlSFpVPXtusmXAxNIgGtR6CTpno9dUe8tiZY/edit) |
+| Sep 17 | Democratic AI, with Divya Siddarth (Collective Intelligence Project) | Video, [Text](https://docs.google.com/document/d/1z0OOK7lwcwXBU59hqwFMR6_Plycdri52n01E89zhNm4/edit) |
+| Sep 24 |⭐ [GPT-SW3](https://www.ai.se/en/project/gpt-sw3), with Magnus Sahlgren (AI Sweden) | [Video](https://www.youtube.com/watch?v=0ak4vcFCjSA&list=PL95oM4NmjfADBo-cZ4fYjw8Hd1rn0sILL), [Text](https://docs.google.com/document/d/1zp2mVGcPRIUPe_h4GqT12-tyCkVO-RTj3LSugiPv3ek/edit?tab=t.0#heading=h.d5078j16iqmz) |
+| Oct 1 | Community power in AI, with Jeni Tennison (Connected by Data) | [Video](https://www.youtube.com/watch?v=C6lUBq59m5M&list=PL95oM4NmjfADBo-cZ4fYjw8Hd1rn0sILL&index=1), [Text](https://docs.google.com/document/d/1uHOgx85q3v1mgO_xOfelYU5nlsFYgk7nlshmLt7qAKo/edit?tab=t.0) |
+| Oct 8 | The AI Dilemma, with Aza Raskin (Center for Humane Technology) | [Video](https://www.youtube.com/watch?v=gmtHT2zt-4g&list=PL95oM4NmjfADBo-cZ4fYjw8Hd1rn0sILL&index=2), [Text](https://docs.google.com/document/d/1ATwQxTheRL7QOFGSbVO2Di2TCdbEr-GlVKBj3ldAR6U/edit?tab=t.0) |
+| Oct 15 | AI Nationalisms, with Sarah Myers West and Amba Kak (AI Now) | [Video](https://youtu.be/_fqbtIQtHFE), [Text](https://docs.google.com/document/d/10o_fJVzRHsSxcSMJuyp4UmG9IlYMB-dO8EDs8Vqa6Uc/edit?tab=t.0) |
+
+Organizers: Joshua Tan (Oxford, Metagov), Alex Krasodomski (Chatham House), B Cavello (Aspen Digital)
+
+## Season 1
+
+The first season of the seminar ran from January to March, 2024. We considered different models of public AI, lessons from both history and from AI, general theories of public investment and of regulation, as well as many different arguments for and against public AI. Four themes guided our considerations: public benefit, public accountability, market failure, and political narratives.
+
+| Date | Seminar | Recording |
+|------|---------|-----------|
+| Jan 9|  Public options for AI, with Bruce Schneier (Harvard) | [Video](https://archive.org/details/public-ai-schneier), [Text](https://docs.google.com/document/d/1j0foQVDe0ELYJCrZxOM7ueSiXFVvWr84Hycl2ZdeWFE/edit) |
+| Jan 16|  Public policy for tech, with Diane Coyle (Cambridge) | [Video](https://archive.org/details/public-ai-coyle), [Text](https://docs.google.com/document/d/1n3DcShalIqN0drYMJbbZBANNWbKznAtiT5n3jtsz0tM/edit) |
+| Jan 23| ⭐ Case study: [AuroraGPT](https://auroragpt.anl.gov/) & [BritGPT](https://www.theguardian.com/technology/2023/mar/15/uk-to-invest-900m-in-supercomputer-in-bid-to-build-own-britgpt#:~:text=The%20UK%20government%20is%20to,build%20its%20own%20%E2%80%9CBritGPT%E2%80%9D.), with Rick Stevens (Chicago / Argonne National Labs) and Hannah O’Rourke (Labour Longterm) | [Video](https://archive.org/details/public-ai-stevens-orourke), [Text](https://docs.google.com/document/d/1B2hpWIP-8kXCHuMuJ9ocr3Nk-R-M37OavXLyefiWiUQ/edit) |
+| Feb 6|  The politics of AI, with Julia Angwin (New York Times / Harvard) | [Video](https://archive.org/details/public-ai-angwin), [Text](https://docs.google.com/document/d/14KkrfR7dLQcrUotxhXDQhoTHSV0wg6ehWpPddt6gyko/edit) |
+| Feb 13|  Industrial organization and antimonopoly, with Ganesh Sitaraman (Vanderbilt) | [Video](https://archive.org/details/public-ai-sitaraman), [Text](https://docs.google.com/document/d/1tJMZ0QHDO2fn1R_Ilftpx9nwliBy_CIufxFfPIgAltU/edit) |
+| Feb 20|  Lessons from digital public infrastructure, with David Eaves (UCL) | [Video](https://archive.org/details/public-ai-eaves), [Text](https://docs.google.com/document/d/1kuVO1-7o_RQCMk6USywjrlX-31q3beOAWDChAFvJIAk/edit) |
+| Feb 27|  AI and democracy, with Lawrence Lessig (Harvard) | [Video](https://archive.org/details/public-ai-lessig), [Text](https://docs.google.com/document/d/1jHePFaAw_0MJSBqZ84Toep1GS3HR5DftpyHTzTTL8qk/edit) |
+| Mar 5 | Synthesis, conclusions, where we go from here| | 
+
+Organizers: Joshua Tan (Oxford, Metagov), SJ Klein (Berkman, Interlace), Nick Garcia (Public Knowledge)
+
+## Details
+- Format: the seminar is invite-only. The first half of the seminar, reserved for invited talks, is recorded via Zoom and posted online. Notes from the entire seminar will be summarized without named attribution under the Chatham House rule.
+- Meeting times: every Tuesday from 11am - 1pm ET over Zoom.
+- Recordings and notes will be posted online at [https://publicai.network/seminar](https://publicai.network/seminar).
+
+## Goals
+The Public AI Seminar has two parallel objectives: 
+- To develop a body of research, ideas, and tools to support the development of public AI and other forms of public interest AI.
+- To foster an intellectual community capable of describing, guiding, and implementing public AI and other forms of public interest AI.
