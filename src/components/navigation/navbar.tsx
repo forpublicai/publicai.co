@@ -42,11 +42,10 @@ export function BrandLockup({ className }: { className?: string }) {
       </div>
       <div className="flex flex-col leading-none">
         <span className="text-lg font-extrabold tracking-tight text-foreground">
-          Public<span className="text-primary">.AI</span>
+          Public AI
         </span>
-        <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-          Inference Utility
-        </span>
+        <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+AI FOR ALL        </span>
       </div>
     </Link>
   );

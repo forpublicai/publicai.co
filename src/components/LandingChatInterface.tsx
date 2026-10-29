@@ -70,45 +70,45 @@ export default function LandingChatInterface() {
       prompt_length: text.length,
     });
     router.push(
-      `/chat?model=${encodeURIComponent(selectedModel.id)}&message=${encodeURIComponent(text)}`
+      `/chat?message=${encodeURIComponent(text)}`
     );
   };
 
   return (
     <div className="w-full flex flex-col items-center gap-4">
       {/* Model Selection Selector Pills */}
-      <div className="flex flex-wrap items-center justify-center gap-1.5 p-1 rounded-2xl border border-border bg-secondary/50">
-        {MODELS.map((model) => (
-          <button
-            key={model.id}
-            type="button"
-            onClick={() => {
-              setSelectedModel(model);
-              trackEvent("landing_demo_model_selected", {
-                model_id: model.id,
-                model_name: model.name,
-              });
-            }}
-            className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer",
-              selectedModel.id === model.id
-                ? "bg-card text-foreground shadow-xs border border-border font-semibold"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            <span>{model.name}</span>
-            <Badge
-              variant="outline"
-              className={cn(
-                "text-[10px] py-0 px-1.5 rounded-full border-border/80",
-                selectedModel.id === model.id && "bg-secondary text-primary"
-              )}
-            >
-              {model.badge}
-            </Badge>
-          </button>
-        ))}
-      </div>
+      {/*<div className="flex flex-wrap items-center justify-center gap-1.5 p-1 rounded-2xl border border-border bg-secondary/50">*/}
+      {/*  {MODELS.map((model) => (*/}
+      {/*    <button*/}
+      {/*      key={model.id}*/}
+      {/*      type="button"*/}
+      {/*      onClick={() => {*/}
+      {/*        setSelectedModel(model);*/}
+      {/*        trackEvent("landing_demo_model_selected", {*/}
+      {/*          model_id: model.id,*/}
+      {/*          model_name: model.name,*/}
+      {/*        });*/}
+      {/*      }}*/}
+      {/*      className={cn(*/}
+      {/*        "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer",*/}
+      {/*        selectedModel.id === model.id*/}
+      {/*          ? "bg-card text-foreground shadow-xs border border-border font-semibold"*/}
+      {/*          : "text-muted-foreground hover:text-foreground"*/}
+      {/*      )}*/}
+      {/*    >*/}
+      {/*      <span>{model.name}</span>*/}
+      {/*      <Badge*/}
+      {/*        variant="outline"*/}
+      {/*        className={cn(*/}
+      {/*          "text-[10px] py-0 px-1.5 rounded-full border-border/80",*/}
+      {/*          selectedModel.id === model.id && "bg-secondary text-primary"*/}
+      {/*        )}*/}
+      {/*      >*/}
+      {/*        {model.badge}*/}
+      {/*      </Badge>*/}
+      {/*    </button>*/}
+      {/*  ))}*/}
+      {/*</div>*/}
 
       {/* Main Prompt Bar */}
       <div className="relative w-full shadow-lg rounded-2xl overflow-hidden border border-border/90 bg-card">

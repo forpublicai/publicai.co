@@ -132,7 +132,7 @@ export default function HomePage() {
             title="AI should be public infrastructure."
             accentText="For everyone, everywhere."
             accentColor="red"
-            description="Public AI operates high-performance inference, fine-tuning, and evaluation infrastructure for sovereign and national open-weight models—providing civic institutions, researchers, and developers an independent alternative to closed monopolies."
+            description="Public AI operates high-performance inference infrastructure for sovereign and national open-weight models—providing civic institutions, researchers, and developers an independent alternative to closed monopolies."
             align="center"
           >
             <Button

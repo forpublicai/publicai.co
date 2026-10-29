@@ -186,14 +186,14 @@ export default function ModelsPage() {
                   </p>
                 </div>
               </div>
-              <div className="pt-2">
-                <Button asChild variant="outline" className="w-full rounded-full font-semibold">
-                  <Link href="/pricing">
-                    View Rate Limits & Plans
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
+              {/*<div className="pt-2">*/}
+              {/*  <Button asChild variant="outline" className="w-full rounded-full font-semibold">*/}
+              {/*    <Link href="/pricing">*/}
+              {/*      View Rate Limits & Plans*/}
+              {/*      <ArrowRight className="ml-2 h-4 w-4" />*/}
+              {/*    </Link>*/}
+              {/*  </Button>*/}
+              {/*</div>*/}
             </CardContent>
           </Card>
         </div>

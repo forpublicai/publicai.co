@@ -52,31 +52,31 @@ export const MEGA_MENU_SECTIONS: NavMegaSection[] = [
         href: "/products/chat",
         description:
           "Free, multilingual Web Chat powered by sovereign open models with national RAG knowledgebases.",
-        subFeatures: [
-          {
-            title: "Mobile App",
-            href: "/products/chat#mobile",
-            badge: "Coming Soon",
-          },
-        ],
+        // subFeatures: [
+        //   {
+        //     title: "Mobile App",
+        //     href: "/products/chat#mobile",
+        //     badge: "Coming Soon",
+        //   },
+        // ],
       },
       {
         title: "API",
         href: "/products/api",
         description:
           "Unified OpenAI-compatible inference gateway serving open-source and sovereign models.",
-        subFeatures: [
-          {
-            title: "Batch API",
-            href: "/products/api#batch",
-            badge: "Coming Soon",
-          },
-          {
-            title: "Voice API",
-            href: "/products/api#voice",
-            badge: "Coming Soon",
-          },
-        ],
+        // subFeatures: [
+        //   {
+        //     title: "Batch API",
+        //     href: "/products/api#batch",
+        //     badge: "Coming Soon",
+        //   },
+        //   {
+        //     title: "Voice API",
+        //     href: "/products/api#voice",
+        //     badge: "Coming Soon",
+        //   },
+        // ],
       },
       {
         title: "Kiosks",
@@ -85,13 +85,13 @@ export const MEGA_MENU_SECTIONS: NavMegaSection[] = [
         description:
           "Turnkey community AI workstations and local knowledge portals for public libraries.",
       },
-      {
-        title: "Agents",
-        href: "/products/agents",
-        badge: "Coming Soon",
-        description:
-          "Hermes autonomous agentic service built on inspectable open-weight models.",
-      },
+      // {
+      //   title: "Agents",
+      //   href: "/products/agents",
+      //   badge: "Coming Soon",
+      //   description:
+      //     "Hermes autonomous agentic service built on inspectable open-weight models.",
+      // },
     ],
     resourcesHeading: "Resources",
     resourceItems: [
@@ -105,21 +105,21 @@ export const MEGA_MENU_SECTIONS: NavMegaSection[] = [
         href: "/models",
         description: "Searchable open model directory & live token rates",
       },
-      {
-        title: "Plans & Rate Limits",
-        href: "/pricing",
-        description: "Free, Plus, Pro & Enterprise API tiers",
-      },
+      // {
+      //   title: "Plans & Rate Limits",
+      //   href: "/pricing",
+      //   description: "Free, Plus, Pro & Enterprise API tiers",
+      // },
       {
         title: "Chat Documentation",
         href: "/docs/chat",
         description: "Web chat, national prompts & RAG collections",
       },
-      {
-        title: "Kiosks Blog Post",
-        href: "/projects/libraries",
-        description: "Building Public AI with Libraries case study",
-      },
+      // {
+      //   title: "Kiosks Blog Post",
+      //   href: "/projects/libraries",
+      //   description: "Building Public AI with Libraries case study",
+      // },
       {
         title: "System Status",
         href: "https://status.publicai.co",
