@@ -92,6 +92,42 @@ function resolveNetworkDestination(pathname: string): string {
   return `https://publicai.co/research${stripped}`;
 }
 
+// Host-based redirect mappings for platform.publicai.co -> publicai.co
+function resolvePlatformDestination(pathname: string): string | null {
+  const clean = pathname.replace(/\/$/, "");
+
+  // Root or general docs index
+  if (!clean || clean === "" || clean === "/docs") {
+    return "https://publicai.co/docs";
+  }
+
+  // Exact verified documentation subpages from platform.publicai.co
+  if (clean === "/docs/models" || clean === "/models") {
+    return "https://publicai.co/models";
+  }
+  if (clean === "/docs/plans") {
+    return "https://publicai.co/docs/plans";
+  }
+  if (clean === "/plans") {
+    return "https://publicai.co/pricing";
+  }
+  if (clean === "/docs/inference-partners-faq" || clean === "/inference-partners-faq") {
+    return "https://publicai.co/docs/inference-partners-faq";
+  }
+  if (clean === "/docs/support-us" || clean === "/support-us") {
+    return "https://publicai.co/docs/support-us";
+  }
+
+  // OpenAPI 3.1 Reference
+  if (clean === "/api") {
+    return "https://publicai.co/docs/api";
+  }
+
+  // Notice: Developer console routes (/account/billing, /settings/api-keys)
+  // are preserved on Zuplo and should NOT be redirected here.
+  return null;
+}
+
 export function middleware(request: NextRequest) {
   const host = (request.headers.get("host") || "").toLowerCase();
 
@@ -101,9 +137,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(destination, 308);
   }
 
+  // 2. Handle platform.publicai.co docs & marketing 308 redirects to publicai.co
+  if (host.includes("platform.publicai.co")) {
+    const destination = resolvePlatformDestination(request.nextUrl.pathname);
+    if (destination) {
+      return NextResponse.redirect(destination, 308);
+    }
+  }
+
   const response = NextResponse.next();
 
-  // 2. Preserve snad-session-id cookie for /dialogue and /api/dialogue
+  // 3. Preserve snad-session-id cookie for /dialogue and /api/dialogue
   const pathname = request.nextUrl.pathname;
   if (pathname.startsWith("/dialogue") || pathname.startsWith("/api/dialogue")) {
     if (!request.cookies.get(COOKIE_NAME)) {

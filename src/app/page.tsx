@@ -33,6 +33,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import LandingChatInterface from "@/components/LandingChatInterface";
+import { PartnerLogosCarousel } from "@/components/sections/PartnerLogosCarousel";
 import { getAllPosts } from "@/utils/blog";
 import { formatDate } from "@/utils/format-date";
 
@@ -126,7 +127,7 @@ export default function HomePage() {
       <MaxWidthWrapper>
         <div className="flex flex-col items-center text-center gap-8 max-w-4xl mx-auto pt-6">
           <SectionHeader
-            badge="Nonprofit Digital Infrastructure"
+            badge="Not for profit Digital Infrastructure"
             badgeVariant="teal"
             title="AI should be public infrastructure."
             accentText="For everyone, everywhere."
@@ -172,13 +173,22 @@ export default function HomePage() {
               </Link>
             </Button>
           </SectionHeader>
-
+        </div>
+      </MaxWidthWrapper>
+      {/* 2.5 Horizontal Partner Logos Moving Carousel */}
+      <div className="-my-8 sm:-my-14">
+        <PartnerLogosCarousel />
+      </div>
+      <MaxWidthWrapper>
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto -mt-8 sm:-mt-14">
           {/* 2. Interactive Product Prompt Bar */}
-          <div className="w-full pt-4">
+          <div className="w-full">
             <LandingChatInterface />
           </div>
         </div>
       </MaxWidthWrapper>
+
+
 
       {/* 3. One API: A Growing World of Open Models */}
       <MaxWidthWrapper>

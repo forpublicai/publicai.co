@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Public_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Navbar, Footer } from "@/components/navigation";
 import { ThemeProvider } from "@/components/global/theme-provider";
@@ -7,8 +7,8 @@ import { ChatwootWidget } from "@/components/global/chatwoot-widget";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
-const publicSans = Public_Sans({
-  variable: "--font-public-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${publicSans.variable} antialiased bg-background text-foreground font-sans flex min-h-svh flex-col`}
+        className={`${inter.variable} antialiased bg-background text-foreground font-sans flex min-h-svh flex-col`}
       >
         <ThemeProvider
           attribute="class"
