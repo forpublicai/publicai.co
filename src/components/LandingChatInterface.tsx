@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUp, Smartphone, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { trackEvent } from "@/components/global";
 import { cn } from "@/lib/utils";
 
 const MODELS = [
@@ -63,6 +64,11 @@ export default function LandingChatInterface() {
   const handleSubmit = (overrideText?: string) => {
     const text = (overrideText ?? inputValue).trim();
     if (!text) return;
+    trackEvent("landing_demo_prompt_submitted", {
+      model_id: selectedModel.id,
+      model_name: selectedModel.name,
+      prompt_length: text.length,
+    });
     router.push(
       `/chat?model=${encodeURIComponent(selectedModel.id)}&message=${encodeURIComponent(text)}`
     );
@@ -76,7 +82,13 @@ export default function LandingChatInterface() {
           <button
             key={model.id}
             type="button"
-            onClick={() => setSelectedModel(model)}
+            onClick={() => {
+              setSelectedModel(model);
+              trackEvent("landing_demo_model_selected", {
+                model_id: model.id,
+                model_name: model.name,
+              });
+            }}
             className={cn(
               "flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer",
               selectedModel.id === model.id

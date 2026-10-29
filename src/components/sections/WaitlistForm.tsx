@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { trackEvent } from "@/components/global";
 import { cn } from "@/lib/utils";
 
 export type WaitlistProductId =
@@ -108,6 +109,11 @@ export function WaitlistForm({
         return;
       }
       setSubmitted(true);
+      trackEvent("waitlist_joined", {
+        product,
+        has_org: Boolean(organization),
+        has_use_case: Boolean(useCase),
+      });
       toast.success("You're on the waitlist! We'll be in touch soon.");
     } catch {
       toast.error("Network error while joining waitlist.");

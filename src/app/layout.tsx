@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Navbar, Footer } from "@/components/navigation";
 import { ThemeProvider } from "@/components/global/theme-provider";
 import { ChatwootWidget } from "@/components/global/chatwoot-widget";
+import { PostHogProvider } from "@/components/global/posthog-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -55,18 +56,20 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased bg-background text-foreground font-sans flex min-h-svh flex-col`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <div className="flex-1">{children}</div>
-          <Footer />
-          <Toaster />
-          <ChatwootWidget />
-        </ThemeProvider>
+        <PostHogProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            <div className="flex-1">{children}</div>
+            <Footer />
+            <Toaster />
+            <ChatwootWidget />
+          </ThemeProvider>
+        </PostHogProvider>
         <Analytics />
       </body>
     </html>
