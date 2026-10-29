@@ -30,12 +30,14 @@ export interface NewsItem {
   publication?: string;
   date?: string;
   link: string;
+  description?: string;
 }
 
 export interface AdvisoryMember {
   name: string;
   affiliation?: string;
   link?: string;
+  bio?: string;
 }
 
 /**
@@ -191,6 +193,29 @@ export function getResearchSidebarSections(activeHref?: string): SidebarNavSecti
   }));
 }
 
+export interface ResearchJobItem {
+  slug: string;
+  title: string;
+  status: "open" | "filled" | string;
+  location?: string;
+  commitment?: string;
+  compensation?: string;
+  summary?: string;
+  host?: string;
+  date_posted?: string;
+}
+
+/**
+ * Sanitizes legacy Jekyll/kramdown tags (<style>, {:...}, {%...%}, {{...}}) that cause MDX acorn parser errors.
+ */
+export function sanitizeResearchContent(markdown: string): string {
+  return markdown
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/\{:[^}]*\}/g, "")
+    .replace(/\{%[\s\S]*?%\}/g, "")
+    .replace(/\{\{[\s\S]*?\}\}/g, "");
+}
+
 /**
  * Loads a Markdown page from `content/research/` by slug array, resolving aliases like:
  * - `[]` -> `index.md`
@@ -225,6 +250,7 @@ export function getResearchDocBySlug(slug: string[] = []): ContentDocument | nul
 
   const fileContents = fs.readFileSync(targetPath, "utf8");
   const { data, content } = matter(fileContents);
+  const sanitized = sanitizeResearchContent(content);
 
   const fallbackTitle =
     cleanSlug.length === 0
@@ -237,9 +263,9 @@ export function getResearchDocBySlug(slug: string[] = []): ContentDocument | nul
     slug: cleanSlug,
     title: typeof data.title === "string" ? data.title : fallbackTitle,
     description: typeof data.description === "string" ? data.description : undefined,
-    content,
+    content: sanitized,
     frontmatter: data,
-    toc: extractTocHeadings(content),
+    toc: extractTocHeadings(sanitized),
     sourcePath: targetPath,
   };
 }
@@ -264,4 +290,75 @@ export function getResearchAdvisoryData(): AdvisoryMember[] {
   const raw = fs.readFileSync(advPath, "utf8");
   const parsed = yaml.load(raw);
   return Array.isArray(parsed) ? (parsed as AdvisoryMember[]) : [];
+}
+
+/**
+ * Loads all job roles from `content/research/jobs/*.md`.
+ */
+export function getResearchJobsData(): ResearchJobItem[] {
+  const jobsDir = path.join(researchDirectory, "jobs");
+  if (!fs.existsSync(jobsDir)) return [];
+  const files = fs.readdirSync(jobsDir);
+  const jobs: ResearchJobItem[] = [];
+
+  for (const file of files) {
+    if (!file.endsWith(".md") || file === "index.md") continue;
+    const fullPath = path.join(jobsDir, file);
+    const raw = fs.readFileSync(fullPath, "utf8");
+    const { data } = matter(raw);
+    jobs.push({
+      slug: file.replace(/\.md$/, ""),
+      title: typeof data.title === "string" ? data.title : file.replace(/\.md$/, ""),
+      status: typeof data.status === "string" ? data.status : "open",
+      location: typeof data.location === "string" ? data.location : undefined,
+      commitment: typeof data.commitment === "string" ? data.commitment : undefined,
+      compensation: typeof data.compensation === "string" ? data.compensation : undefined,
+      summary: typeof data.summary === "string" ? data.summary : undefined,
+      host: typeof data.host === "string" ? data.host : undefined,
+      date_posted: data.date_posted ? String(data.date_posted) : undefined,
+    });
+  }
+
+  return jobs;
+}
+
+/**
+ * Returns all static research slugs for Next.js generateStaticParams.
+ */
+export function getAllResearchSlugs(): string[][] {
+  const slugs: string[][] = [
+    [],
+    ["whitepaper"],
+    ["seminar"],
+    ["publications"],
+    ["news"],
+    ["contributing"],
+    ["contributors"],
+    ["advisory"],
+    ["advisory-board"],
+    ["handbook"],
+    ["maintainers"],
+    ["list"],
+    ["atlas"],
+    ["atlas", "omnifesto"],
+    ["sail"],
+    ["sail", "spec"],
+    ["sail", "cases"],
+    ["sail", "models"],
+    ["sail", "countries"],
+    ["sail", "interests"],
+    ["jobs"],
+  ];
+
+  const jobsDir = path.join(researchDirectory, "jobs");
+  if (fs.existsSync(jobsDir)) {
+    const files = fs.readdirSync(jobsDir);
+    for (const file of files) {
+      if (file.endsWith(".md") && file !== "index.md") {
+        slugs.push(["jobs", file.replace(/\.md$/, "")]);
+      }
+    }
+  }
+
+  return slugs;
 }

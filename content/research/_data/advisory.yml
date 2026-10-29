@@ -1,0 +1,44 @@
+- name: "Brian Behlendorf"
+  affiliation: "Open Source Security Foundation / Linux Foundation"
+  link: "https://openssf.org"
+  bio: "Open-source infrastructure pioneer, Apache Software Foundation co-founder, and veteran steward of collaborative security and public-interest technology."
+
+- name: "Diane Coyle"
+  affiliation: "Bennett Institute, University of Cambridge"
+  link: "https://www.bennettinstitute.cam.ac.uk"
+  bio: "Bennett Professor of Public Policy at Cambridge, renowned economist focusing on the economic value of data, digital public goods, and shared infrastructure."
+
+- name: "Mat Dryhurst"
+  affiliation: "Artist & NYU Clive Davis Institute"
+  link: "https://matdryhurst.com"
+  bio: "Artist, educator, and researcher exploring creative autonomy, participatory machine learning, and decentralized cultural stewardship."
+
+- name: "David Eaves"
+  affiliation: "UCL Institute for Innovation and Public Purpose"
+  link: "https://www.ucl.ac.uk/bartlett/public-purpose"
+  bio: "Associate Professor in Digital Public Policy, leading global authority on digital public infrastructure (DPI) and governmental technology capability."
+
+- name: "Lawrence Lessig"
+  affiliation: "Harvard Law School"
+  link: "https://www.lessig.org"
+  bio: "Roy L. Furman Professor of Law and Leadership at Harvard Law School, founder of Creative Commons, and lifelong champion of institutional open culture."
+
+- name: "Kim Stanley Robinson"
+  affiliation: "Author (Ministry for the Future, Mars Trilogy)"
+  link: "http://www.kimstanleyrobinson.info"
+  bio: "Visionary science fiction author whose groundbreaking work on climate governance, institutional finance, and public technology inspires civic imagination."
+
+- name: "Ed Saperia"
+  affiliation: "London College of Political Technology (Newspeak House)"
+  link: "https://newspeak.house"
+  bio: "Dean and founder of Newspeak House, cultivating new generations of public technologists, civic leaders, and political innovators."
+
+- name: "Bruce Schneier"
+  affiliation: "Harvard Kennedy School"
+  link: "https://www.schneier.com"
+  bio: "Internationally renowned security technologist, fellow at the Berkman Klein Center, and prominent analyst of algorithmic power dynamics."
+
+- name: "Divya Siddarth"
+  affiliation: "Collective Intelligence Project"
+  link: "https://cip.org"
+  bio: "Co-founder of the Collective Intelligence Project, pioneering democratic AI alignment, public input mechanisms, and collective governance frameworks."
