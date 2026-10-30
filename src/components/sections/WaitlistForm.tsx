@@ -174,7 +174,7 @@ export function WaitlistForm({
                 id={`waitlist-email-${product}`}
                 type="email"
                 required
-                placeholder="you@institution.org"
+                placeholder=""
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-background"
@@ -188,7 +188,7 @@ export function WaitlistForm({
               <Input
                 id={`waitlist-org-${product}`}
                 type="text"
-                placeholder="University, Lab, or Company"
+                placeholder=""
                 value={organization}
                 onChange={(e) => setOrganization(e.target.value)}
                 className="bg-background"
@@ -205,7 +205,7 @@ export function WaitlistForm({
               <Input
                 id={`waitlist-usecase-${product}`}
                 type="text"
-                placeholder="e.g. 50k doc batch evaluation"
+                placeholder=""
                 value={useCase}
                 onChange={(e) => setUseCase(e.target.value)}
                 className="bg-background"

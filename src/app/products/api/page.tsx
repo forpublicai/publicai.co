@@ -345,35 +345,35 @@ export default function ApiProductPage() {
         label: "Explore Developer Docs",
         href: "/docs",
       }}
-      heroSlot={
-        <div className="mx-auto max-w-3xl text-left">
-          <Alert className="rounded-2xl border-border bg-secondary/60">
-            <Info className="h-4 w-4 text-[#00B3A4]" />
-            <AlertTitle className="flex flex-wrap items-center gap-2 text-sm font-semibold">
-              <span>Supported Modalities & Scope Clarity</span>
-              <Badge variant="outline" className="rounded-full text-[10px] font-mono">
-                Text + Multimodal Vision Input
-              </Badge>
-            </AlertTitle>
-            <AlertDescription className="text-xs text-muted-foreground leading-relaxed mt-1">
-              The PublicAI Inference API supports <strong>text generation</strong> and{" "}
-              <strong>multimodal image-to-text vision inputs</strong> (such as{" "}
-              <code className="font-mono text-foreground">swiss-ai/apertus-v1.5-70b-instruct</code>{" "}
-              and <code className="font-mono text-foreground">apertus-v1.5-8b</code>) across{" "}
-              <code className="font-mono text-foreground">/v1/chat/completions</code>,{" "}
-              <code className="font-mono text-foreground">/v1/responses</code>, and{" "}
-              <code className="font-mono text-foreground">/v1/messages</code>. We do{" "}
-              <strong>not</strong> offer diffusion image generation, video generation, or{" "}
-              <code className="font-mono text-foreground">/v1/embeddings</code> endpoints.{" "}
-              <Link href="/models" className="font-semibold text-primary underline">
-                Browse all supported models →
-              </Link>
-            </AlertDescription>
-          </Alert>
-        </div>
-      }
+      // heroSlot={
+      //   <div className="mx-auto max-w-3xl text-left">
+      //     <Alert className="rounded-2xl border-border bg-secondary/60">
+      //       <Info className="h-4 w-4 text-[#00B3A4]" />
+      //       <AlertTitle className="flex flex-wrap items-center gap-2 text-sm font-semibold">
+      //         <span>Supported Modalities & Scope Clarity</span>
+      //         <Badge variant="outline" className="rounded-full text-[10px] font-mono">
+      //           Text + Multimodal Vision Input
+      //         </Badge>
+      //       </AlertTitle>
+      //       <AlertDescription className="text-xs text-muted-foreground leading-relaxed mt-1">
+      //         The PublicAI Inference API supports <strong>text generation</strong> and{" "}
+      //         <strong>multimodal image-to-text vision inputs</strong> (such as{" "}
+      //         <code className="font-mono text-foreground">swiss-ai/apertus-v1.5-70b-instruct</code>{" "}
+      //         and <code className="font-mono text-foreground">apertus-v1.5-8b</code>) across{" "}
+      //         <code className="font-mono text-foreground">/v1/chat/completions</code>,{" "}
+      //         <code className="font-mono text-foreground">/v1/responses</code>, and{" "}
+      //         <code className="font-mono text-foreground">/v1/messages</code>. We do{" "}
+      //         <strong>not</strong> offer diffusion image generation, video generation, or{" "}
+      //         <code className="font-mono text-foreground">/v1/embeddings</code> endpoints.{" "}
+      //         <Link href="/models" className="font-semibold text-primary underline">
+      //           Browse all supported models →
+      //         </Link>
+      //       </AlertDescription>
+      //     </Alert>
+      //   </div>
+      // }
       featuresTitle="Enterprise-Grade Reliability on Public Infrastructure"
-      featuresSubtitle="Built on a high-throughput API gateway with strict schema validation, zero prompt training, and transparent token billing."
+      featuresSubtitle="Built on a high-throughput open source router with zero prompt retention or training."
       features={API_FEATURES}
       featuresColumns={3}
       codeSectionTitle="Drop-In SDK Integration in 60 Seconds"

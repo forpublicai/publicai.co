@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     messages: convertToModelMessages(messages),
     system: systemPrompt,
     tools: {
-      ...frontendTools(tools),
+      ...(frontendTools(tools) as any),
       // add backend tools here
     },
     experimental_transform: DEMO_CHAT_MODEL_THINKING

@@ -124,8 +124,8 @@ const CHAT_SUBSECTIONS: ProductHashSubsection[] = [
       <WaitlistForm
         product="chat-mobile"
         badge="Mobile Beta Waitlist"
-        title="Get Early TestFlight & Android Beta Access"
-        description="Join the waitlist to test the PublicAI iOS (TestFlight) and Android mobile apps as soon as the public beta opens."
+        title="Get Early Beta Access"
+        description="Join the waitlist to test the PublicAI mobile apps"
         buttonLabel="Join Mobile Beta"
       />
     ),
