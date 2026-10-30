@@ -89,14 +89,14 @@ export function PartnerLogosCarousel() {
           </Marquee>
         </div>
 
-        <div className="mt-2 flex items-center justify-center">
-          <Link
-            href="/contributing/inference-partners"
-            className="text-[11px] font-medium text-muted-foreground/80 hover:text-primary transition-colors flex items-center gap-1"
-          >
-            Provide compute or partner with us →
-          </Link>
-        </div>
+        {/*<div className="mt-2 flex items-center justify-center">*/}
+        {/*  <Link*/}
+        {/*    href="/contributing/inference-partners"*/}
+        {/*    className="text-[11px] font-medium text-muted-foreground/80 hover:text-primary transition-colors flex items-center gap-1"*/}
+        {/*  >*/}
+        {/*    Provide compute or partner with us →*/}
+        {/*  </Link>*/}
+        {/*</div>*/}
       </div>
     </section>
   );

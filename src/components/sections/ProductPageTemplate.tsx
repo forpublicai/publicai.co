@@ -148,35 +148,35 @@ export function ProductPageTemplate({
           </SectionHeader>
 
           {/* Quick Anchor Pills for Sub-Features (#mobile, #batch, #voice) */}
-          {subsections && subsections.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mr-1">
-                Sub-Features:
-              </span>
-              {subsections.map((sub) => (
-                <Link
-                  key={sub.id}
-                  href={`#${sub.id}`}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/70 px-3.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-primary/50 hover:bg-accent"
-                >
-                  <Hash className="h-3 w-3 text-primary" />
-                  <span>{sub.title}</span>
-                  {sub.badge && (
-                    <Badge
-                      variant="outline"
-                      className={cn(
-                        "ml-1 rounded-full px-2 py-0 text-[10px]",
-                        sub.badgeVariant === "amber" &&
-                          "bg-warning text-warning-foreground border-transparent"
-                      )}
-                    >
-                      {sub.badge}
-                    </Badge>
-                  )}
-                </Link>
-              ))}
-            </div>
-          )}
+          {/*{subsections && subsections.length > 0 && (*/}
+          {/*  <div className="flex flex-wrap items-center justify-center gap-2 pt-2">*/}
+          {/*    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mr-1">*/}
+          {/*      Sub-Features:*/}
+          {/*    </span>*/}
+          {/*    {subsections.map((sub) => (*/}
+          {/*      <Link*/}
+          {/*        key={sub.id}*/}
+          {/*        href={`#${sub.id}`}*/}
+          {/*        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/70 px-3.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-primary/50 hover:bg-accent"*/}
+          {/*      >*/}
+          {/*        <Hash className="h-3 w-3 text-primary" />*/}
+          {/*        <span>{sub.title}</span>*/}
+          {/*        {sub.badge && (*/}
+          {/*          <Badge*/}
+          {/*            variant="outline"*/}
+          {/*            className={cn(*/}
+          {/*              "ml-1 rounded-full px-2 py-0 text-[10px]",*/}
+          {/*              sub.badgeVariant === "amber" &&*/}
+          {/*                "bg-warning text-warning-foreground border-transparent"*/}
+          {/*            )}*/}
+          {/*          >*/}
+          {/*            {sub.badge}*/}
+          {/*          </Badge>*/}
+          {/*        )}*/}
+          {/*      </Link>*/}
+          {/*    ))}*/}
+          {/*  </div>*/}
+          {/*)}*/}
 
           {heroSlot && <div className="w-full pt-4">{heroSlot}</div>}
         </div>

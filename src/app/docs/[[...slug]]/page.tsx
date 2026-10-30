@@ -365,7 +365,7 @@ export default async function DocsSlugPage({ params }: DocPageProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Billing ($2 Free)
+              Billing 
               <ExternalLink className="ml-1 h-3 w-3" />
             </Link>
           </Button>

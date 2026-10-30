@@ -132,7 +132,7 @@ export default function HomePage() {
             title="AI should be public infrastructure."
             accentText="For everyone, everywhere."
             accentColor="red"
-            description="Public AI operates high-performance inference infrastructure for sovereign and national open-weight models—providing civic institutions, researchers, and developers an independent alternative to closed monopolies."
+            description="Public AI operates inference infrastructure for sovereign and national open-weight models—providing civic institutions, researchers, and developers an independent alternative to closed monopolies."
             align="center"
           >
             <Button
@@ -179,9 +179,10 @@ export default function HomePage() {
       <div className="-my-8 sm:-my-14">
         <PartnerLogosCarousel />
       </div>
-      <MaxWidthWrapper>
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto -mt-8 sm:-mt-14">
-          {/* 2. Interactive Product Prompt Bar */}
+
+      {/* 2. Interactive Product Prompt Bar */}
+      <MaxWidthWrapper className="-mb-10 sm:-mb-16">
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto pt-4 sm:pt-6">
           <div className="w-full">
             <LandingChatInterface />
           </div>
@@ -195,16 +196,16 @@ export default function HomePage() {
         <div className="flex flex-col gap-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-border pb-6">
             <div>
-              <Badge
-                variant="outline"
-                className="rounded-full border-[#00B3A4]/40 bg-[#00B3A4]/15 text-[#00B3A4] text-xs font-semibold mb-2"
-              >
-                Global Sovereign Registry
-              </Badge>
+              {/*<Badge*/}
+              {/*  variant="outline"*/}
+              {/*  className="rounded-full border-[#00B3A4]/40 bg-[#00B3A4]/15 text-[#00B3A4] text-xs font-semibold mb-2"*/}
+              {/*>*/}
+              {/*  Global Sovereign Registry*/}
+              {/*</Badge>*/}
               <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
                 One API. A Growing World of Sovereign Models.
               </h2>
-              <p className="text-sm sm:text-base text-muted-foreground mt-1 max-w-2xl">
+              <p className="text-sm sm:text-base text-muted-foreground mt-3 max-w-2xl">
                 Call models trained by national supercomputing centers across Switzerland, Singapore, Spain, Sweden, and Poland through a single OpenAI-compatible gateway.
               </p>
             </div>
@@ -222,7 +223,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                 >
                   <KeyRound className="mr-2 h-4 w-4" />
-                  Get API Key ($2 Free)
+                  Get API Key 
                   <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                 </Link>
               </Button>
@@ -247,7 +248,7 @@ export default function HomePage() {
             align="center"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {/* Pillar 1: Chat & Mobile */}
             <Card className="rounded-2xl border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors shadow-sm">
               <CardHeader className="space-y-3">
@@ -323,41 +324,41 @@ export default function HomePage() {
             </Card>
 
             {/* Pillar 3: Hermes Agentic Service */}
-            <Card className="rounded-2xl border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors shadow-sm">
-              <CardHeader className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-primary">
-                    <Bot className="h-5 w-5" />
-                  </div>
-                  <Badge className="rounded-full bg-warning text-warning-foreground border-transparent text-xs">
-                    Coming Soon
-                  </Badge>
-                </div>
-                <CardTitle className="text-xl font-bold">
-                  Hermes Agentic Service
-                </CardTitle>
-                <CardDescription className="text-xs sm:text-sm leading-relaxed">
-                  Deploy open-weight autonomous agents with native Model Context Protocol (MCP) tool orchestration, sandboxed execution, and immutable audit logs.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2 text-xs text-muted-foreground">
-                <div className="flex items-center gap-1.5">
-                  <Brain className="h-3.5 w-3.5 text-primary" />
-                  <span>Multi-step reasoning &amp; planning</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#00B3A4]" />
-                  <span>Human-in-the-loop policy approval gates</span>
-                </div>
-              </CardContent>
-              <CardFooter className="pt-2">
-                <Button asChild variant="link" className="px-0 font-semibold text-primary">
-                  <Link href="/products/agents">
-                    Hermes Agentic Service →
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
+            {/*<Card className="rounded-2xl border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors shadow-sm">*/}
+            {/*  <CardHeader className="space-y-3">*/}
+            {/*    <div className="flex items-center justify-between gap-2">*/}
+            {/*      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-primary">*/}
+            {/*        <Bot className="h-5 w-5" />*/}
+            {/*      </div>*/}
+            {/*      <Badge className="rounded-full bg-warning text-warning-foreground border-transparent text-xs">*/}
+            {/*        Coming Soon*/}
+            {/*      </Badge>*/}
+            {/*    </div>*/}
+            {/*    <CardTitle className="text-xl font-bold">*/}
+            {/*      Hermes Agentic Service*/}
+            {/*    </CardTitle>*/}
+            {/*    <CardDescription className="text-xs sm:text-sm leading-relaxed">*/}
+            {/*      Deploy open-weight autonomous agents with native Model Context Protocol (MCP) tool orchestration, sandboxed execution, and immutable audit logs.*/}
+            {/*    </CardDescription>*/}
+            {/*  </CardHeader>*/}
+            {/*  <CardContent className="space-y-2 text-xs text-muted-foreground">*/}
+            {/*    <div className="flex items-center gap-1.5">*/}
+            {/*      <Brain className="h-3.5 w-3.5 text-primary" />*/}
+            {/*      <span>Multi-step reasoning &amp; planning</span>*/}
+            {/*    </div>*/}
+            {/*    <div className="flex items-center gap-1.5">*/}
+            {/*      <ShieldCheck className="h-3.5 w-3.5 text-[#00B3A4]" />*/}
+            {/*      <span>Human-in-the-loop policy approval gates</span>*/}
+            {/*    </div>*/}
+            {/*  </CardContent>*/}
+            {/*  <CardFooter className="pt-2">*/}
+            {/*    <Button asChild variant="link" className="px-0 font-semibold text-primary">*/}
+            {/*      <Link href="/products/agents">*/}
+            {/*        Hermes Agentic Service →*/}
+            {/*      </Link>*/}
+            {/*    </Button>*/}
+            {/*  </CardFooter>*/}
+            {/*</Card>*/}
 
             {/* Pillar 4: Public AI Kiosks */}
             <Card className="rounded-2xl border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors shadow-sm">
@@ -423,21 +424,33 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredPosts.map((post) => (
-              <Card
-                key={post.slug}
-                className="group rounded-2xl border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors shadow-sm overflow-hidden"
-              >
-                {post.ogImage && (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
-                    <Image
-                      src={post.ogImage}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                )}
+            {featuredPosts.map((post) => {
+              const cardImage = post.coverImage || post.ogImage;
+              return (
+                <Card
+                  key={post.slug}
+                  className="group rounded-2xl border-border/80 flex flex-col justify-between hover:border-primary/40 transition-colors shadow-sm overflow-hidden"
+                >
+                  {cardImage ? (
+                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary">
+                      <Image
+                        src={cardImage}
+                        alt={post.coverImageAlt || post.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                  ) : (
+                    <div className="theme-navy flex aspect-[16/9] w-full flex-col justify-between bg-[#0F2D4A] p-4 text-white relative overflow-hidden">
+                      <div className="pointer-events-none absolute -right-10 -bottom-10 h-24 w-24 rounded-full bg-[#00B3A4]/25 blur-xl" />
+                      <div className="pointer-events-none absolute -left-10 -top-10 h-24 w-24 rounded-full bg-[#FF3B30]/25 blur-xl" />
+                      <Sparkles className="h-5 w-5 text-[#00B3A4]" />
+                      <p className="text-xs font-bold tracking-tight text-white/90 line-clamp-2">
+                        {post.title}
+                      </p>
+                    </div>
+                  )}
                 <CardHeader className="space-y-2">
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <Badge variant="outline" className="rounded-full text-[10px]">
@@ -463,7 +476,8 @@ export default function HomePage() {
                   </Link>
                 </CardFooter>
               </Card>
-            ))}
+            );
+          })}
           </div>
         </div>
       </MaxWidthWrapper>
@@ -542,47 +556,47 @@ export default function HomePage() {
       </MaxWidthWrapper>
 
       {/* 7. Model & Infrastructure Partners Grid */}
-      <MaxWidthWrapper>
-        <div className="flex flex-col gap-8">
-          <SectionHeader
-            badge="Collaborative Ecosystem"
-            badgeVariant="teal"
-            title="Our Model & Infrastructure Partners."
-            description="Collaborating with national supercomputing facilities, research institutes, and sovereign cloud providers across the globe."
-            align="center"
-          />
+      {/*<MaxWidthWrapper>*/}
+      {/*  <div className="flex flex-col gap-8">*/}
+      {/*    <SectionHeader*/}
+      {/*      badge="Collaborative Ecosystem"*/}
+      {/*      badgeVariant="teal"*/}
+      {/*      title="Our Model & Infrastructure Partners."*/}
+      {/*      description="Collaborating with national supercomputing facilities, research institutes, and sovereign cloud providers across the globe."*/}
+      {/*      align="center"*/}
+      {/*    />*/}
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            {PARTNERS.map((partner) => (
-              <div
-                key={partner.name}
-                className="flex flex-col justify-between rounded-2xl border border-border bg-card p-4 text-center transition-all hover:border-primary/40 hover:shadow-sm"
-              >
-                <div className="space-y-1">
-                  <p className="font-bold text-sm text-foreground">{partner.name}</p>
-                  <p className="text-[11px] text-muted-foreground line-clamp-1">
-                    {partner.location}
-                  </p>
-                </div>
-                <Badge
-                  variant="outline"
-                  className="mt-3 mx-auto text-[10px] rounded-full border-border/80 text-muted-foreground"
-                >
-                  {partner.role}
-                </Badge>
-              </div>
-            ))}
-          </div>
+      {/*    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">*/}
+      {/*      {PARTNERS.map((partner) => (*/}
+      {/*        <div*/}
+      {/*          key={partner.name}*/}
+      {/*          className="flex flex-col justify-between rounded-2xl border border-border bg-card p-4 text-center transition-all hover:border-primary/40 hover:shadow-sm"*/}
+      {/*        >*/}
+      {/*          <div className="space-y-1">*/}
+      {/*            <p className="font-bold text-sm text-foreground">{partner.name}</p>*/}
+      {/*            <p className="text-[11px] text-muted-foreground line-clamp-1">*/}
+      {/*              {partner.location}*/}
+      {/*            </p>*/}
+      {/*          </div>*/}
+      {/*          <Badge*/}
+      {/*            variant="outline"*/}
+      {/*            className="mt-3 mx-auto text-[10px] rounded-full border-border/80 text-muted-foreground"*/}
+      {/*          >*/}
+      {/*            {partner.role}*/}
+      {/*          </Badge>*/}
+      {/*        </div>*/}
+      {/*      ))}*/}
+      {/*    </div>*/}
 
-          <div className="flex items-center justify-center pt-2">
-            <Button asChild variant="outline" size="sm" className="rounded-full">
-              <Link href="/contributing/model-partners">
-                Become a Model or Compute Partner →
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </MaxWidthWrapper>
+      {/*    <div className="flex items-center justify-center pt-2">*/}
+      {/*      <Button asChild variant="outline" size="sm" className="rounded-full">*/}
+      {/*        <Link href="/contributing/model-partners">*/}
+      {/*          Become a Model or Compute Partner →*/}
+      {/*        </Link>*/}
+      {/*      </Button>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</MaxWidthWrapper>*/}
 
       {/* 8. Signature Dual-Tone Navy Bottom Banner (design/branding.png) */}
       <MaxWidthWrapper>

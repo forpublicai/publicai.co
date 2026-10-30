@@ -55,20 +55,20 @@ export const MODEL_CATALOG: ModelEntry[] = [
     details:
       "Fast, cost-effective 8B Apertus v1.5 model with multimodal vision support, 262K context window, and strong instruction-following. Recommended default for low-latency production apps.",
   },
-  {
-    id: "swiss-ai/apertus-v1.5-8b-thinking",
-    name: "Apertus 1.5 8B Thinking",
-    provider: "Swiss AI (EPFL · ETH Zurich · CSCS)",
-    country: "Switzerland",
-    licenseType: "Open Source",
-    licenseName: "Apache 2.0 (Open Data & Recipes)",
-    modalities: ["Text", "Vision", "Reasoning", "Tools"],
-    contextLength: "262K",
-    inputPricePerMillion: 0.1,
-    outputPricePerMillion: 0.2,
-    details:
-      "8B Apertus v1.5 with extended reasoning mode enabled. Combines compact 8B latency and pricing with structured chain-of-thought deliberation.",
-  },
+  // {
+  //   id: "swiss-ai/apertus-v1.5-8b-thinking",
+  //   name: "Apertus 1.5 8B Thinking",
+  //   provider: "Swiss AI (EPFL · ETH Zurich · CSCS)",
+  //   country: "Switzerland",
+  //   licenseType: "Open Source",
+  //   licenseName: "Apache 2.0 (Open Data & Recipes)",
+  //   modalities: ["Text", "Vision", "Reasoning", "Tools"],
+  //   contextLength: "262K",
+  //   inputPricePerMillion: 0.1,
+  //   outputPricePerMillion: 0.2,
+  //   details:
+  //     "8B Apertus v1.5 with extended reasoning mode enabled. Combines compact 8B latency and pricing with structured chain-of-thought deliberation.",
+  // },
   {
     id: "aisingapore/Gemma-SEA-LION-v4-27B-IT",
     name: "Gemma SEA-LION v4 27B IT",
@@ -96,6 +96,20 @@ export const MODEL_CATALOG: ModelEntry[] = [
     outputPricePerMillion: 0.5,
     details:
       "32B instruction-tuned SEA-LION model built on Qwen3. Optimized for Southeast Asian languages, regional reasoning, and multilingual enterprise tasks.",
+  },
+  {
+    id: "aisingapore/Nemotron-SEA-LION-v4.8-120B-A12B",
+    name: "Nemotron SEA-LION v4.8 120B A12B",
+    provider: "AI Singapore",
+    country: "Singapore",
+    licenseType: "Open Weights",
+    licenseName: "NVIDIA Open Model License",
+    modalities: ["Text", "Reasoning", "Tools"],
+    contextLength: "262K",
+    inputPricePerMillion: 0.5,
+    outputPricePerMillion: 2.0,
+    details:
+      "Flagship 120B parameter (12B active) Mixture-of-Experts foundation model built by AI Singapore in collaboration with NVIDIA. Features a 262K context window and specialized linguistic and cultural understanding for 11 Southeast Asian languages including Indonesian, Malay, Thai, Vietnamese, Tagalog, Burmese, Tamil, and English.",
   },
   {
     id: "speakleash/Bielik-11B-v3.0-Instruct",
@@ -153,32 +167,32 @@ export const MODEL_CATALOG: ModelEntry[] = [
     details:
       "22B multilingual model covering all 24 official EU languages plus global languages, trained on European public supercomputing infrastructure.",
   },
-  {
-    id: "swiss-ai/apertus-70b-instruct",
-    name: "Apertus 1.0 70B Instruct",
-    provider: "Swiss AI (EPFL · ETH Zurich · CSCS)",
-    country: "Switzerland",
-    licenseType: "Open Source",
-    licenseName: "Apache 2.0 (Open Data & Recipes)",
-    modalities: ["Text"],
-    contextLength: "65K",
-    inputPricePerMillion: 0.82,
-    outputPricePerMillion: 2.92,
-    details:
-      "First-generation 70B instruct-tuned Apertus model released in September 2025 under the Apache 2.0 license.",
-  },
-  {
-    id: "swiss-ai/apertus-8b-instruct",
-    name: "Apertus 1.0 8B Instruct",
-    provider: "Swiss AI (EPFL · ETH Zurich · CSCS)",
-    country: "Switzerland",
-    licenseType: "Open Source",
-    licenseName: "Apache 2.0 (Open Data & Recipes)",
-    modalities: ["Text"],
-    contextLength: "65K",
-    inputPricePerMillion: 0.1,
-    outputPricePerMillion: 0.2,
-    details:
-      "First-generation 8B instruct-tuned Apertus model released in September 2025 under the Apache 2.0 license.",
-  },
+  // {
+  //   id: "swiss-ai/apertus-70b-instruct",
+  //   name: "Apertus 1.0 70B Instruct",
+  //   provider: "Swiss AI (EPFL · ETH Zurich · CSCS)",
+  //   country: "Switzerland",
+  //   licenseType: "Open Source",
+  //   licenseName: "Apache 2.0 (Open Data & Recipes)",
+  //   modalities: ["Text"],
+  //   contextLength: "65K",
+  //   inputPricePerMillion: 0.82,
+  //   outputPricePerMillion: 2.92,
+  //   details:
+  //     "First-generation 70B instruct-tuned Apertus model released in September 2025 under the Apache 2.0 license.",
+  // },
+  // {
+  //   id: "swiss-ai/apertus-8b-instruct",
+  //   name: "Apertus 1.0 8B Instruct",
+  //   provider: "Swiss AI (EPFL · ETH Zurich · CSCS)",
+  //   country: "Switzerland",
+  //   licenseType: "Open Source",
+  //   licenseName: "Apache 2.0 (Open Data & Recipes)",
+  //   modalities: ["Text"],
+  //   contextLength: "65K",
+  //   inputPricePerMillion: 0.1,
+  //   outputPricePerMillion: 0.2,
+  //   details:
+  //     "First-generation 8B instruct-tuned Apertus model released in September 2025 under the Apache 2.0 license.",
+  // },
 ];

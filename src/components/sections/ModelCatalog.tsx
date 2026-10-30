@@ -1,24 +1,11 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  ChevronDown,
-  ChevronRight,
-  ExternalLink,
-  Globe,
-  Search,
-  X,
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Globe, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CopyButton } from "@/components/ui/copy-button";
 import { MODEL_CATALOG, type ModelEntry } from "@/lib/model-catalog-data";
 import { cn } from "@/lib/utils";
-
-function formatPricing(input: number, output: number): string {
-  return `$${input.toFixed(2)} / $${output.toFixed(2)}`;
-}
 
 export interface ModelCatalogProps {
   compact?: boolean;
@@ -36,7 +23,6 @@ export function ModelCatalog({
     "all" | "Open Source" | "Open Weights"
   >("all");
   const [modalityFilter, setModalityFilter] = useState<string>("all");
-  const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({});
 
   // Attempt live enrichment from https://models.publicai.co/info while keeping static catalog fallback
   useEffect(() => {
@@ -110,22 +96,19 @@ export function ModelCatalog({
     });
   }, [models, searchQuery, licenseFilter, modalityFilter]);
 
-  const toggleExpand = (id: string) => {
-    setExpandedIds((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
   return (
     <div className="not-prose flex flex-col gap-5 w-full">
       {showHeader && (
         <div className="space-y-1.5">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-            Per-1M Token Model Pricing &amp; Directory
+            Sovereign &amp; Open Models Directory
           </h2>
           <p className="text-sm text-muted-foreground">
-            Live input and output token rates across all sovereign and open-weight models on <code className="font-mono">https://api.publicai.co/v1</code>.
+            Directory of sovereign and national open-weight foundation models available on <code className="font-mono">https://api.publicai.co/v1</code>.
           </p>
         </div>
       )}
+
       {/* Filter & Search Bar */}
       {!compact && (
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 rounded-2xl border border-border bg-secondary/40 p-4">
@@ -197,7 +180,7 @@ export function ModelCatalog({
         </div>
       )}
 
-      {/* Accessible Responsive Table Region (modern-web-guidance: responsive-table) */}
+      {/* Accessible Responsive Table Region */}
       <div
         tabIndex={0}
         role="region"
@@ -207,179 +190,90 @@ export function ModelCatalog({
         <table className="w-full border-separate border-spacing-0 text-left text-sm">
           <caption id="publicai-models-table-caption" className="sr-only">
             Available open-source and open-weight models on the Public AI
-            Gateway, including context length, token pricing, and country of
-            origin.
+            Gateway, including descriptions and country of origin.
           </caption>
           <thead className="sticky top-0 z-10 bg-secondary text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
               <th
                 scope="col"
-                className="border-b border-border py-3.5 pl-4 pr-3 font-semibold text-foreground"
+                className="border-b border-border py-3.5 pl-5 pr-3 font-semibold text-foreground w-64 sm:w-72"
               >
                 Model ID
               </th>
               <th
                 scope="col"
-                className="border-b border-border px-3 py-3.5 font-semibold text-foreground"
+                className="border-b border-border px-4 py-3.5 font-semibold text-foreground"
               >
-                Openness &amp; Modalities
+                Description
               </th>
               <th
                 scope="col"
-                className="border-b border-border px-3 py-3.5 font-semibold text-foreground"
-              >
-                Context
-              </th>
-              <th
-                scope="col"
-                className="border-b border-border px-3 py-3.5 font-semibold text-foreground"
-              >
-                Input / Output (1M Tokens)
-              </th>
-              <th
-                scope="col"
-                className="border-b border-border py-3.5 pl-3 pr-4 font-semibold text-foreground"
+                className="border-b border-border py-3.5 pl-3 pr-5 font-semibold text-foreground w-36 sm:w-44 whitespace-nowrap"
               >
                 Origin
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {filteredModels.map((model) => {
-              const isExpanded = !!expandedIds[model.id];
-              return (
-                <React.Fragment key={model.id}>
-                  <tr
-                    onClick={() => toggleExpand(model.id)}
-                    aria-expanded={isExpanded}
-                    className="group cursor-pointer transition-colors hover:bg-accent/40"
-                  >
-                    <th
-                      scope="row"
-                      className="sticky left-0 z-1 bg-card group-hover:bg-accent/40 py-3.5 pl-4 pr-3 font-normal transition-colors"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span
-                          className="text-muted-foreground"
-                          aria-hidden="true"
-                        >
-                          {isExpanded ? (
-                            <ChevronDown className="h-4 w-4 text-primary" />
-                          ) : (
-                            <ChevronRight className="h-4 w-4" />
-                          )}
+            {filteredModels.map((model) => (
+              <tr
+                key={model.id}
+                className="group transition-colors hover:bg-accent/40"
+              >
+                <th
+                  scope="row"
+                  className="py-4 pl-5 pr-3 font-normal align-top"
+                >
+                  <div className="flex flex-col">
+                    <span className="font-mono text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {model.id}
+                    </span>
+                    <span className="text-xs text-muted-foreground mt-0.5">
+                      {model.provider}
+                    </span>
+                  </div>
+                </th>
+
+                <td className="px-4 py-4 align-top">
+                  <div className="space-y-2 max-w-2xl">
+                    <p className="text-xs sm:text-sm text-foreground leading-relaxed">
+                      {model.details}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                      <span>
+                        License:{" "}
+                        <span className="font-medium text-foreground">
+                          {model.licenseName}
                         </span>
-                        <div className="flex flex-col">
-                          <div className="flex items-center gap-1.5">
-                            <span className="font-mono text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary">
-                              {model.id}
-                            </span>
-                            <CopyButton
-                              text={model.id}
-                              className="h-6 w-6 p-1 bg-transparent hover:bg-secondary"
-                            />
-                          </div>
-                          <span className="text-xs text-muted-foreground">
-                            {model.provider}
-                          </span>
-                        </div>
-                      </div>
-                    </th>
-
-                    <td className="px-3 py-3.5">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <Badge
-                          variant="outline"
-                          className={cn(
-                            "rounded-full px-2.5 py-0.5 text-[11px] font-semibold",
-                            model.licenseType === "Open Source"
-                              ? "bg-brand-teal/15 text-brand-teal border-brand-teal/30"
-                              : "bg-warning/20 text-foreground border-warning/40"
-                          )}
-                        >
-                          {model.licenseType}
-                        </Badge>
-                        {model.modalities.map((mod) => (
-                          <Badge
-                            key={mod}
-                            variant="secondary"
-                            className="rounded-md px-1.5 py-0 text-[10px] font-normal text-muted-foreground"
-                          >
-                            {mod}
-                          </Badge>
-                        ))}
-                      </div>
-                    </td>
-
-                    <td className="px-3 py-3.5 font-mono text-xs sm:text-sm text-foreground whitespace-nowrap">
-                      {model.contextLength}
-                    </td>
-
-                    <td className="px-3 py-3.5 whitespace-nowrap">
-                      <span className="font-mono text-xs sm:text-sm font-semibold text-foreground">
-                        {formatPricing(
-                          model.inputPricePerMillion,
-                          model.outputPricePerMillion
-                        )}
                       </span>
-                      <span className="block text-[11px] text-muted-foreground">
-                        per 1M tokens
-                      </span>
-                    </td>
+                      <a
+                        href={`https://huggingface.co/${model.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-medium text-primary hover:underline"
+                      >
+                        Model Card
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                  </div>
+                </td>
 
-                    <td className="py-3.5 pl-3 pr-4 text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
-                      <span className="inline-flex items-center gap-1.5">
-                        <Globe className="h-3.5 w-3.5 text-brand-teal shrink-0" />
-                        <span>{model.country}</span>
-                      </span>
-                    </td>
-                  </tr>
-
-                  {isExpanded && (
-                    <tr className="bg-secondary/40">
-                      <td colSpan={5} className="px-6 py-4">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs sm:text-sm">
-                          <div className="space-y-1 max-w-3xl">
-                            <p className="text-foreground leading-relaxed">
-                              {model.details}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              License:{" "}
-                              <span className="font-medium text-foreground">
-                                {model.licenseName}
-                              </span>
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-3 shrink-0">
-                            <a
-                              href={`https://huggingface.co/${model.id}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
-                            >
-                              Hugging Face Model Card
-                              <ExternalLink className="h-3.5 w-3.5" />
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
-              );
-            })}
+                <td className="py-4 pl-3 pr-5 text-xs sm:text-sm text-muted-foreground whitespace-nowrap align-top">
+                  <span className="inline-flex items-center gap-1.5 font-medium text-foreground">
+                    <Globe className="h-3.5 w-3.5 text-brand-teal shrink-0" />
+                    <span>{model.country}</span>
+                  </span>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      <p className="text-xs text-muted-foreground">
-        Click any model row to expand model details and Hugging Face cards, or
-        click the copy icon to copy its API <code className="font-mono">model</code> ID.{" "}
-        <span className="font-semibold text-brand-teal">Open Source</span>{" "}
-        indicates open weights, open training data, and open recipes;{" "}
-        <span className="font-semibold text-foreground">Open Weights</span>{" "}
-        indicates publicly downloadable weights.
-      </p>
+      {/*<p className="text-xs text-muted-foreground">*/}
+      {/*  Explore sovereign and national open-weight models available across the Public AI Inference Gateway.*/}
+      {/*</p>*/}
     </div>
   );
 }

@@ -149,18 +149,18 @@ export default function LandingChatInterface() {
       </div>
 
       {/* Mobile App Teaser Pill */}
-      <div className="pt-2">
-        <Link
-          href="/products/chat#mobile"
-          className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-secondary/60 hover:bg-secondary px-3.5 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <Smartphone className="h-3.5 w-3.5 text-primary" />
-          <span>
-            <strong>Public AI Mobile App</strong> coming soon to iOS &amp; Android
-          </span>
-          <ArrowRight className="h-3 w-3 text-primary" />
-        </Link>
-      </div>
+      {/*<div className="pt-2">*/}
+      {/*  <Link*/}
+      {/*    href="/products/chat#mobile"*/}
+      {/*    className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-secondary/60 hover:bg-secondary px-3.5 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"*/}
+      {/*  >*/}
+      {/*    <Smartphone className="h-3.5 w-3.5 text-primary" />*/}
+      {/*    <span>*/}
+      {/*      <strong>Public AI Mobile App</strong> coming soon to iOS &amp; Android*/}
+      {/*    </span>*/}
+      {/*    <ArrowRight className="h-3 w-3 text-primary" />*/}
+      {/*  </Link>*/}
+      {/*</div>*/}
     </div>
   );
 }

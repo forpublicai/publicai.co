@@ -142,12 +142,12 @@ export default function ChatProductPage() {
       accentColor="red"
       description="A free, multilingual AI assistant powered by the world's leading national and open-weight models. Compare models side-by-side, ground responses in your own documents, and explore AI built as a public good."
       primaryCta={{
-        label: "Open Web Chat (chat.publicai.co)",
+        label: "Web Chat",
         href: "https://chat.publicai.co",
         external: true,
       }}
       secondaryCta={{
-        label: "Try Inline Demo (/chat)",
+        label: "Inline Demo",
         href: "/chat",
       }}
       featuresTitle="Everything You Need in a Public-Interest AI Workspace"

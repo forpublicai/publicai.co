@@ -330,14 +330,14 @@ ws.on("open", () => {
 export default function ApiProductPage() {
   return (
     <ProductPageTemplate
-      badge="Developer Platform · https://api.publicai.co/v1"
+      badge="Developer Platform"
       badgeVariant="teal"
       title="Sovereign Inference & Vision API."
       accentText="One Endpoint. Global Public Compute."
       accentColor="teal"
-      description="Integrate national open-weight text and multimodal vision LLMs using your existing OpenAI or Anthropic SDK. Start immediately with $2.00 in free credits and scale with Batch and Voice APIs."
+      description="Integrate national open-weight text and multimodal vision LLMs using your existing OpenAI SDK."
       primaryCta={{
-        label: "Get Free API Key ($2 Credit)",
+        label: "Get API Key",
         href: "https://platform.publicai.co/settings/api-keys",
         external: true,
       }}

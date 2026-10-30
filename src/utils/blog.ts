@@ -83,6 +83,22 @@ export function getPostBySlug(slug: string): Post | null {
 
   const category = (data.category as Exclude<ProjectCategory, "All">) || "Projects & Case Studies";
 
+  const firstContentImage =
+    (typeof data.coverImage === "string" && data.coverImage.trim()) ||
+    (typeof data.ogImage === "string" && data.ogImage.trim()) ||
+    content.match(/!\[.*?\]\((.*?)\)/)?.[1] ||
+    content.match(/<PhotoFigure[^>]+src=["']([^"']+)["']/)?.[1] ||
+    content.match(/<img[^>]+src=["']([^"']+)["']/)?.[1] ||
+    undefined;
+
+  const resolvedCoverImage =
+    (typeof data.coverImage === "string" && data.coverImage.trim()) ||
+    firstContentImage;
+
+  const resolvedOgImage =
+    (typeof data.ogImage === "string" && data.ogImage.trim()) ||
+    resolvedCoverImage;
+
   return {
     slug: realSlug,
     title: typeof data.title === "string" ? data.title : realSlug,
@@ -92,14 +108,14 @@ export function getPostBySlug(slug: string): Post | null {
     description,
     excerpt: description,
     author: typeof data.author === "string" ? data.author : "Public AI Team",
-    coverImage: typeof data.coverImage === "string" ? data.coverImage : undefined,
+    coverImage: resolvedCoverImage,
     coverImageAlt:
       typeof data.coverImageAlt === "string"
         ? data.coverImageAlt
         : typeof data.title === "string"
         ? data.title
         : realSlug,
-    ogImage: typeof data.ogImage === "string" ? data.ogImage : undefined,
+    ogImage: resolvedOgImage,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     models: Array.isArray(data.models) ? data.models.map(String) : [],
     linkedinHook:

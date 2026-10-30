@@ -49,18 +49,18 @@ export function Footer() {
             <div className="space-y-4">
               <BrandLockup />
               <p className="text-sm text-muted-foreground leading-relaxed">
-                A nonprofit, open-source inference utility and global research
+                A nonprofit, open-source inference router and global research
                 coalition making public and sovereign AI accessible to everyone.
-                Operated by{" "}
-                <a
-                  href="https://metagov.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-foreground underline underline-offset-4 hover:text-primary"
-                >
-                  Metagov Inc.
-                </a>
-                , a 501(c)(3) nonprofit organization.
+                {/*Operated by{" "}*/}
+                {/*<a*/}
+                {/*  href="https://metagov.org"*/}
+                {/*  target="_blank"*/}
+                {/*  rel="noopener noreferrer"*/}
+                {/*  className="font-medium text-foreground underline underline-offset-4 hover:text-primary"*/}
+                {/*>*/}
+                {/*  Metagov Inc.*/}
+                {/*</a>*/}
+                {/*, a 501(c)(3) nonprofit organization.*/}
               </p>
 
               {/* Live System Status Badge (status.publicai.co) */}
@@ -75,7 +75,7 @@ export function Footer() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-teal opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-teal" />
                   </span>
-                  <span>All Inference Clusters Operational</span>
+                  <span>Public Router Status</span>
                   <ExternalLink className="h-3 w-3 text-muted-foreground" />
                 </a>
               </div>
@@ -155,21 +155,21 @@ export function Footer() {
                   Public AI Chat
                 </Link>
               </li>
-              <li className="pl-2.5">
-                <Link
-                  href="/products/chat#mobile"
-                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <CornerDownRight className="h-3 w-3" />
-                  <span>Mobile App</span>
-                  <Badge
-                    variant="outline"
-                    className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"
-                  >
-                    Soon
-                  </Badge>
-                </Link>
-              </li>
+              {/*<li className="pl-2.5">*/}
+              {/*  <Link*/}
+              {/*    href="/products/chat#mobile"*/}
+              {/*    className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"*/}
+              {/*  >*/}
+              {/*    <CornerDownRight className="h-3 w-3" />*/}
+              {/*    <span>Mobile App</span>*/}
+              {/*    <Badge*/}
+              {/*      variant="outline"*/}
+              {/*      className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"*/}
+              {/*    >*/}
+              {/*      Soon*/}
+              {/*    </Badge>*/}
+              {/*  </Link>*/}
+              {/*</li>*/}
               <li>
                 <Link
                   href="/products/api"
@@ -178,36 +178,36 @@ export function Footer() {
                   Inference API
                 </Link>
               </li>
-              <li className="pl-2.5">
-                <Link
-                  href="/products/api#batch"
-                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <CornerDownRight className="h-3 w-3" />
-                  <span>Batch API</span>
-                  <Badge
-                    variant="outline"
-                    className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"
-                  >
-                    Soon
-                  </Badge>
-                </Link>
-              </li>
-              <li className="pl-2.5">
-                <Link
-                  href="/products/api#voice"
-                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <CornerDownRight className="h-3 w-3" />
-                  <span>Voice API</span>
-                  <Badge
-                    variant="outline"
-                    className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"
-                  >
-                    Soon
-                  </Badge>
-                </Link>
-              </li>
+              {/*<li className="pl-2.5">*/}
+              {/*  <Link*/}
+              {/*    href="/products/api#batch"*/}
+              {/*    className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"*/}
+              {/*  >*/}
+              {/*    <CornerDownRight className="h-3 w-3" />*/}
+              {/*    <span>Batch API</span>*/}
+              {/*    <Badge*/}
+              {/*      variant="outline"*/}
+              {/*      className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"*/}
+              {/*    >*/}
+              {/*      Soon*/}
+              {/*    </Badge>*/}
+              {/*  </Link>*/}
+              {/*</li>*/}
+              {/*<li className="pl-2.5">*/}
+              {/*  <Link*/}
+              {/*    href="/products/api#voice"*/}
+              {/*    className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"*/}
+              {/*  >*/}
+              {/*    <CornerDownRight className="h-3 w-3" />*/}
+              {/*    <span>Voice API</span>*/}
+              {/*    <Badge*/}
+              {/*      variant="outline"*/}
+              {/*      className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"*/}
+              {/*    >*/}
+              {/*      Soon*/}
+              {/*    </Badge>*/}
+              {/*  </Link>*/}
+              {/*</li>*/}
               <li>
                 <Link
                   href="/products/kiosks"
@@ -222,20 +222,20 @@ export function Footer() {
                   </Badge>
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/products/agents"
-                  className="inline-flex items-center gap-1.5 font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <span>Agents (Hermes)</span>
-                  <Badge
-                    variant="outline"
-                    className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"
-                  >
-                    Soon
-                  </Badge>
-                </Link>
-              </li>
+              {/*<li>*/}
+              {/*  <Link*/}
+              {/*    href="/products/agents"*/}
+              {/*    className="inline-flex items-center gap-1.5 font-medium text-muted-foreground hover:text-foreground transition-colors"*/}
+              {/*  >*/}
+              {/*    <span>Agents (Hermes)</span>*/}
+              {/*    <Badge*/}
+              {/*      variant="outline"*/}
+              {/*      className="rounded-full px-1.5 py-0 text-[9px] bg-warning text-warning-foreground border-transparent"*/}
+              {/*    >*/}
+              {/*      Soon*/}
+              {/*    </Badge>*/}
+              {/*  </Link>*/}
+              {/*</li>*/}
             </ul>
           </div>
 
@@ -285,25 +285,25 @@ export function Footer() {
                   Chat Documentation
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/projects/libraries"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Kiosks Story: Libraries
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="https://platform.publicai.co/account/billing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <span>API Keys & Billing</span>
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </li>
+              {/*<li>*/}
+              {/*  <Link*/}
+              {/*    href="/projects/libraries"*/}
+              {/*    className="text-muted-foreground hover:text-foreground transition-colors"*/}
+              {/*  >*/}
+              {/*    Kiosks Story: Libraries*/}
+              {/*  </Link>*/}
+              {/*</li>*/}
+              {/*<li>*/}
+              {/*  <a*/}
+              {/*    href="https://platform.publicai.co/account/billing"*/}
+              {/*    target="_blank"*/}
+              {/*    rel="noopener noreferrer"*/}
+              {/*    className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"*/}
+              {/*  >*/}
+              {/*    <span>API Keys & Billing</span>*/}
+              {/*    <ExternalLink className="h-3 w-3" />*/}
+              {/*  </a>*/}
+              {/*</li>*/}
               <li>
                 <a
                   href="/llms.txt"
@@ -315,17 +315,17 @@ export function Footer() {
                   <ExternalLink className="h-3 w-3" />
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://status.publicai.co"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <span>System Status</span>
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </li>
+              {/*<li>*/}
+              {/*  <a*/}
+              {/*    href="https://status.publicai.co"*/}
+              {/*    target="_blank"*/}
+              {/*    rel="noopener noreferrer"*/}
+              {/*    className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"*/}
+              {/*  >*/}
+              {/*    <span>System Status</span>*/}
+              {/*    <ExternalLink className="h-3 w-3" />*/}
+              {/*  </a>*/}
+              {/*</li>*/}
             </ul>
           </div>
 
@@ -499,8 +499,7 @@ export function Footer() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground">
           <p>
             &copy; {new Date().getFullYear()} Public AI Inference Utility &amp;
-            Public AI Network. Operated by Metagov Inc., a 501(c)(3) nonprofit.
-            Licensed under CC BY 4.0 / MIT.
+            Public AI Network.
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <Link
@@ -527,20 +526,6 @@ export function Footer() {
             >
               Cookies &amp; GDPR
             </Link>
-            <Link
-              href="/tc#213-subprocessors"
-              className="hover:text-foreground transition-colors"
-            >
-              Subprocessors
-            </Link>
-            <a
-              href="https://status.publicai.co"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Status
-            </a>
           </div>
         </div>
       </MaxWidthWrapper>
