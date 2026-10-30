@@ -17,7 +17,9 @@ import {
   Zap,
 } from "lucide-react";
 import { MaxWidthWrapper } from "@/components/global/max-width-wrapper";
-import { SectionHeader, ModelCatalog } from "@/components/sections";
+import { SectionHeader } from "@/components/sections";
+import { LiveModelPricingTable } from "@/components/pricing/LiveModelPricingTable";
+import { getLiveModelPricing } from "@/lib/live-model-pricing";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -45,7 +47,7 @@ interface PricingPlanTier {
   rateLimit: string;
   rateLimitNum: string;
   howToGet: string;
-  priceSubtext: string;
+  priceSubtext?: string;
   description: string;
   highlighted?: boolean;
   features: string[];
@@ -142,7 +144,9 @@ const PLAN_TIERS: PricingPlanTier[] = [
   },
 ];
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const { models: liveModels, fetchedAt, source } = await getLiveModelPricing();
+
   return (
     <div className="flex flex-col gap-16 md:gap-24 py-12 md:py-20">
       {/* 1. Hero Header */}
@@ -453,22 +457,26 @@ export default function PricingPage() {
       <MaxWidthWrapper>
         <div id="token-pricing" className="scroll-mt-24 space-y-4">
           <div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="rounded-full text-xs font-mono text-primary">
-                Pay-As-You-Go
-              </Badge>
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Live Token Rates
-              </span>
-            </div>
+            {/*<div className="flex items-center gap-2">*/}
+            {/*  <Badge variant="outline" className="rounded-full text-xs font-mono text-primary">*/}
+            {/*    Pay-As-You-Go*/}
+            {/*  </Badge>*/}
+            {/*  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">*/}
+            {/*    Live Token Rates*/}
+            {/*  </span>*/}
+            {/*</div>*/}
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mt-1">
-              Per-Model Token Pricing
+              Model Pricing
             </h2>
-            <p className="text-sm text-muted-foreground max-w-2xl mt-1">
-              Incurred against your prepaid wallet balance based on actual input and output tokens consumed. Prices are listed per 1,000,000 tokens.
-            </p>
+            {/*<p className="text-sm text-muted-foreground max-w-2xl mt-1">*/}
+            {/*  Incurred against your prepaid wallet balance based on actual input and output tokens consumed. Prices are listed per 1,000,000 tokens.*/}
+            {/*</p>*/}
           </div>
-          <ModelCatalog showHeader={false} defaultTab="table" />
+          <LiveModelPricingTable
+            initialModels={liveModels}
+            fetchedAt={fetchedAt}
+            source={source}
+          />
         </div>
       </MaxWidthWrapper>
     </div>
