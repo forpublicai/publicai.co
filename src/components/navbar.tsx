@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { trackEvent } from "@/components/posthog-provider";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +33,9 @@ export default function Navbar() {
           href="https://platform.publicai.co"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            trackEvent("nav_developers_clicked", { location: "desktop" });
+          }}
           className="text-gray-700 hover:text-black hover:scale-105 font-semibold transition-all duration-200 ease-in-out cursor-pointer"
         >
           For Developers
@@ -50,6 +54,9 @@ export default function Navbar() {
           href="https://chat.publicai.co"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            trackEvent("nav_login_clicked", { location: "desktop" });
+          }}
           className="hidden md:flex bg-red-500 text-white hover:bg-red-600 rounded-full px-6 py-2 font-medium cursor-pointer items-center justify-center"
         >
           LOG IN
@@ -82,7 +89,10 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-black font-semibold transition-colors cursor-pointer"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    trackEvent("nav_developers_clicked", { location: "mobile" });
+                    setIsOpen(false);
+                  }}
                 >
                   For Developers
                 </a>
@@ -98,7 +108,10 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-black font-semibold transition-colors cursor-pointer"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    trackEvent("nav_login_clicked", { location: "mobile" });
+                    setIsOpen(false);
+                  }}
                 >
                   LOG IN
                 </a>

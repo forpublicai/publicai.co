@@ -1,3 +1,7 @@
+"use client";
+
+import { trackEvent } from "@/components/posthog-provider";
+
 export default function CallToAction() {
   return (
     <section className="max-w-4xl mx-auto px-6 py-24 mt-16">
@@ -10,6 +14,11 @@ export default function CallToAction() {
             href="https://chat.publicai.co"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              trackEvent("cta_get_started_clicked", {
+                location: "homepage_bottom_cta",
+              });
+            }}
             className="inline-block bg-black text-white text-lg font-medium px-12 py-4 rounded-full hover:bg-gray-800 transition-colors"
           >
             GET STARTED

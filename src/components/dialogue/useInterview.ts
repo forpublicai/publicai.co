@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import { parseAssistantContent, type Message } from "./MessageList";
 import type { LanguageCode } from "@/lib/languages";
+import { trackEvent } from "@/components/posthog-provider";
 
 export interface ToolCallData {
   opinion?: string;
@@ -144,27 +145,38 @@ export function useInterview({
     if (startedRef.current) return;
     startedRef.current = true;
     setStarted(true);
+    trackEvent("dialogue_interview_started", {
+      language,
+    });
     doSend([
       {
         role: "user",
         content: "Hello! I'd like to participate in the Swiss AI Dialogue.",
       },
     ]);
-  }, [doSend]);
+  }, [doSend, language]);
 
   const handleOptionSelect = useCallback(
     (option: string) => {
       if (isStreaming) return;
+      trackEvent("dialogue_option_selected", {
+        option,
+        language,
+      });
       doSend([...messagesRef.current, { role: "user", content: option }]);
     },
-    [isStreaming, doSend]
+    [isStreaming, doSend, language]
   );
 
   const handleSubmit = useCallback(() => {
     const text = inputValue.trim();
     if (!text || isStreaming) return;
+    trackEvent("dialogue_message_sent", {
+      message_length: text.length,
+      language,
+    });
     doSend([...messagesRef.current, { role: "user", content: text }]);
-  }, [inputValue, isStreaming, doSend]);
+  }, [inputValue, isStreaming, doSend, language]);
 
   const handleSave = useCallback(
     async (demographics?: {
@@ -190,6 +202,12 @@ export function useInterview({
             language,
             toolCallData: toolCallData ?? undefined,
           }),
+        });
+        trackEvent("dialogue_response_saved", {
+          canton: demographics?.canton ?? null,
+          age_range: demographics?.age_range ?? null,
+          occupation: demographics?.occupation ?? null,
+          language,
         });
         setSaved(true);
         onComplete();

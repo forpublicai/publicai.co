@@ -6,6 +6,7 @@ import { useChatRuntime } from '@assistant-ui/react-ai-sdk';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Thread } from '@/components/assistant-ui/thread';
 import Link from 'next/link';
+import { trackEvent } from '@/components/posthog-provider';
 
 function ChatPageContent() {
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -56,6 +57,11 @@ function ChatWrapper({
     if (initialMessage && !initialSubmitted.current && composer) {
       initialSubmitted.current = true;
 
+      trackEvent('chat_session_started', {
+        source: 'landing_query',
+        initial_message_length: initialMessage.length,
+      });
+
       // Clear URL parameter
       router.replace('/chat', { scroll: false });
 
@@ -75,10 +81,19 @@ function ChatWrapper({
     const userMessages = messages.filter(m => m.role === 'user');
 
     if (userMessages.length !== messageCount) {
+      if (userMessages.length > messageCount) {
+        trackEvent('chat_message_sent', {
+          message_count: userMessages.length,
+        });
+      }
       setMessageCount(userMessages.length);
 
       // Show auth modal after 3 user messages
       if (userMessages.length === 3) {
+        trackEvent('chat_auth_modal_shown', {
+          trigger: 'message_limit_reached',
+          total_user_messages: 3,
+        });
         setShowAuthModal(true);
       }
     }
@@ -118,14 +133,24 @@ function ChatWrapper({
 
             <div className="space-y-4">
               <button
-                onClick={() => window.open('https://chat.publicai.co', '_blank')}
+                onClick={() => {
+                  trackEvent('chat_auth_signup_clicked', {
+                    source: 'auth_modal',
+                  });
+                  window.open('https://chat.publicai.co', '_blank');
+                }}
                 className="w-full py-3 px-6 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors"
               >
                 Log in or sign up
               </button>
 
               <button
-                onClick={() => setShowAuthModal(false)}
+                onClick={() => {
+                  trackEvent('chat_auth_modal_dismissed', {
+                    source: 'auth_modal',
+                  });
+                  setShowAuthModal(false);
+                }}
                 className="text-muted-foreground hover:text-foreground underline text-sm mt-4"
               >
                 Stay logged out

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowUp } from "lucide-react";
+import { trackEvent } from "@/components/posthog-provider";
 
 interface SuggestionButtonProps {
   prompt: string;
@@ -15,6 +16,9 @@ function SuggestionButton({ prompt, children }: SuggestionButtonProps) {
   const router = useRouter();
 
   const handleClick = () => {
+    trackEvent("landing_prompt_suggestion_clicked", {
+      prompt,
+    });
     router.push(`/chat?message=${encodeURIComponent(prompt)}`);
   };
 
@@ -34,8 +38,13 @@ export default function LandingChatInterface() {
   const router = useRouter();
 
   const handleSubmit = () => {
-    if (inputValue.trim()) {
-      router.push(`/chat?message=${encodeURIComponent(inputValue.trim())}`);
+    const text = inputValue.trim();
+    if (text) {
+      trackEvent("landing_prompt_submitted", {
+        prompt_length: text.length,
+        prompt_preview: text.slice(0, 80),
+      });
+      router.push(`/chat?message=${encodeURIComponent(text)}`);
     }
   };
 

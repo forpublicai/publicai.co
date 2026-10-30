@@ -3,6 +3,7 @@ import { Public_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import Navbar from "@/components/navbar";
+import { PostHogProvider } from "@/components/posthog-provider";
 import "./globals.css";
 
 const publicSans = Public_Sans({
@@ -50,8 +51,10 @@ export default function RootLayout({
       <body
         className={`${publicSans.variable} antialiased bg-background text-foreground font-sans`}
       >
-        <Navbar />
-        {children}
+        <PostHogProvider>
+          <Navbar />
+          {children}
+        </PostHogProvider>
         <Analytics />
         <Script id="chatwoot-widget" strategy="afterInteractive">
           {`
