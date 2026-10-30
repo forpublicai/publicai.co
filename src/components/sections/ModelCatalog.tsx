@@ -110,75 +110,75 @@ export function ModelCatalog({
       )}
 
       {/* Filter & Search Bar */}
-      {!compact && (
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 rounded-2xl border border-border bg-secondary/40 p-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <Tabs
-              value={licenseFilter}
-              onValueChange={(v) =>
-                setLicenseFilter(v as "all" | "Open Source" | "Open Weights")
-              }
-            >
-              <TabsList className="bg-background">
-                <TabsTrigger value="all" className="text-xs font-semibold">
-                  All Licenses
-                </TabsTrigger>
-                <TabsTrigger
-                  value="Open Source"
-                  className="text-xs font-semibold"
-                >
-                  Open Source (Data + Weights)
-                </TabsTrigger>
-                <TabsTrigger
-                  value="Open Weights"
-                  className="text-xs font-semibold"
-                >
-                  Open Weights
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+      {/*{!compact && (*/}
+      {/*  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 rounded-2xl border border-border bg-secondary/40 p-4">*/}
+      {/*    <div className="flex flex-wrap items-center gap-3">*/}
+      {/*      <Tabs*/}
+      {/*        value={licenseFilter}*/}
+      {/*        onValueChange={(v) =>*/}
+      {/*          setLicenseFilter(v as "all" | "Open Source" | "Open Weights")*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        <TabsList className="bg-background">*/}
+      {/*          <TabsTrigger value="all" className="text-xs font-semibold">*/}
+      {/*            All Licenses*/}
+      {/*          </TabsTrigger>*/}
+      {/*          <TabsTrigger*/}
+      {/*            value="Open Source"*/}
+      {/*            className="text-xs font-semibold"*/}
+      {/*          >*/}
+      {/*            Open Source (Data + Weights)*/}
+      {/*          </TabsTrigger>*/}
+      {/*          <TabsTrigger*/}
+      {/*            value="Open Weights"*/}
+      {/*            className="text-xs font-semibold"*/}
+      {/*          >*/}
+      {/*            Open Weights*/}
+      {/*          </TabsTrigger>*/}
+      {/*        </TabsList>*/}
+      {/*      </Tabs>*/}
 
-            <div className="flex items-center gap-1.5">
-              {["all", "Vision", "Reasoning", "Tools"].map((mod) => (
-                <button
-                  key={mod}
-                  type="button"
-                  onClick={() => setModalityFilter(mod)}
-                  className={cn(
-                    "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer",
-                    modalityFilter === mod
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-background text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  {mod === "all" ? "All Modalities" : mod}
-                </button>
-              ))}
-            </div>
-          </div>
+      {/*      <div className="flex items-center gap-1.5">*/}
+      {/*        {["all", "Vision", "Reasoning", "Tools"].map((mod) => (*/}
+      {/*          <button*/}
+      {/*            key={mod}*/}
+      {/*            type="button"*/}
+      {/*            onClick={() => setModalityFilter(mod)}*/}
+      {/*            className={cn(*/}
+      {/*              "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors cursor-pointer",*/}
+      {/*              modalityFilter === mod*/}
+      {/*                ? "border-primary bg-primary text-primary-foreground"*/}
+      {/*                : "border-border bg-background text-muted-foreground hover:text-foreground"*/}
+      {/*            )}*/}
+      {/*          >*/}
+      {/*            {mod === "all" ? "All Modalities" : mod}*/}
+      {/*          </button>*/}
+      {/*        ))}*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
 
-          <div className="relative w-full lg:w-72">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Filter by model ID, country, lab..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-8 bg-background h-9 text-sm"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                aria-label="Clear search"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
-      )}
+      {/*    <div className="relative w-full lg:w-72">*/}
+      {/*      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />*/}
+      {/*      <Input*/}
+      {/*        type="search"*/}
+      {/*        placeholder="Filter by model ID, country, lab..."*/}
+      {/*        value={searchQuery}*/}
+      {/*        onChange={(e) => setSearchQuery(e.target.value)}*/}
+      {/*        className="pl-9 pr-8 bg-background h-9 text-sm"*/}
+      {/*      />*/}
+      {/*      {searchQuery && (*/}
+      {/*        <button*/}
+      {/*          type="button"*/}
+      {/*          onClick={() => setSearchQuery("")}*/}
+      {/*          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"*/}
+      {/*          aria-label="Clear search"*/}
+      {/*        >*/}
+      {/*          <X className="h-3.5 w-3.5" />*/}
+      {/*        </button>*/}
+      {/*      )}*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*)}*/}
 
       {/* Accessible Responsive Table Region */}
       <div

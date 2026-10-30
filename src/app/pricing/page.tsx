@@ -155,9 +155,9 @@ export default async function PricingPage() {
           badge="Transparent Public Utility Pricing"
           badgeVariant="teal"
           title="Plans, Rate Limits &"
-          accentText="Live Token Pricing."
+          accentText=" Pricing."
           accentColor="red"
-          description="Rate limits and token usage are separate. Start free with 100 requests per minute and $2.00 in starter credit. Scale transparently with pay-as-you-go wallet billing."
+          description="Start free with 100 requests per minute. Scale transparently with pay-as-you-go wallet billing."
           align="center"
         >
           <Button asChild size="lg" className="rounded-full px-7 font-semibold">
@@ -167,7 +167,7 @@ export default async function PricingPage() {
               rel="noopener noreferrer"
             >
               <KeyRound className="mr-2 h-4 w-4" />
-              Create API Key ($2 Free Credit)
+              Create API Key
               <ExternalLink className="ml-2 h-3.5 w-3.5" />
             </Link>
           </Button>

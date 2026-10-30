@@ -101,9 +101,14 @@ export const MEGA_MENU_SECTIONS: NavMegaSection[] = [
         description: "Quickstart, authentication & OpenAPI 3.1 reference",
       },
       {
-        title: "Models & Pricing",
+        title: "Model List",
         href: "/models",
-        description: "Searchable open model directory & live token rates",
+        description: "Public AI open model registry",
+      },
+      {
+        title: "Plan Tiers & Pricing",
+        href: "/pricing",
+        description: "Rate limits and model prices per token",
       },
       // {
       //   title: "Plans & Rate Limits",
@@ -126,12 +131,7 @@ export const MEGA_MENU_SECTIONS: NavMegaSection[] = [
         description: "Live cluster uptime & service health",
         external: true,
       },
-      {
-        title: "API Keys & Billing",
-        href: "https://platform.publicai.co/account/billing",
-        description: "Manage keys, wallet balance & usage",
-        external: true,
-      },
+
     ],
   },
   {

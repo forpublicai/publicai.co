@@ -628,7 +628,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                 >
                   <KeyRound className="mr-2 h-4 w-4" />
-                  Get Free API Key ($2 Credit)
+                  Get API Key
                   <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
                 </a>
               </Button>
@@ -638,7 +638,7 @@ export default function HomePage() {
                 size="lg"
                 className="rounded-full border-white/20 bg-white/10 hover:bg-white/20 text-white font-semibold px-7"
               >
-                <Link href="/models">Browse Sovereign Models</Link>
+                <Link href="/models">Browse Models</Link>
               </Button>
             </div>
           </div>

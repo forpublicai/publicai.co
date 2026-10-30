@@ -35,7 +35,7 @@ export default function ModelsPage() {
       {/* 1. Hero Section */}
       <MaxWidthWrapper>
         <SectionHeader
-          badge="Sovereign Model Registry"
+          badge="Model Registry"
           badgeVariant="teal"
           title="National & Sovereign Open-Weight Models."
           accentText="One Unified API."
@@ -60,24 +60,8 @@ export default function ModelsPage() {
             size="lg"
             className="rounded-full px-7 font-semibold"
           >
-            <Link
-              href="https://chat.publicai.co"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageSquare className="mr-2 h-4 w-4" />
-              Compare in Web Chat
-              <ExternalLink className="ml-2 h-3.5 w-3.5" />
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="ghost"
-            size="lg"
-            className="rounded-full px-6 font-semibold"
-          >
-            <Link href="/docs/models">
-              Model Documentation
+            <Link href="/docs/pricing">
+              Pricing
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
