@@ -27,6 +27,11 @@ const PARTNER_LOGOS: PartnerLogo[] = [
     alt: "Swiss AI Initiative & CSCS Alps",
   },
   {
+    name: "Mozilla",
+    src: "/inference_partners/mozilla.svg",
+    alt: "Mozilla Foundation",
+  },
+  {
     name: "AI Singapore",
     src: "/inference_partners/aisingapore.png",
     alt: "AI Singapore (AISG)",

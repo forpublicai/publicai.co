@@ -20,14 +20,14 @@ const systemPrompt = readFileSync(
 );
 
 export async function POST(req: Request) {
-  const { messages, system, tools } = await req.json();
+  const { messages, tools } = await req.json();
 
   const result = streamText({
     model: openai.chat(DEMO_CHAT_MODEL_ID),
     messages: convertToModelMessages(messages),
     system: systemPrompt,
     tools: {
-      ...(frontendTools(tools) as any),
+      ...(frontendTools(tools) as Record<string, any>), // eslint-disable-line @typescript-eslint/no-explicit-any
       // add backend tools here
     },
     experimental_transform: DEMO_CHAT_MODEL_THINKING
