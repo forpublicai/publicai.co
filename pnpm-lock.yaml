@@ -222,6 +222,9 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
+      '@types/mdx':
+        specifier: ^2.0.14
+        version: 2.0.14
       '@types/node':
         specifier: ^20
         version: 20.19.43
