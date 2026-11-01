@@ -4,7 +4,14 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, CornerDownRight, ExternalLink } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  CornerDownRight,
+  ExternalLink,
+  MessageSquare,
+  Terminal,
+} from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,6 +20,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MaxWidthWrapper } from "@/components/global/max-width-wrapper";
@@ -238,20 +251,70 @@ export function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
 
-          <Button
-            asChild
-            size="sm"
-            className="hidden sm:inline-flex rounded-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-5 shadow-xs"
-          >
-            <a
-              href="https://chat.publicai.co"
-              target="_blank"
-              rel="noopener noreferrer"
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                size="sm"
+                className="group hidden sm:inline-flex items-center gap-1.5 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-4 shadow-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <span>Try Public AI</span>
+                <ChevronDown className="h-3.5 w-3.5 opacity-80 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              sideOffset={8}
+              className="w-56 p-1.5 rounded-2xl border border-border/80 bg-popover/95 backdrop-blur-md shadow-xl"
             >
-              Try Public AI
-              <ArrowUpRight className="ml-1 h-4 w-4" />
-            </a>
-          </Button>
+              <DropdownMenuItem asChild className="rounded-xl p-2 cursor-pointer focus:bg-accent focus:text-accent-foreground">
+                <a
+                  href="https://chat.publicai.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between w-full group/item"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover/item:bg-primary group-hover/item:text-primary-foreground transition-colors">
+                      <MessageSquare className="h-4 w-4" />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className="font-semibold text-sm text-foreground">
+                        Chat
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">
+                        Web Chat Interface
+                      </span>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover/item:text-foreground transition-colors" />
+                </a>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem asChild className="rounded-xl p-2 cursor-pointer focus:bg-accent focus:text-accent-foreground">
+                <a
+                  href="https://platform.publicai.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between w-full group/item"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover/item:bg-primary group-hover/item:text-primary-foreground transition-colors">
+                      <Terminal className="h-4 w-4" />
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className="font-semibold text-sm text-foreground">
+                        API
+                      </span>
+                      <span className="text-[11px] text-muted-foreground">
+                        platform.publicai.co
+                      </span>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover/item:text-foreground transition-colors" />
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <MobileNavbar />
         </div>

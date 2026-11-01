@@ -183,7 +183,7 @@ export function MobileNavbar() {
                   rel="noopener noreferrer"
                   onClick={closeMenu}
                 >
-                  Try Public AI
+                  Try Chat
                   <ArrowUpRight className="ml-1.5 h-4 w-4" />
                 </a>
               </Button>
@@ -193,9 +193,15 @@ export function MobileNavbar() {
                 size="lg"
                 className="w-full rounded-full font-semibold"
               >
-                <Link href="/docs" onClick={closeMenu}>
-                  Developer API Docs
-                </Link>
+                <a
+                  href="https://platform.publicai.co"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                >
+                  Try API
+                  <ArrowUpRight className="ml-1.5 h-4 w-4" />
+                </a>
               </Button>
             </div>
           </div>
