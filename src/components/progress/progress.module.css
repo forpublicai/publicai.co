@@ -1,0 +1,161 @@
+/* Progress dashboard (/progress), styled to the Public AI design system:
+ * black text only, flat 5% cards, Overpass Mono for figures and labels,
+ * and red kept to the chart bars. */
+
+.page {
+  color: #000;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+.page h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+}
+.page h2 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin: 3.5rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid #f7f7f7;
+}
+.page h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 2rem 0 0.75rem;
+}
+.page p {
+  max-width: 46rem;
+  margin: 0 0 1rem;
+}
+.lead {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.page code {
+  font-family: var(--font-overpass-mono), ui-monospace, monospace;
+  font-size: 0.9em;
+}
+
+.figure {
+  font-variant-numeric: tabular-nums;
+}
+
+.tableWrap {
+  margin: 1.5rem 0;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+}
+.tableWrap:focus-visible {
+  outline: 2px solid #ef3c24;
+  outline-offset: 3px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.table thead {
+  background: #f7f7f7;
+}
+.table th,
+.table td {
+  vertical-align: top;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid #ececec;
+  text-align: left;
+}
+.table th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+.right {
+  text-align: right !important;
+}
+.num {
+  font-family: var(--font-overpass-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.na {
+  font-family: var(--font-overpass-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.1rem 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 1000px;
+  font-family: var(--font-overpass-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: #000;
+}
+.pillWarn {
+  color: #8a5f3e; /* design-system oak, darkened to 4.5:1 for small text */
+}
+.pillMissing {
+  border-color: transparent;
+  background: #f6f2ea; /* design-system parchment */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.chart {
+  margin: 0;
+  padding: 2rem;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.05);
+  min-width: 0;
+}
+@media (max-width: 640px) {
+  .chart {
+    padding: 1.25rem;
+  }
+  .page h1 {
+    font-size: 2.25rem;
+  }
+}
+.chartTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.chart svg {
+  display: block;
+  overflow: visible;
+}
+.bar {
+  fill: #ef3c24;
+}
+.barPartial {
+  fill-opacity: 0.4;
+}
+.axis {
+  stroke: rgba(0, 0, 0, 0.2);
+}
+.chartText {
+  fill: #000;
+  font-family: var(--font-overpass-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.table th[align="right"],
+.table td[align="right"] {
+  text-align: right;
+}
