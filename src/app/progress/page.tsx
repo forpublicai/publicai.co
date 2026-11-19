@@ -155,7 +155,7 @@ export default function ProgressPage() {
         <h2>Source coverage</h2>
         <p>
           What each metric is built from today, and what it takes to fill the gaps. The data is built by the scripts
-          in <code>tools/progress/</code> of the publicai.ch repository and copied here.
+          in the shared <code>forpublicai/progress</code> repository.
         </p>
         <ProgressTable
           table="coverage"
