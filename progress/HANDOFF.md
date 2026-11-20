@@ -4,32 +4,18 @@ Notes for whoever picks this up next, human or agent. Delete the file once it's 
 
 ## Where things stand
 
-- `/progress` is live on publicai.ch (forpublicai/publicai.ch, merged in PR 12) and publicai.co (forpublicai/publicai.co, merged in PR 21). Both pages are `noindex`. Each still carries **its own copy** of the components and of `progress.json`:
-  - publicai.ch: `content/cooperative/progress.mdx`, `src/components/mdx/progress.tsx`, `.progress-*` CSS in `src/styles/global.css`, `tools/progress/`, `src/data/progress.json`
-  - publicai.co: `src/app/progress/page.tsx`, `src/components/progress/` (CSS module port), `src/data/progress.json`
-- This repo now holds the pipeline, the metric spec for the three pillars, and a shared component (`react/Progress.tsx` with `ProgressPillars` and `ProgressTimeline` added). Neither site uses it yet.
-- `data/progress.json` matches the live sites' numbers (as of 16 Nov 2026), plus `pillars`, `milestones` and the new coverage list. One difference: topline monthly averages use full months in the past year, so the tokens average is 1.70B here against 1.89B (past-year total ÷ 12) in the live page text.
+- `/progress` is live on publicai.ch and publicai.co. Both pages are `noindex`.
+- **Subtree move done on 19 Nov 2026**, on branch `claude/bold-bohr-fo3g32` in both repos. It is not merged yet.
+  - publicai.ch re-exports the shared components from `src/components/mdx/progress.tsx`. `ProgressPillars` and `ProgressTimeline` are registered in both MDX registries. `tools/progress/`, `src/data/progress.json` and the `.progress-*` CSS were removed. All gates pass.
+  - publicai.co re-exports from `src/components/progress/Progress.tsx`. Its CSS module keeps only page typography and sets `--progress-mono` to Overpass Mono. `npm run build` passes.
+  - Neither page uses the pillars or the timeline yet.
+- Topline monthly averages use full months in the past year. So the tokens average is 1.70B in the pillar cards, against 1.89B (past-year total ÷ 12) in the page text.
 
 ## Next steps, in order
 
-1. **Move the sites onto the subtree.**
-   - **publicai.ch:**
-     - Run `git subtree add --prefix=progress ...`.
-     - Point `src/components/mdx/progress.tsx` at `progress/react/Progress.tsx`, or re-export from it.
-     - Register `ProgressPillars` and `ProgressTimeline` in **both** `src/components/mdx/index.ts` and `REGISTRY_EXPORTS` in `src/lib/vite-mdx-locale-split.ts`. Missing the second gives "Expected component X to be defined" at build.
-     - Replace the `.progress-*` block in `global.css` with an import of `progress/react/progress.css`.
-     - Delete `tools/progress/`.
-     - Gates: `yarn lint && yarn typecheck && yarn test && yarn build`.
-     - Keep visible text in MDX locale sections.
-   - **publicai.co:**
-     - Run the same subtree add.
-     - Swap the CSS-module port for `progress/react/Progress.tsx` and `progress.css`.
-     - Load Overpass Mono via `next/font` and set `--progress-mono` to its variable.
-     - Its CLAUDE.md requires `npm run build` before every commit, and **no co-author lines** in commit messages.
-   - **publicai.network** (Jekyll, forpublicai/publicai.network, read-only in the last session):
-     - Option one: add `progress/data/progress.json` as a Jekyll data file and write a Liquid page.
-     - Option two: have `build.py` also emit a static HTML fragment, by rendering the React components with Node, and `{% include %}` it.
-     - The second keeps all three sites identical.
+1. **publicai.network** (Jekyll, forpublicai/publicai.network). Two options:
+   - Add `progress/data/progress.json` as a Jekyll data file and write a Liquid page.
+   - Have `build.py` also emit a static HTML fragment, by rendering the React components with Node, and `{% include %}` it. This one keeps all three sites identical.
 2. **Restructure the page** into the three pillars:
    - `ProgressPillars` at the top
    - then a section per pillar with its charts and tables
