@@ -5,8 +5,10 @@ import {
   ProgressChart,
   ProgressFigure,
   ProgressGrid,
+  ProgressPillars,
   ProgressScorecard,
   ProgressTable,
+  ProgressTimeline,
 } from "@/components/progress/Progress";
 import s from "@/components/progress/progress.module.css";
 
@@ -19,7 +21,7 @@ const overpassMono = Overpass_Mono({
 export const metadata: Metadata = {
   title: "Progress",
   description:
-    "How Public AI has grown since launch on 2 September 2025, in visitors, users, tokens served and community activity.",
+    "How Public AI has grown since launch on 2 September 2025, across its three pillars: products, movement and idea.",
   robots: { index: false, follow: false },
 };
 
@@ -30,6 +32,23 @@ const windowColumns = [
   { key: "share", label: "Share since launch", format: "pct" },
 ] as const;
 
+const scorecardColumns = [
+  { key: "metric", label: "Metric", format: "text" },
+  { key: "status", label: "Status", format: "status" },
+  { key: "d30", label: "Last 30 days", format: "int" },
+  { key: "y1", label: "Past 12 months", format: "int" },
+  { key: "launch", label: "Since launch", format: "int" },
+] as const;
+
+const coverageColumns = [
+  { key: "metric", label: "Metric", format: "text" },
+  { key: "status", label: "Status", format: "status" },
+  { key: "have", label: "What we have", format: "text" },
+  { key: "next", label: "Next step", format: "text" },
+] as const;
+
+const partial = "partial month";
+
 export default function ProgressPage() {
   return (
     <div className={`min-h-screen bg-white ${overpassMono.variable}`}>
@@ -38,59 +57,46 @@ export default function ProgressPage() {
         <p className={s.lead}>
           How Public AI has grown since launch on 2 September 2025. Snapshot of 16 November 2026.
         </p>
-
         <p>
-          In the last 30 days, publicai.co had <ProgressFigure name="visitors_30" /> visitors, against{" "}
-          <ProgressFigure name="visitors_avg" /> in an average full month of the past year. LiteLLM served{" "}
-          <ProgressFigure name="tokens_30" format="big" /> tokens, against{" "}
-          <ProgressFigure name="tokens_avg" format="big" /> a month on average over the past year.
-          chat.publicai.co gained <ProgressFigure name="users_30" /> sign-ups and had{" "}
-          <ProgressFigure name="active_30" /> active users. hello@ received <ProgressFigure name="hello_30" /> new
-          threads, against a past-year average of <ProgressFigure name="hello_avg" format="dec" /> a month, and{" "}
-          <ProgressFigure name="issues_30" /> GitHub issues were opened. <ProgressFigure name="missing" /> of the{" "}
-          <ProgressFigure name="total" /> metrics have no data source yet.
+          Three questions. Are people using the products? Are people and organisations joining the movement? Is
+          public AI spreading as an idea? Each pillar has one or two headline numbers, then the detail below.
         </p>
 
-        <h2>Scorecard</h2>
-        <ProgressScorecard
-          label="Scorecard"
-          empty="no data"
-          columns={[
-            { key: "metric", label: "Metric", format: "text" },
-            { key: "status", label: "Status", format: "status" },
-            { key: "d30", label: "Last 30 days", format: "int" },
-            { key: "y1", label: "Past 12 months", format: "int" },
-            { key: "launch", label: "Since launch", format: "int" },
-          ]}
+        <ProgressPillars
+          d30Label="last 30 days"
+          avgLabel="Avg month, past year"
+          launchLabel="Since launch"
+          notConnected="Not connected yet"
+          coverageLabel="{n} of {total} metrics connected"
         />
         <p>
-          Last 30 days runs from 18 October to 16 November 2026, and past 12 months from 16 November 2025.
+          Last 30 days runs from 18 October to 16 November 2026, and past 12 months from 16 November 2025. The
+          average is over full months only.
+        </p>
+
+        <h2>Products</h2>
+        <p>
+          In the last 30 days LiteLLM served <ProgressFigure name="tokens_30" format="big" /> tokens.
+          chat.publicai.co had <ProgressFigure name="active_30" /> active users and gained{" "}
+          <ProgressFigure name="users_30" /> sign-ups, and publicai.co had <ProgressFigure name="visitors_30" />{" "}
+          visitors, against <ProgressFigure name="visitors_avg" /> in an average full month of the past year.
+        </p>
+        <ProgressScorecard label="Products scorecard" empty="no data" pillar="products" columns={scorecardColumns} />
+        <p>
           Visitors are unique visitors per window from Vercel Web Analytics, so they can&apos;t be added up across
           months. Email counts are threads, dated by their first message. hello@ counts all inbound mail, not only
-          support requests, and support@ counts only the threads that also reached Josh&apos;s inbox.
+          support requests.
         </p>
 
-        <h2>publicai.co visitors</h2>
-        <ProgressGrid>
-          <ProgressChart series="visitors" title="Unique visitors per month" unit="visitors" partialLabel="partial month" />
-        </ProgressGrid>
-
-        <h2>chat.publicai.co users</h2>
-        <p>
-          Active users sent at least one message in the month. Counts come from Open WebUI&apos;s admin API; no names
-          or emails are stored.
-        </p>
-        <ProgressGrid>
-          <ProgressChart series="signups" title="New sign-ups per month" unit="sign-ups" partialLabel="partial month" />
-          <ProgressChart series="active_users" title="Active users per month" unit="active users" partialLabel="partial month" />
-          <ProgressChart series="chat_messages" title="Chat messages per month" unit="messages" partialLabel="partial month" />
-        </ProgressGrid>
-
-        <h2>Tokens served</h2>
+        <h3>Tokens served</h3>
         <p>
           Daily usage by team and model from LiteLLM. LiteLLM lists the same model under many names, so names are
           grouped into model families. Spend is LiteLLM&apos;s own cost estimate, not revenue.
         </p>
+        <ProgressGrid>
+          <ProgressChart series="tokens" title="Tokens per month" unit="tokens" format="big" partialLabel={partial} />
+          <ProgressChart series="llm_requests" title="Requests per month" unit="requests" format="kilo" partialLabel={partial} />
+        </ProgressGrid>
         <ProgressTable
           table="llm_windows"
           label="LiteLLM totals by window"
@@ -104,19 +110,11 @@ export default function ProgressPage() {
             { key: "spend", label: "Spend", format: "usd" },
           ]}
         />
-        <ProgressGrid>
-          <ProgressChart series="tokens" title="Tokens per month" unit="tokens" format="big" partialLabel="partial month" />
-          <ProgressChart series="llm_requests" title="Requests per month" unit="requests" format="kilo" partialLabel="partial month" />
-        </ProgressGrid>
-
-        <h3>By model family</h3>
         <ProgressTable
           table="llm_family"
           label="Tokens by model family"
           columns={[{ key: "name", label: "Model family", format: "text" }, ...windowColumns]}
         />
-
-        <h3>By team</h3>
         <p>Teams map to apps: Open WebUI is chat.publicai.co, and Developer Portal is the paid API.</p>
         <ProgressTable
           table="llm_team"
@@ -129,7 +127,7 @@ export default function ProgressPage() {
             title="Open WebUI team tokens per chat message"
             unit="tokens per message"
             format="kilo"
-            partialLabel="partial month"
+            partialLabel={partial}
           />
         </ProgressGrid>
         <p>
@@ -137,10 +135,44 @@ export default function ProgressPage() {
           other than chat is using that team&apos;s key.
         </p>
 
-        <h2>Community</h2>
+        <h3>chat.publicai.co</h3>
+        <p>
+          Active users sent at least one message in the month. Counts come from Open WebUI&apos;s admin API; no names
+          or emails are stored.
+        </p>
         <ProgressGrid>
-          <ProgressChart series="hello" title="Threads to hello@publicai.co" unit="threads" partialLabel="partial month" />
-          <ProgressChart series="issues" title="GitHub issues opened" unit="issues" partialLabel="partial month" />
+          <ProgressChart series="signups" title="New sign-ups per month" unit="sign-ups" partialLabel={partial} />
+          <ProgressChart series="active_users" title="Active users per month" unit="active users" partialLabel={partial} />
+          <ProgressChart series="chat_messages" title="Chat messages per month" unit="messages" partialLabel={partial} />
+        </ProgressGrid>
+
+        <h3>publicai.co and email</h3>
+        <ProgressGrid>
+          <ProgressChart series="visitors" title="publicai.co unique visitors per month" unit="visitors" partialLabel={partial} />
+          <ProgressChart series="hello" title="Threads to hello@publicai.co" unit="threads" partialLabel={partial} />
+        </ProgressGrid>
+
+        <h2>Movement</h2>
+        <p>
+          The Public AI Slack has <ProgressFigure name="slack_members" /> members.{" "}
+          <ProgressFigure name="slack_posting_30" /> of them posted in the last 30 days and{" "}
+          <ProgressFigure name="slack_active_30" /> were active, reading or posting.{" "}
+          <ProgressFigure name="slack_joined_30" /> people joined. Partners and events are not counted yet.
+        </p>
+        <ProgressScorecard label="Movement scorecard" empty="no data" pillar="movement" columns={scorecardColumns} />
+        <ProgressGrid>
+          <ProgressChart series="slack_posting" title="Slack members posting, past 30 days" unit="people" partialLabel="to date" />
+          <ProgressChart series="slack_joined" title="New Slack members per month" unit="new members" partialLabel={partial} />
+          <ProgressChart series="slack_messages" title="Slack messages per month" unit="messages" partialLabel={partial} />
+        </ProgressGrid>
+        <p>
+          Posting and active counts are Slack&apos;s own rolling 30-day figures, taken on the last day of each month,
+          from its analytics export. New members counts every account created, including ones since deactivated.
+        </p>
+
+        <h3>GitHub</h3>
+        <ProgressGrid>
+          <ProgressChart series="issues" title="GitHub issues opened" unit="issues" partialLabel={partial} />
         </ProgressGrid>
         <ProgressTable
           table="repos"
@@ -152,21 +184,32 @@ export default function ProgressPage() {
           ]}
         />
 
+        <h2>Idea</h2>
+        <p>
+          Publications come from the list on{" "}
+          <a href="https://publicai.network/publications/">publicai.network/publications</a>, which needs updating.
+          News, papers, policy documents and social posts that use the phrase &ldquo;public AI&rdquo; are next.
+        </p>
+        <ProgressScorecard label="Idea scorecard" empty="no data" pillar="idea" columns={scorecardColumns} />
+        <ProgressGrid>
+          <ProgressChart series="publications" title="Publications per month" unit="publications" partialLabel={partial} />
+        </ProgressGrid>
+
+        <h2>Milestones</h2>
+        <ProgressTimeline label="Milestones" />
+
         <h2>Source coverage</h2>
         <p>
-          What each metric is built from today, and what it takes to fill the gaps. The data is built by the scripts
-          in the shared <code>forpublicai/progress</code> repository.
+          What each metric is built from today, and what it takes to fill the gaps. <ProgressFigure name="missing" />{" "}
+          of the <ProgressFigure name="total" /> metrics have no data source yet. The data is built by the scripts in
+          the shared <code>forpublicai/progress</code> repository.
         </p>
-        <ProgressTable
-          table="coverage"
-          label="Source coverage"
-          columns={[
-            { key: "metric", label: "Metric", format: "text" },
-            { key: "status", label: "Status", format: "status" },
-            { key: "have", label: "What we have", format: "text" },
-            { key: "next", label: "Next step", format: "text" },
-          ]}
-        />
+        <h3>Products</h3>
+        <ProgressTable table="coverage" pillar="products" label="Products coverage" columns={coverageColumns} />
+        <h3>Movement</h3>
+        <ProgressTable table="coverage" pillar="movement" label="Movement coverage" columns={coverageColumns} />
+        <h3>Idea</h3>
+        <ProgressTable table="coverage" pillar="idea" label="Idea coverage" columns={coverageColumns} />
       </article>
       <Footer />
     </div>
