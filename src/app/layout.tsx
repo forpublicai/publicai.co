@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: 'https://publicai.co/og-image.png',
+        url: 'https://publicai.co/og-image.png?v=2',
         width: 1200,
         height: 630,
-        alt: 'Public AI',
+        alt: 'Public AI Inference Utility: a nonprofit, open-source service to make public and sovereign AI models more accessible',
       },
     ],
   },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Public AI Inference Utility",
     description: "A nonprofit, open-source service to make public and sovereign AI models more accessible.",
-    images: ['https://publicai.co/og-image.png'],
+    images: ['https://publicai.co/og-image.png?v=2'],
   },
 };
 
