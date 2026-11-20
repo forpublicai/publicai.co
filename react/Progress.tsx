@@ -56,6 +56,12 @@ export type ProgressColumn = {
   align?: "left" | "right";
 };
 
+type PillarId = "products" | "movement" | "idea";
+
+/** Keep only rows of one pillar, when the table has a pillar field. */
+const ofPillar = (rows: Row[], pillar?: PillarId) =>
+  pillar ? rows.filter((r) => r.pillar === pillar) : rows;
+
 function Table({
   rows,
   columns,
@@ -124,12 +130,15 @@ export function ProgressScorecard({
   columns,
   label,
   empty,
+  pillar,
 }: {
   columns: readonly ProgressColumn[];
   label: string;
   empty: string;
+  /** Show only one pillar's metrics. */
+  pillar?: PillarId;
 }) {
-  return <Table rows={data.scorecard as Row[]} columns={columns} label={label} empty={empty} />;
+  return <Table rows={ofPillar(data.scorecard as Row[], pillar)} columns={columns} label={label} empty={empty} />;
 }
 
 /** Any precomputed table: llm_windows, llm_family, llm_team, repos, coverage. */
@@ -137,12 +146,15 @@ export function ProgressTable({
   table,
   columns,
   label,
+  pillar,
 }: {
   table: keyof typeof data.tables;
   columns: readonly ProgressColumn[];
   label: string;
+  /** For tables with a pillar field (coverage): show only that pillar. */
+  pillar?: PillarId;
 }) {
-  return <Table rows={data.tables[table] as Row[]} columns={columns} label={label} />;
+  return <Table rows={ofPillar(data.tables[table] as Row[], pillar)} columns={columns} label={label} />;
 }
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -242,8 +254,6 @@ export function ProgressGrid({ children }: { children: ReactNode }) {
   return <div className="progress-grid">{children}</div>;
 }
 
-type PillarId = "products" | "movement" | "idea";
-
 /** The three pillars, each with its 1-2 topline stats. */
 export function ProgressPillars({
   labels,
@@ -290,10 +300,12 @@ export function ProgressPillars({
                           <dd>{format(t.y1_avg, t.format as Format)}</dd>
                         </div>
                       ) : null}
-                      <div>
-                        <dt>{launchLabel}</dt>
-                        <dd>{format(t.launch, t.format as Format)}</dd>
-                      </div>
+                      {t.launch !== null ? (
+                        <div>
+                          <dt>{launchLabel}</dt>
+                          <dd>{format(t.launch, t.format as Format)}</dd>
+                        </div>
+                      ) : null}
                     </dl>
                   </>
                 )}
