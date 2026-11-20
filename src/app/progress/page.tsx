@@ -18,11 +18,18 @@ const overpassMono = Overpass_Mono({
   weight: ["400", "600"],
 });
 
+const title = "Public AI progress";
+const description =
+  "How Public AI has grown since launch on 2 September 2025, across its three pillars: products, movement and idea.";
+
+// openGraph and twitter replace the root layout's whole objects, so repeat
+// siteName and type. The card image comes from opengraph-image.tsx.
 export const metadata: Metadata = {
   title: "Progress",
-  description:
-    "How Public AI has grown since launch on 2 September 2025, across its three pillars: products, movement and idea.",
+  description,
   robots: { index: false, follow: false },
+  openGraph: { title, description, url: "/progress", siteName: "PublicAI", type: "website" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 const windowColumns = [
