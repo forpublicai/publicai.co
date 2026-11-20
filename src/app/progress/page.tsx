@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Overpass_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import {
+  ProgressBars,
   ProgressChart,
   ProgressFigure,
   ProgressGrid,
@@ -152,6 +153,26 @@ export default function ProgressPage() {
           <ProgressChart series="active_users" title="Active users per month" unit="active users" partialLabel={partial} />
           <ProgressChart series="chat_messages" title="Chat messages per month" unit="messages" partialLabel={partial} />
         </ProgressGrid>
+
+        <h3>Where chat users are</h3>
+        <p>
+          chat.publicai.co has registered users in <ProgressFigure name="countries_launch" /> countries, and people in <ProgressFigure name="countries_30" /> of them were active in the last 30 days. <ProgressFigure name="country_outside_ch_pct" />% of users with a known country are outside Switzerland.
+        </p>
+        <ProgressBars table="countries" labelKey="name" valueKey="users" shareKey="share" title="Registered chat users by country" />
+        <ProgressTable
+          table="countries"
+          label="Chat users by country"
+          columns={[
+            { key: "name", label: "Country", format: "text" },
+            { key: "users", label: "Registered", format: "int" },
+            { key: "share", label: "Share", format: "pct" },
+            { key: "new_30", label: "New, last 30 days", format: "int" },
+            { key: "active_30", label: "Active, last 30 days", format: "int" },
+          ]}
+        />
+        <p>
+          The country comes from the timezone each user’s browser reported, mapped with the tz database. It is where their clock is set, not their nationality or exact location. <ProgressFigure name="country_known_pct" />% of users have a timezone; the rest are counted as not set.
+        </p>
 
         <h3>publicai.co and email</h3>
         <ProgressGrid>

@@ -5,6 +5,7 @@
 import "../../../progress/react/progress.css";
 
 export {
+  ProgressBars,
   ProgressChart,
   ProgressFigure,
   ProgressGrid,
